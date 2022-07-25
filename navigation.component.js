@@ -8,6 +8,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { default as theme } from './custom-theme.json';
 import LandingScreen from './screens/LandingScreen';
 import HomeScreen from './screens/HomeScreen';
+import HistoryScreen from './screens/HistoryScreen';
+import SavedJobScreen from './screens/SavedJobScreen';
+import ChatScreen from './screens/ChatScreen';
 
 
 const { Navigator, Screen } = createBottomTabNavigator();
@@ -22,6 +25,32 @@ const renderIcon1 = (props) => (
 const renderIcon2 = (props) => (
     <TouchableWithoutFeedback>
         <Icon {...props} name='lock' />
+    </TouchableWithoutFeedback>
+);
+
+const homeIcon = (props) => (
+    <TouchableWithoutFeedback>
+        <Icon {...props} name='home-outline' />
+    </TouchableWithoutFeedback>
+);
+const historyIcon = (props) => (
+    <TouchableWithoutFeedback>
+        <Icon {...props} name='calendar-outline' />
+    </TouchableWithoutFeedback>
+);
+const savedIcon = (props) => (
+    <TouchableWithoutFeedback>
+        <Icon {...props} name='bookmark-outline' />
+    </TouchableWithoutFeedback>
+);
+const chatIcon = (props) => (
+    <TouchableWithoutFeedback>
+        <Icon {...props} name='message-circle-outline' />
+    </TouchableWithoutFeedback>
+);
+const profileIcon = (props) => (
+    <TouchableWithoutFeedback>
+        <Icon {...props} name='person-outline' />
     </TouchableWithoutFeedback>
 );
 
@@ -327,21 +356,32 @@ const BottomTabBar = ({ navigation, state }) => {
     return (
         <>
             {isLoggedIn ? <BottomNavigation
+                appearance="noIndicator"
+                style={{}}
                 selectedIndex={state.index}
-                onSelect={index => navigation.navigate(state.routeNames[index])} >
-                <BottomNavigationTab title='HOME' />
-                <BottomNavigationTab title='USERS' />
-                <BottomNavigationTab title='ORDERS' />
+                onSelect={index => navigation.navigate(state.routeNames[index])}
+            >
+                <BottomNavigationTab title='HOME' icon={homeIcon} />
+                <BottomNavigationTab title='HISTORY' icon={historyIcon} />
+                <BottomNavigationTab title='SAVED' icon={savedIcon} />
+                <BottomNavigationTab title='CHAT' icon={chatIcon} />
+                <BottomNavigationTab title='PROFILE' icon={profileIcon} />
             </BottomNavigation > : <></>}
         </>
     )
 };
 
 const TabNavigator = () => (
-    <Navigator tabBar={props => <BottomTabBar {...props} />}>
-        <Screen name='Home' component={HomeScreen} />
-        <Screen name='Users' component={UsersScreen} />
-        <Screen name='Orders' component={OrdersScreen} />
+    <Navigator tabBar={props => <BottomTabBar {...props} />} screenOptions={{
+
+        tabBarActiveBackgroundColor: "#000"
+    }}>
+        <Stack.Group screenOptions={{ headerShown: true }}>
+            <Screen name='Home' options={{ headerShown: false }} component={HomeScreen} />
+            <Screen name='Application History' component={HistoryScreen} />
+            <Screen name='Saved Job' component={SavedJobScreen} />
+            <Screen name='Chat' component={ChatScreen} />
+        </Stack.Group>
     </Navigator>
 );
 
