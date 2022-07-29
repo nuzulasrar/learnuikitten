@@ -44,9 +44,9 @@ const HomeScreen = () => {
                     />
                     <View style={{ flex: 1, flexDirection: "row", justifyContent: "center", alignItems: "center", marginBottom: 50 }}>
                         <TouchableOpacity onPress={hello}>
-                            <View style={{ width: 125, height: 125, backgroundColor: "white", margin: 20, justifyContent: "center", alignItems: "center", borderColor: theme['color-primary-500'], borderWidth: 4 }}>
+                            <View style={{ width: 120, height: 120, backgroundColor: "white", margin: 20, justifyContent: "center", alignItems: "center", borderColor: theme['color-primary-500'], borderWidth: 4 }}>
                                 <Button
-                                    buttonStyle={{ width: 125, height: 60, backgroundColor: "transparent" }}
+                                    buttonStyle={{ width: 120, height: 60, backgroundColor: "transparent" }}
                                     icon={{
                                         name: "camera-alt",
                                         size: 50,
@@ -54,13 +54,13 @@ const HomeScreen = () => {
                                     }}
                                     onPress={hello}
                                 />
-                                <Text style={{ alignSelf: "center" }}>GALLERY</Text>
+                                <Text style={{ alignSelf: "center", fontSize: 20 }}>GALLERY</Text>
                             </View>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={hello}>
-                            <View style={{ width: 125, height: 125, backgroundColor: "white", margin: 20, justifyContent: "center", alignItems: "center", borderColor: theme['color-primary-500'], borderWidth: 4 }}>
+                            <View style={{ width: 120, height: 120, backgroundColor: "white", margin: 20, justifyContent: "center", alignItems: "center", borderColor: theme['color-primary-500'], borderWidth: 4 }}>
                                 <Button
-                                    buttonStyle={{ width: 125, height: 60, backgroundColor: "transparent" }}
+                                    buttonStyle={{ width: 120, height: 60, backgroundColor: "transparent" }}
                                     icon={{
                                         name: "search",
                                         size: 50,
@@ -68,7 +68,7 @@ const HomeScreen = () => {
                                     }}
                                     onPress={hello}
                                 />
-                                <Text style={{ alignSelf: "center" }}>JOBS</Text>
+                                <Text style={{ alignSelf: "center", fontSize: 20 }}>JOBS</Text>
                             </View>
                         </TouchableOpacity>
                     </View>
@@ -79,7 +79,7 @@ const HomeScreen = () => {
                                 icon={
                                     < Icon
                                         name="instagram"
-                                        size={30}
+                                        size={32}
                                         color={theme['color-primary-500']}
                                     />
                                 }
@@ -91,7 +91,7 @@ const HomeScreen = () => {
                                 buttonStyle={{ width: 60, height: 60, backgroundColor: "transparent" }}
                                 icon={< Icon
                                     name="facebook"
-                                    size={30}
+                                    size={32}
                                     color={theme['color-primary-500']}
                                 />}
                                 onPress={hello}
@@ -103,7 +103,7 @@ const HomeScreen = () => {
                                 icon={
                                     < Icon
                                         name="youtube"
-                                        size={30}
+                                        size={32}
                                         color={theme['color-primary-500']}
                                     />
                                 }
@@ -115,7 +115,7 @@ const HomeScreen = () => {
                                 buttonStyle={{ width: 60, height: 60, backgroundColor: "transparent" }}
                                 icon={< Icon
                                     name="whatsapp"
-                                    size={30}
+                                    size={32}
                                     color={theme['color-primary-500']}
                                 />}
                                 onPress={hello}

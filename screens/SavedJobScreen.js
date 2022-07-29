@@ -49,8 +49,8 @@ const calendarIcon = () => (
 
 const SavedJobScreen = () => {
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: "#F5F5F5", width: "100%", paddingHorizontal: 10 }} >
-            <View style={{ flex: 0, flexDirection: "column", backgroundColor: "white", marginTop: -40, width: "100%", padding: 5, borderRadius: 10 }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: theme['color-primary-100'], width: "100%", paddingHorizontal: 10 }} >
+            <View style={{ flex: 0, flexDirection: "column", backgroundColor: "white", marginTop: -20, width: "100%", padding: 5, borderRadius: 10 }}>
                 <View style={{ flex: 0, flexDirection: "row", width: "100%", marginVertical: 1, padding: 5, borderRadius: 5 }}>
                     <View style={{ width: "30%" }}>
                         <Image style={{ borderRadius: 0, width: 100, height: 100, borderColor: theme['color-primary-500'], borderWidth: 1 }}

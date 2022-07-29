@@ -1,20 +1,25 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { TouchableWithoutFeedback, StyleSheet, View, Image, ImageBackground, ScrollView } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Icon, BottomNavigation, BottomNavigationTab, Layout, Text, Button, TopNavigation, TopNavigationAction, Input } from '@ui-kitten/components';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import { default as theme } from './custom-theme.json';
 import LandingScreen from './screens/LandingScreen';
 import HomeScreen from './screens/HomeScreen';
 import HistoryScreen from './screens/HistoryScreen';
 import SavedJobScreen from './screens/SavedJobScreen';
 import ChatScreen from './screens/ChatScreen';
-
+import ProfileScreen from './screens/ProfileScreen';
+import MembershipScreen from './screens/MembershipScreen';
+import AddPhotosScreen from './screens/AddPhotosScreen';
+import { CommonContext, CommonContextProvider } from './context/CommonContext';
 
 const { Navigator, Screen } = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
+const Drawer = createDrawerNavigator();
 
 const renderIcon1 = (props) => (
     <TouchableWithoutFeedback>
@@ -345,14 +350,8 @@ const OrdersScreen = () => (
     </Layout>
 );
 
-const ProfileScreen = (params) => (
-    <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text category='h1'>sxcsacsd {JSON.stringify(params.ok)}</Text>
-    </Layout>
-);
-
 const BottomTabBar = ({ navigation, state }) => {
-    const [isLoggedIn, setIsLoggedIn] = useState(true);
+    const { isLoggedIn, setIsLoggedIn } = useContext(CommonContext);
     return (
         <>
             {isLoggedIn ? <BottomNavigation
@@ -371,6 +370,16 @@ const BottomTabBar = ({ navigation, state }) => {
     )
 };
 
+function ProfileStack() {
+    return (
+        <Navigator>
+            <Stack.Group screenOptions={{ headerShown: false }}>
+                <Screen name='ProfileScreen' component={ProfileScreen} />
+            </Stack.Group>
+        </Navigator>
+    );
+}
+
 const TabNavigator = () => (
     <Navigator tabBar={props => <BottomTabBar {...props} />} screenOptions={{
 
@@ -381,12 +390,15 @@ const TabNavigator = () => (
             <Screen name='Application History' component={HistoryScreen} />
             <Screen name='Saved Job' component={SavedJobScreen} />
             <Screen name='Chat' component={ChatScreen} />
+            <Screen name='Profile' component={ProfileScreen} />
+            <Screen name='Membership' component={MembershipScreen} />
+            <Screen name='Photos' component={AddPhotosScreen} />
         </Stack.Group>
     </Navigator>
 );
 
 export const AppNavigator = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState(true);
+    const { isLoggedIn, setIsLoggedIn } = useContext(CommonContext);
     const [selectedIndex, setSelectedIndex] = React.useState(0);
     return (
         <NavigationContainer>

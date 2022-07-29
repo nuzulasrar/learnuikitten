@@ -10,8 +10,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 const HistoryScreen = () => {
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#F5F5F5", width: "100%", paddingHorizontal: 10 }} >
-      <View style={{ flex: 0, flexDirection: "column", width: "100%", marginTop: -40, padding: 5, borderRadius: 10 }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: theme['color-primary-100'], width: "100%", paddingHorizontal: 10 }} >
+      <View style={{ flex: 0, flexDirection: "column", width: "100%", marginTop: -20, padding: 5, borderRadius: 10 }}>
         <View style={{ flex: 0, flexDirection: "row", backgroundColor: "white", width: "100%", marginVertical: 1, padding: 5, borderRadius: 5, borderColor: theme['color-primary-400'], borderWidth: 0.2 }}>
           <View style={{ width: "70%" }}>
             <Text style={{ textAlign: "left", fontSize: 18, fontWeight: "800" }}>Hand Model</Text>

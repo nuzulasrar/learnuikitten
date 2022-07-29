@@ -1,6 +1,6 @@
 {
-  "color-primary-100": "#E3F9FC",
-  "color-primary-200": "#C7F0F9",
+  "color-primary-100": "#E8F2F6",
+  "color-primary-200": "#172B85",
   "color-primary-300": "#A6DDED",
   "color-primary-400": "#8AC3DC",
   "color-primary-500": "#63A2C5",
@@ -35,7 +35,7 @@
   "color-warning-700": "#B39716",
   "color-warning-800": "#90770E",
   "color-warning-900": "#776008",
-  "color-danger-100": "#FFE9D7",
+  "color-danger-100": "#D23B2B",
   "color-danger-200": "#FFCDAF",
   "color-danger-300": "#FFAB87",
   "color-danger-400": "#FF8B69",
