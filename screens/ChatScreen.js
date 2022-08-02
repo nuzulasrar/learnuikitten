@@ -50,14 +50,14 @@ const calendarIcon = () => (
 const ChatScreen = () => {
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: theme['color-primary-100'], width: "100%", paddingHorizontal: 10 }} >
-            <View style={{ flex: 0, flexDirection: "column", backgroundColor: "white", marginTop: -20, width: "100%", padding: 5, borderRadius: 10 }}>
+            <View style={{ flex: 0, flexDirection: "column", backgroundColor: "white", marginTop: -20, width: "100%", padding: 5, borderRadius: 5 }}>
                 <View style={{ flex: 0, flexDirection: "row", width: "100%", marginVertical: 1, padding: 5, borderRadius: 5 }}>
                     <View style={{ width: "25%" }}>
-                        <Image style={{ borderRadius: 100, width: 70, height: 70, borderColor: theme['color-primary-500'], borderWidth: 1 }}
+                        <Image style={{ borderRadius: 100, width: 65, height: 65, borderColor: theme['color-primary-500'], borderWidth: 1 }}
                             source={require('../assets/images/newlogo.png')} />
                     </View>
                     <View style={{ width: "55%" }}>
-                        <Text style={{ textAlign: "left", fontSize: 16, fontWeight: "800" }}>Talent Book Casting</Text>
+                        <Text style={{ textAlign: "left", fontSize: 18, fontWeight: "800" }}>Talent Book Casting</Text>
                         <Text style={{ textAlign: "left", fontSize: 14, fontWeight: "300", marginTop: 8 }}>You are welcome!</Text>
                         <View style={{ flex: 1, flexDirection: "row", margin: 0 }}>
                         </View>

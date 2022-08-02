@@ -5,6 +5,12 @@
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "icon": "./assets/images/appicon/icon.png",
+    "splash": {
+      "image": "./assets/images/appicon/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#64a5c2"
+    }
   }
 }

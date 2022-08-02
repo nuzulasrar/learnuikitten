@@ -121,15 +121,15 @@ const ProfileScreen = ({ navigation }) => {
                                     <Text>12</Text>
                                     <Text style={{ fontSize: 12, color: theme['color-primary-200'] }}>Photos</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={{ width: "23%", flexDirection: "column", backgroundColor: theme['color-primary-100'], padding: 10, borderRadius: 5, margin: 5, justifyContent: "center", alignItems: "center" }}>
+                                <TouchableOpacity onPress={() => navigation.navigate("Videos")} style={{ width: "23%", flexDirection: "column", backgroundColor: theme['color-primary-100'], padding: 10, borderRadius: 5, margin: 5, justifyContent: "center", alignItems: "center" }}>
                                     <Text>6</Text>
                                     <Text style={{ fontSize: 12, color: theme['color-primary-200'] }}>Videos</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={{ width: "23%", flexDirection: "column", backgroundColor: theme['color-primary-100'], padding: 10, borderRadius: 5, margin: 5, justifyContent: "center", alignItems: "center" }}>
+                                <TouchableOpacity onPress={() => navigation.navigate("Audios")} style={{ width: "23%", flexDirection: "column", backgroundColor: theme['color-primary-100'], padding: 10, borderRadius: 5, margin: 5, justifyContent: "center", alignItems: "center" }}>
                                     <Text>6</Text>
                                     <Text style={{ fontSize: 12, color: theme['color-primary-200'] }}>Audios</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={{ width: "23%", flexDirection: "column", backgroundColor: theme['color-primary-100'], padding: 10, borderRadius: 5, margin: 5, justifyContent: "center", alignItems: "center" }}>
+                                <TouchableOpacity onPress={() => navigation.navigate("Comp Card")} style={{ width: "23%", flexDirection: "column", backgroundColor: theme['color-primary-100'], padding: 10, borderRadius: 5, margin: 5, justifyContent: "center", alignItems: "center" }}>
                                     <Text>3</Text>
                                     <Text style={{ fontSize: 12, color: theme['color-primary-200'] }}>Comp Card</Text>
                                 </TouchableOpacity>

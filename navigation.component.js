@@ -15,6 +15,9 @@ import ChatScreen from './screens/ChatScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import MembershipScreen from './screens/MembershipScreen';
 import AddPhotosScreen from './screens/AddPhotosScreen';
+import AddVideoScreen from './screens/AddVideoScreen';
+import AddAudioScreen from './screens/AddAudioScreen';
+import AddCompCardScreen from './screens/AddCompCardScreen';
 import { CommonContext, CommonContextProvider } from './context/CommonContext';
 
 const { Navigator, Screen } = createBottomTabNavigator();
@@ -393,6 +396,9 @@ const TabNavigator = () => (
             <Screen name='Profile' component={ProfileScreen} />
             <Screen name='Membership' component={MembershipScreen} />
             <Screen name='Photos' component={AddPhotosScreen} />
+            <Screen name='Videos' component={AddVideoScreen} />
+            <Screen name='Audios' component={AddAudioScreen} />
+            <Screen name='Comp Card' component={AddCompCardScreen} />
         </Stack.Group>
     </Navigator>
 );
