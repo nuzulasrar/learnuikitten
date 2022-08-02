@@ -35,7 +35,7 @@ const HomeScreen = () => {
                         onPress={hello}
                     />
                 </View>
-                <ScrollView contentContainerStyle={{ justifyContent: "center", alignItems: "center" }}>
+                <View style={{ justifyContent: "center", alignItems: "center" }}>
                     <View style={{ marginBottom: 210 }}></View>
 
                     <Image
@@ -122,7 +122,7 @@ const HomeScreen = () => {
                             />
                         </View>
                     </View>
-                </ScrollView>
+                </View>
             </ImageBackground>
         </SafeAreaView >
     )

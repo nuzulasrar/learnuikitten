@@ -11,6 +11,9 @@
       "image": "./assets/images/appicon/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#64a5c2"
+    },
+    "android": {
+      "package": "com.rubysb.talentbook"
     }
   }
 }
