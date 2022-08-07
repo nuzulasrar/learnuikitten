@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "learnuikitten",
-    "slug": "learnuikitten",
+    "name": "Talent Book",
+    "slug": "talentbook",
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"

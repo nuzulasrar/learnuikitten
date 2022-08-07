@@ -5,12 +5,15 @@ const CommonContext = createContext("")
 
 const CommonContextProvider = ({ children }) => {
 
-    const [isLoggedIn, setIsLoggedIn] = useState(true);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [bottomNavPosition, setBottomNavPosition] = useState(0);
 
     return (
         <CommonContext.Provider value={{
             isLoggedIn,
             setIsLoggedIn,
+            bottomNavPosition,
+            setBottomNavPosition
         }}>
             {children}
         </CommonContext.Provider>

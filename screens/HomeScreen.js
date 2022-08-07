@@ -13,16 +13,16 @@ const hello = () => {
     alert("hello")
 }
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
     return (
-        <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "white", width: "100%" }} >
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "white", width: "100%" }} >
             <ImageBackground
                 source={require('../assets/images/bg-home.jpg')}
                 resizeMode="cover"
                 blurRadius={3}
-                style={[styles.bgimage, { justifyContent: 'center', alignItems: 'center' }]}
+                style={[styles.bgimage, { justifyContent: 'center', alignItems: 'center', paddingBottom: 100 }]}
             >
-                <View style={{ width: 20, height: 20, backgroundColor: "transparent", margin: 20, justifyContent: "center", alignItems: "center", position: "absolute", top: 0, right: 0 }}>
+                <View style={{ width: 20, height: 20, backgroundColor: "transparent", margin: 20, justifyContent: "center", alignItems: "center", position: "absolute", top: 20, right: 0 }}>
                     <Button
                         buttonStyle={{ width: 60, height: 60, backgroundColor: "transparent" }}
                         icon={
@@ -43,8 +43,8 @@ const HomeScreen = () => {
                         source={require('../assets/images/newlogo.png')}
                     />
                     <View style={{ flex: 1, flexDirection: "row", justifyContent: "center", alignItems: "center", marginBottom: 50 }}>
-                        <TouchableOpacity onPress={hello}>
-                            <View style={{ width: 120, height: 120, backgroundColor: "white", margin: 20, justifyContent: "center", alignItems: "center", borderColor: theme['color-primary-500'], borderWidth: 4 }}>
+                        <TouchableOpacity onPress={() => { navigation.navigate("GalleryCategory") }}>
+                            <View style={{ width: 120, height: 120, backgroundColor: "white", margin: 20, justifyContent: "center", alignItems: "center", borderColor: theme['color-primary-500'], borderWidth: 4, borderRadius: 5 }}>
                                 <Button
                                     buttonStyle={{ width: 120, height: 60, backgroundColor: "transparent" }}
                                     icon={{
@@ -52,13 +52,13 @@ const HomeScreen = () => {
                                         size: 50,
                                         color: theme['color-primary-500']
                                     }}
-                                    onPress={hello}
+                                    onPress={() => { navigation.navigate("GalleryCategory") }}
                                 />
                                 <Text style={{ alignSelf: "center", fontSize: 20 }}>GALLERY</Text>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={hello}>
-                            <View style={{ width: 120, height: 120, backgroundColor: "white", margin: 20, justifyContent: "center", alignItems: "center", borderColor: theme['color-primary-500'], borderWidth: 4 }}>
+                        <TouchableOpacity onPress={() => { navigation.navigate("NewScreen") }}>
+                            <View style={{ width: 120, height: 120, backgroundColor: "white", margin: 20, justifyContent: "center", alignItems: "center", borderColor: theme['color-primary-500'], borderWidth: 4, borderRadius: 5 }}>
                                 <Button
                                     buttonStyle={{ width: 120, height: 60, backgroundColor: "transparent" }}
                                     icon={{
@@ -66,7 +66,7 @@ const HomeScreen = () => {
                                         size: 50,
                                         color: theme['color-primary-500']
                                     }}
-                                    onPress={hello}
+                                    onPress={() => { navigation.navigate("NewScreen") }}
                                 />
                                 <Text style={{ alignSelf: "center", fontSize: 20 }}>JOBS</Text>
                             </View>
@@ -124,7 +124,7 @@ const HomeScreen = () => {
                     </View>
                 </View>
             </ImageBackground>
-        </SafeAreaView >
+        </View >
     )
 }
 

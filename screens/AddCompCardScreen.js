@@ -11,15 +11,17 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { faShareNodes } from '@fortawesome/free-solid-svg-icons/faShareNodes'
 import { faStarOfLife } from '@fortawesome/free-solid-svg-icons/faStarOfLife'
+import StatusBarScreen from '../component/StatusBarScreen';
+import TopNav from '../component/TopNav';
 
 library.add(fab, faShareNodes, faStarOfLife)
 
-const AddCompCardScreen = () => {
+const AddCompCardScreen = ({ navigation }) => {
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: theme['color-primary-100'], width: "100%", paddingHorizontal: 0 }} >
-            <ScrollView style={{ marginTop: -20, paddingHorizontal: 10 }}>
-
-
+        <View style={{ flex: 1, backgroundColor: theme['color-primary-100'], width: "100%", marginTop: -50 }} >
+            <StatusBarScreen />
+            <TopNav title="Audios" backbutton={1} backto="profile" navigation={navigation} />
+            <ScrollView style={{ marginTop: 0, paddingHorizontal: 10 }}>
                 <View style={{ flexDirection: "row", marginTop: 10, marginBottom: 5 }}>
                     <Text style={{ fontSize: 15 }}>Comp Card 1 </Text>
                     <TouchableOpacity style={{ flexDirection: "row", marginLeft: 15, backgroundColor: theme['color-primary-500'], borderRadius: 5, paddingHorizontal: 8, paddingTop: 2, paddingBottom: 2 }}>
@@ -131,7 +133,7 @@ const AddCompCardScreen = () => {
                     </View>
                 </View>
             </ScrollView>
-        </SafeAreaView >
+        </View >
     )
 }
 

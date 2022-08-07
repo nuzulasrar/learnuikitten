@@ -9,6 +9,10 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { default as theme } from './custom-theme.json';
 import LandingScreen from './screens/LandingScreen';
 import HomeScreen from './screens/HomeScreen';
+import GalleryCategoryScreen from './screens/GalleryCategoryScreen';
+import GalleryModelScreen from './screens/GalleryModelScreen';
+import JobBoardScreen from './screens/JobBoardScreen';
+import NewScreen from './screens/NewScreen';
 import HistoryScreen from './screens/HistoryScreen';
 import SavedJobScreen from './screens/SavedJobScreen';
 import ChatScreen from './screens/ChatScreen';
@@ -19,6 +23,7 @@ import AddVideoScreen from './screens/AddVideoScreen';
 import AddAudioScreen from './screens/AddAudioScreen';
 import AddCompCardScreen from './screens/AddCompCardScreen';
 import { CommonContext, CommonContextProvider } from './context/CommonContext';
+import ChatMessageScreen from './screens/ChatMessageScreen';
 
 const { Navigator, Screen } = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -41,21 +46,25 @@ const homeIcon = (props) => (
         <Icon {...props} name='home-outline' />
     </TouchableWithoutFeedback>
 );
+
 const historyIcon = (props) => (
     <TouchableWithoutFeedback>
         <Icon {...props} name='calendar-outline' />
     </TouchableWithoutFeedback>
 );
+
 const savedIcon = (props) => (
     <TouchableWithoutFeedback>
         <Icon {...props} name='bookmark-outline' />
     </TouchableWithoutFeedback>
 );
+
 const chatIcon = (props) => (
     <TouchableWithoutFeedback>
         <Icon {...props} name='message-circle-outline' />
     </TouchableWithoutFeedback>
 );
+
 const profileIcon = (props) => (
     <TouchableWithoutFeedback>
         <Icon {...props} name='person-outline' />
@@ -71,67 +80,70 @@ const renderCaption = () => {
     )
 }
 
-const LoginScreen = (paramss) => (
-    <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "white" }}>
-        <ImageBackground
-            source={require('./assets/images/background-image.jpg')}
-            resizeMode="cover"
-            style={[styles.bgimage, { justifyContent: 'center', alignItems: 'center' }]}
-        >
+const LoginScreen = (paramss) => {
+    const { isLoggedIn, setIsLoggedIn } = useContext(CommonContext);
+    return (
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "white" }}>
+            <ImageBackground
+                source={require('./assets/images/background-image.jpg')}
+                resizeMode="cover"
+                style={[styles.bgimage, { justifyContent: 'center', alignItems: 'center' }]}
+            >
 
-            <View style={{ flexDirection: "row", marginBottom: 230 }}>
-                <View style={{ width: "30%" }}>
+                <View style={{ flexDirection: "row", marginBottom: 230 }}>
+                    <View style={{ width: "30%" }}>
 
+                    </View>
+                    <View style={{ width: "70%" }}>
+                        <Text
+                            style={{ fontWeight: "800", fontSize: 35, textAlign: "center", marginRight: 0, color: "white" }}
+                        >
+                            It's Your Time {"\n"} to SHINE
+                        </Text>
+                    </View>
                 </View>
-                <View style={{ width: "70%" }}>
-                    <Text
-                        style={{ fontWeight: "800", fontSize: 35, textAlign: "center", marginRight: 0, color: "white" }}
+
+                <View style={{ width: "90%", padding: 10, backgroundColor: "rgba(237, 241, 240, 0.374)", borderRadius: 5, justifyContent: 'center', alignItems: 'center' }}>
+                    <Input
+                        value={""}
+                        // label='Email'
+                        placeholder='Email'
+                        accessoryLeft={renderIcon1}
+                        secureTextEntry={false}
+                        style={styles.input}
+                    />
+                    <Input
+                        value={""}
+                        // label='Password'
+                        placeholder='Password'
+                        accessoryLeft={renderIcon2}
+                        secureTextEntry={true}
+                        style={styles.input}
+                    />
+                    <Button
+                        status="primary"
+                        onPress={() => setIsLoggedIn(true)}
+                        style={{ margin: 10, width: "95%" }}
                     >
-                        It's Your Time {"\n"} to SHINE
+                        SIGN IN
+                    </Button>
+                    <Text style={{ color: "white" }}>
+                        Not registered yet? <Text style={{ color: "maroon" }}>Create Account</Text>
+                    </Text>
+                    <Text style={{ color: "white" }}>
+                        {"\n"}
+                        Forgot Password
                     </Text>
                 </View>
-            </View>
-
-            <View style={{ width: "90%", padding: 10, backgroundColor: "rgba(237, 241, 240, 0.374)", borderRadius: 5, justifyContent: 'center', alignItems: 'center' }}>
-                <Input
-                    value={""}
-                    // label='Email'
-                    placeholder='Email'
-                    accessoryLeft={renderIcon1}
-                    secureTextEntry={false}
-                    style={styles.input}
-                />
-                <Input
-                    value={""}
-                    // label='Password'
-                    placeholder='Password'
-                    accessoryLeft={renderIcon2}
-                    secureTextEntry={true}
-                    style={styles.input}
-                />
-                <Button
-                    status="primary"
-                    onPress={() => navigation.navigate("Login")}
-                    style={{ margin: 10, width: "95%" }}
-                >
-                    SIGN IN
-                </Button>
-                <Text style={{ color: "white" }}>
-                    Not registered yet? <Text style={{ color: "maroon" }}>Create Account</Text>
-                </Text>
-                <Text style={{ color: "white" }}>
-                    {"\n"}
-                    Forgot Password
-                </Text>
-            </View>
-        </ImageBackground>
-    </SafeAreaView>
-);
+            </ImageBackground>
+        </View>
+    )
+};
 
 const JoinScreen = ({ route, navigation }) => {
     const { jointype } = route.params;
     return (
-        <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "white" }}>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "white" }}>
             {jointype == 1 ? <ImageBackground
                 source={require('./assets/images/background-image.jpg')}
                 resizeMode="cover"
@@ -199,6 +211,7 @@ const JoinScreen = ({ route, navigation }) => {
 
                     </View>
                 </View>
+
                 <View style={{ justifyContent: "center", alignItems: "center" }}>
                     <Button
                         appearance="outline"
@@ -208,7 +221,7 @@ const JoinScreen = ({ route, navigation }) => {
                     </Button>
                 </View>
             </ImageBackground> : <></>}
-        </SafeAreaView>
+        </View>
     )
 };
 
@@ -341,6 +354,39 @@ const RegisterScreen = (paramss) => (
     </SafeAreaView>
 );
 
+const HomeStack = () => (
+    <Stack.Navigator>
+        <Stack.Group screenOptions={{ headerShown: false }}>
+            <Stack.Screen name='Home' component={HomeScreen} />
+            <Screen name='GalleryCategory' component={GalleryCategoryScreen} />
+            <Screen name='GalleryModel' component={GalleryModelScreen} />
+            <Screen name='JobBoard' component={JobBoardScreen} />
+            <Screen name='NewScreen' component={NewScreen} />
+        </Stack.Group>
+    </Stack.Navigator>
+);
+
+const ProfileStack = () => (
+    <Stack.Navigator>
+        <Stack.Group screenOptions={{ headerShown: false }}>
+            <Stack.Screen name='Profile' component={ProfileScreen} />
+            <Screen name='Photos' component={AddPhotosScreen} />
+            <Screen name='Videos' component={AddVideoScreen} />
+            <Screen name='Audios' component={AddAudioScreen} />
+            <Screen name='Comp Card' component={AddCompCardScreen} />
+        </Stack.Group>
+    </Stack.Navigator>
+);
+
+const ChatStack = () => (
+    <Stack.Navigator>
+        <Stack.Group screenOptions={{ headerShown: false }}>
+            <Stack.Screen name='ChatScreen' component={ChatScreen} />
+            <Screen name='ChatMessage' component={ChatMessageScreen} />
+        </Stack.Group>
+    </Stack.Navigator>
+);
+
 const UsersScreen = () => (
     <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <Text category='h1'>USERS</Text>
@@ -354,12 +400,12 @@ const OrdersScreen = () => (
 );
 
 const BottomTabBar = ({ navigation, state }) => {
-    const { isLoggedIn, setIsLoggedIn } = useContext(CommonContext);
+    const { isLoggedIn, setIsLoggedIn, bottomNavPosition, setBottomNavPosition } = useContext(CommonContext);
     return (
         <>
             {isLoggedIn ? <BottomNavigation
                 appearance="noIndicator"
-                style={{}}
+                style={{ position: "absolute", bottom: bottomNavPosition }}
                 selectedIndex={state.index}
                 onSelect={index => navigation.navigate(state.routeNames[index])}
             >
@@ -373,32 +419,17 @@ const BottomTabBar = ({ navigation, state }) => {
     )
 };
 
-function ProfileStack() {
-    return (
-        <Navigator>
-            <Stack.Group screenOptions={{ headerShown: false }}>
-                <Screen name='ProfileScreen' component={ProfileScreen} />
-            </Stack.Group>
-        </Navigator>
-    );
-}
-
 const TabNavigator = () => (
     <Navigator tabBar={props => <BottomTabBar {...props} />} screenOptions={{
 
         tabBarActiveBackgroundColor: "#000"
     }}>
-        <Stack.Group screenOptions={{ headerShown: true }}>
-            <Screen name='Home' options={{ headerShown: false }} component={HomeScreen} />
+        <Stack.Group screenOptions={{ headerShown: false }}>
+            <Screen name='HomeStack' options={{ headerShown: false }} component={HomeStack} />
             <Screen name='Application History' component={HistoryScreen} />
             <Screen name='Saved Job' component={SavedJobScreen} />
-            <Screen name='Chat' component={ChatScreen} />
-            <Screen name='Profile' component={ProfileScreen} />
-            <Screen name='Membership' component={MembershipScreen} />
-            <Screen name='Photos' component={AddPhotosScreen} />
-            <Screen name='Videos' component={AddVideoScreen} />
-            <Screen name='Audios' component={AddAudioScreen} />
-            <Screen name='Comp Card' component={AddCompCardScreen} />
+            <Screen name='Chat' component={ChatStack} />
+            <Screen name='ProfileStack' component={ProfileStack} />
         </Stack.Group>
     </Navigator>
 );
@@ -408,7 +439,6 @@ export const AppNavigator = () => {
     const [selectedIndex, setSelectedIndex] = React.useState(0);
     return (
         <NavigationContainer>
-
             {isLoggedIn ? (
                 // Screens for logged in users
                 <TabNavigator />

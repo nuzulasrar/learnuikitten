@@ -11,6 +11,8 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus'
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons/faTrashCan'
+import StatusBarScreen from '../component/StatusBarScreen';
+import TopNav from '../component/TopNav';
 
 library.add(fab, faPlus, faTrashCan)
 
@@ -64,8 +66,10 @@ const calendarIcon = () => (
 
 const ProfileScreen = ({ navigation }) => {
     return (
-        <SafeAreaView style={{ flex: 0, backgroundColor: theme['color-primary-100'], width: "100%", marginTop: -50, marginBottom: -40 }} >
-            <ScrollView contentContainerStyle={{ marginTop: -20, backgroundColor: "#E8F2F6" }}>
+        <View style={{ flex: 0, backgroundColor: "#E8F2F6", width: "100%", marginTop: -50, marginBottom: 0 }} >
+            <StatusBarScreen />
+            <TopNav title="Profile" backbutton={0} rightaccessory={2} navigation={navigation} />
+            <ScrollView contentContainerStyle={{ marginTop: -20, backgroundColor: "#E8F2F6", marginBottom: 0 }}>
                 <View style={{ flex: 0, flexDirection: "column", backgroundColor: "white", marginTop: 125, width: "100%", padding: 5, justifyContent: "center", alignItems: "center" }}>
                     <View style={{ flex: 0, flexDirection: "column", width: "100%", marginVertical: 1, padding: 5, borderRadius: 5 }}>
                         <View style={{ width: "100%", justifyContent: "center", alignItems: "center" }}>
@@ -216,7 +220,7 @@ const ProfileScreen = ({ navigation }) => {
                                 <FontAwesomeIcon icon={faTrashCan} color={theme['color-primary-500']} style={{ marginLeft: 5 }} />
                             </View>
                         </View>
-                        <View style={{ flexDirection: "row", padding: 10 }}>
+                        <View style={{ flexDirection: "row", padding: 10, marginBottom: 140 }}>
                             <View style={{ flexDirection: "row", padding: 5, width: "50%", justifyContent: "center", alignItems: "center" }}>
                                 <FontAwesomeIcon icon={['fab', 'facebook']} color={theme['color-primary-200']} />
                                 <Text style={{ marginLeft: 5 }}> @abcd </Text>
@@ -231,7 +235,7 @@ const ProfileScreen = ({ navigation }) => {
                     </View>
                 </View>
             </ScrollView>
-        </SafeAreaView >
+        </View >
     )
 }
 

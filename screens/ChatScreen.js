@@ -6,6 +6,8 @@ import { Icon, BottomNavigation, BottomNavigationTab, Layout, Text, TopNavigatio
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { default as theme } from '../custom-theme.json';
+import StatusBarScreen from '../component/StatusBarScreen';
+import TopNav from '../component/TopNav';
 
 const bookmarkIcon = () => (
     <Icon
@@ -47,39 +49,78 @@ const calendarIcon = () => (
     />
 );
 
-const ChatScreen = () => {
+const ChatScreen = ({ navigation }) => {
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: theme['color-primary-100'], width: "100%", paddingHorizontal: 10 }} >
-            <View style={{ flex: 0, flexDirection: "column", backgroundColor: "white", marginTop: -20, width: "100%", padding: 5, borderRadius: 5 }}>
-                <View style={{ flex: 0, flexDirection: "row", width: "100%", marginVertical: 1, padding: 5, borderRadius: 5 }}>
-                    <View style={{ width: "25%" }}>
-                        <Image style={{ borderRadius: 100, width: 65, height: 65, borderColor: theme['color-primary-500'], borderWidth: 1 }}
-                            source={require('../assets/images/newlogo.png')} />
-                    </View>
-                    <View style={{ width: "55%" }}>
-                        <Text style={{ textAlign: "left", fontSize: 18, fontWeight: "800" }}>Talent Book Casting</Text>
-                        <Text style={{ textAlign: "left", fontSize: 14, fontWeight: "300", marginTop: 8 }}>You are welcome!</Text>
-                        <View style={{ flex: 1, flexDirection: "row", margin: 0 }}>
+        <View style={{ flex: 1, backgroundColor: theme['color-primary-100'], width: "100%", marginTop: -50, }} >
+            <StatusBarScreen />
+            <TopNav title="Chat" backbutton={0} navigation={navigation} />
+            <ScrollView contentContainerStyle={{ flex: 1, flexDirection: "column", backgroundColor: theme['color-primary-100'], width: "100%", alignItems: "center" }}>
+                <TouchableOpacity
+                    style={{ flex: 0, flexDirection: "column", backgroundColor: "white", marginTop: 10, width: "95%", padding: 5, borderRadius: 5 }}
+                    onPress={() => { navigation.navigate("ChatMessage") }}
+                >
+                    <View style={{ flex: 0, flexDirection: "row", width: "100%", marginVertical: 1, padding: 5, borderRadius: 5 }}>
+                        <View style={{ width: "25%" }}>
+                            <Image style={{ borderRadius: 100, width: 65, height: 65, borderColor: theme['color-primary-500'], borderWidth: 1 }}
+                                source={require('../assets/images/newlogo.png')} />
                         </View>
-                    </View>
-                    <View style={{ width: "20%", justifyContent: "center", alignItems: "center" }}>
-                        <Text style={{ fontSize: 12 }}>1 days ago</Text>
+                        <View style={{ width: "55%" }}>
+                            <Text style={{ textAlign: "left", fontSize: 18, fontWeight: "800" }}>Talent Book Casting</Text>
+                            <Text style={{ textAlign: "left", fontSize: 14, fontWeight: "300", marginTop: 8 }}>You are welcome!</Text>
+                            <View style={{ flex: 1, flexDirection: "row", margin: 0 }}>
+                            </View>
+                        </View>
+                        <View style={{ width: "20%", justifyContent: "center", alignItems: "center" }}>
+                            <Text style={{ fontSize: 12 }}>1 days ago</Text>
 
 
-                        <View style={{
-                            width: 25,
-                            height: 25,
-                            borderRadius: 20,
-                            backgroundColor: theme['color-primary-500'],
-                            justifyContent: 'center',
-                            marginTop: 5
-                        }}>
-                            <Text style={{ fontSize: 14, textAlign: 'center', color: "white" }}>2</Text>
+                            <View style={{
+                                width: 25,
+                                height: 25,
+                                borderRadius: 20,
+                                backgroundColor: theme['color-primary-500'],
+                                justifyContent: 'center',
+                                marginTop: 5
+                            }}>
+                                <Text style={{ fontSize: 14, textAlign: 'center', color: "white" }}>2</Text>
+                            </View>
                         </View>
                     </View>
-                </View>
-            </View>
-        </SafeAreaView>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={{ flex: 0, flexDirection: "column", backgroundColor: "white", marginTop: 10, width: "95%", padding: 5, borderRadius: 5 }}
+                    onPress={() => { navigation.navigate("ChatMessage") }}
+                >
+                    <View style={{ flex: 0, flexDirection: "row", width: "100%", marginVertical: 1, padding: 5, borderRadius: 5 }}>
+                        <View style={{ width: "25%" }}>
+                            <Image style={{ borderRadius: 100, width: 65, height: 65, borderColor: theme['color-primary-500'], borderWidth: 1 }}
+                                source={require('../assets/images/newlogo.png')} />
+                        </View>
+                        <View style={{ width: "55%" }}>
+                            <Text style={{ textAlign: "left", fontSize: 18, fontWeight: "800" }}>Talent Book Casting</Text>
+                            <Text style={{ textAlign: "left", fontSize: 14, fontWeight: "300", marginTop: 8 }}>You are welcome!</Text>
+                            <View style={{ flex: 1, flexDirection: "row", margin: 0 }}>
+                            </View>
+                        </View>
+                        <View style={{ width: "20%", justifyContent: "center", alignItems: "center" }}>
+                            <Text style={{ fontSize: 12 }}>1 days ago</Text>
+
+
+                            <View style={{
+                                width: 25,
+                                height: 25,
+                                borderRadius: 20,
+                                backgroundColor: theme['color-primary-500'],
+                                justifyContent: 'center',
+                                marginTop: 5
+                            }}>
+                                <Text style={{ fontSize: 14, textAlign: 'center', color: "white" }}>2</Text>
+                            </View>
+                        </View>
+                    </View>
+                </TouchableOpacity>
+            </ScrollView>
+        </View>
     )
 }
 

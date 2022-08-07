@@ -8,7 +8,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { default as theme } from '../custom-theme.json';
 
 const LandingScreen = ({ navigation }) => (
-    <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "white" }} >
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "white" }} >
         <ImageBackground
             source={require('../assets/images/background-image.jpg')}
             resizeMode="cover"
@@ -54,7 +54,7 @@ const LandingScreen = ({ navigation }) => (
                 </View>
             </View>
         </ImageBackground>
-    </SafeAreaView >
+    </View >
 );
 
 const styles = StyleSheet.create({

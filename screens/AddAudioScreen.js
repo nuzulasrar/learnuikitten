@@ -12,13 +12,17 @@ import { fab } from '@fortawesome/free-brands-svg-icons'
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons/faCirclePlus'
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons/faTrashCan'
 import { faHeadphones } from '@fortawesome/free-solid-svg-icons/faHeadphones'
+import StatusBarScreen from '../component/StatusBarScreen';
+import TopNav from '../component/TopNav';
 
 library.add(fab, faCirclePlus, faTrashCan, faHeadphones)
 
-const AddAudioScreen = () => {
+const AddAudioScreen = ({ navigation }) => {
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: theme['color-primary-100'], width: "100%", paddingHorizontal: 10 }} >
-            <View style={{ flex: 0, flexDirection: "column", backgroundColor: "transparent", marginTop: -20, width: "100%", padding: 5, borderRadius: 10 }}>
+        <View style={{ flex: 1, backgroundColor: theme['color-primary-100'], width: "100%", marginTop: -50 }} >
+            <StatusBarScreen />
+            <TopNav title="Audios" backbutton={1} backto="profile" navigation={navigation} />
+            <View style={{ flex: 0, flexDirection: "column", backgroundColor: "transparent", marginTop: 0, width: "100%", padding: 5, borderRadius: 10 }}>
 
                 <View style={{ flex: 0, flexDirection: "row", width: "100%", marginVertical: 1, justifyContent: "center", alignItems: "center" }}>
                     <TouchableOpacity onPress={() => { alert("add audio") }} style={{ backgroundColor: "white", width: 100, height: 100, borderRadius: 5, margin: 10, justifyContent: "center", alignItems: "center", borderColor: theme['color-primary-500'], borderWidth: 1, borderStyle: "dotted" }}>
@@ -69,7 +73,7 @@ const AddAudioScreen = () => {
                     </TouchableOpacity>
                 </View>
             </View>
-        </SafeAreaView>
+        </View>
     )
 }
 
