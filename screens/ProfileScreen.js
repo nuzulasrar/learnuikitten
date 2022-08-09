@@ -138,7 +138,7 @@ const ProfileScreen = ({ navigation }) => {
                                     <Text style={{ fontSize: 12, color: theme['color-primary-200'] }}>Comp Card</Text>
                                 </TouchableOpacity>
                             </View>
-                            <Text style={{ marginVertical: 5, fontWeight: "700" }}>Membership plan: Expired on 31 December 2022</Text>
+                            <Text style={{ marginVertical: 5, fontWeight: "700", marginVertical: 16 }}>Membership plan: Expired on 31 December 2022</Text>
                             <Button
                                 status="danger"
                                 accessoryLeft={starIcon2}
@@ -198,8 +198,18 @@ const ProfileScreen = ({ navigation }) => {
                                 <Text style={{ width: "60%", fontWeight: "700" }}>Singing, Hand Modelling, Piano</Text>
                             </View>
                         </View>
-                        <View style={{ justifyContent: "center", alignItems: "center" }}>
-                            <Button size="small" style={{ margin: 0, marginTop: 15, width: 150, borderRadius: 5, padding: 0 }}>EDIT PROFILE</Button>
+                        {/* <View style={{ justifyContent: "center", alignItems: "center" }}>
+                            <Button
+                                onPress={() => navigation.navigate("EditProfile")}
+                                size="small" style={{ margin: 0, marginTop: 15, width: 150, borderRadius: 5, padding: 0 }}>EDIT PROFILE</Button>
+                            
+                        </View> */}
+                        <View style={{ marginTop: 20, justifyContent: "center", alignItems: "center" }}>
+                            <TouchableOpacity
+                                onPress={() => navigation.navigate("EditProfile")}
+                                style={{ backgroundColor: theme['color-primary-500'], justifyContent: "center", alignItems: "center", paddingVertical: 5, paddingHorizontal: 15, width: 152, height: 33 }}>
+                                <Text style={{ color: "white", fontSize: 18, fontWeight: "bold", textAlign: "center" }}>EDIT PROFILE</Text>
+                            </TouchableOpacity>
                         </View>
                         <View>
                             <Text style={{ color: theme['color-primary-200'], marginLeft: 20, marginTop: 20 }}>Social Media</Text>
@@ -220,7 +230,7 @@ const ProfileScreen = ({ navigation }) => {
                                 <FontAwesomeIcon icon={faTrashCan} color={theme['color-primary-500']} style={{ marginLeft: 5 }} />
                             </View>
                         </View>
-                        <View style={{ flexDirection: "row", padding: 10, marginBottom: 140 }}>
+                        <View style={{ flexDirection: "row", padding: 10, marginBottom: 200 }}>
                             <View style={{ flexDirection: "row", padding: 5, width: "50%", justifyContent: "center", alignItems: "center" }}>
                                 <FontAwesomeIcon icon={['fab', 'facebook']} color={theme['color-primary-200']} />
                                 <Text style={{ marginLeft: 5 }}> @abcd </Text>

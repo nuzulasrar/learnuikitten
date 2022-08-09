@@ -29,7 +29,7 @@ const JobBoardScreen = ({ navigation }) => {
     return (
         <View style={{ flex: 1, backgroundColor: theme['color-primary-100'], width: "100%", marginTop: -50, marginBottom: 0 }} >
             <StatusBarScreen />
-            <TopNav title="Job" backbutton={0} rightaccessory={2} navigation={navigation} />
+            <TopNav title="Job" backbutton={1} navigation={navigation} />
             <View style={{ marginHorizontal: 15 }}>
                 <View style={{ flexDirection: "row", marginTop: 15 }}>
                     <TouchableOpacity style={{ borderTopLeftRadius: 5, borderBottomLeftRadius: 5, borderRightWidth: 1, borderColor: theme['color-primary-100'], backgroundColor: "white", width: 38, height: 38, justifyContent: "center", alignItems: "center", marginTop: 1 }}>
@@ -49,7 +49,10 @@ const JobBoardScreen = ({ navigation }) => {
 
                 <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{ marginTop: 10 }}>
                     <View style={{ backgroundColor: "transparent", borderRadius: 5 }}>
-                        <TouchableOpacity style={{ backgroundColor: "white", width: 230, margin: 10, marginTop: 0, padding: 10, borderRadius: 5 }}>
+                        <TouchableOpacity
+                            onPress={() => navigation.navigate("JobDetails")}
+                            style={{ backgroundColor: "white", width: 230, margin: 10, marginTop: 0, padding: 10, borderRadius: 5 }}
+                        >
                             <View style={{ flexDirection: "row" }}>
                                 <Text style={{ flex: 9, fontSize: 18, fontWeight: "bold" }}>EMCEE / TV HOST</Text>
                                 <FontAwesomeIcon icon={faBookmark} color={"#DADADA"} />
@@ -73,7 +76,9 @@ const JobBoardScreen = ({ navigation }) => {
                         </TouchableOpacity>
                     </View>
                     <View style={{ backgroundColor: "transparent", borderRadius: 5 }}>
-                        <TouchableOpacity style={{ backgroundColor: "white", width: 230, marginRight: 5, marginTop: 0, padding: 10, borderRadius: 5 }}>
+                        <TouchableOpacity
+                            onPress={() => navigation.navigate("JobDetails")}
+                            style={{ backgroundColor: "white", width: 230, marginRight: 5, marginTop: 0, padding: 10, borderRadius: 5 }}>
                             <View style={{ flexDirection: "row" }}>
                                 <Text style={{ flex: 9, fontSize: 18, fontWeight: "bold" }}>EMCEE / TV HOST</Text>
                                 <FontAwesomeIcon icon={faBookmark} color={"#DADADA"} />
@@ -97,7 +102,9 @@ const JobBoardScreen = ({ navigation }) => {
                         </TouchableOpacity>
                     </View>
                     <View style={{ backgroundColor: "transparent", borderRadius: 5 }}>
-                        <TouchableOpacity style={{ backgroundColor: "white", width: 230, margin: 10, marginTop: 0, padding: 10, borderRadius: 5 }}>
+                        <TouchableOpacity
+                            onPress={() => navigation.navigate("JobDetails")}
+                            style={{ backgroundColor: "white", width: 230, margin: 10, marginTop: 0, padding: 10, borderRadius: 5 }}>
                             <View style={{ flexDirection: "row" }}>
                                 <Text style={{ flex: 9, fontSize: 18, fontWeight: "bold" }}>EMCEE / TV HOST</Text>
                                 <FontAwesomeIcon icon={faBookmark} color={"#DADADA"} />
@@ -126,7 +133,47 @@ const JobBoardScreen = ({ navigation }) => {
                 <Text style={{ fontSize: 20, fontWeight: "bold", marginRight: 10, marginTop: 10 }}>Posted Job</Text>
 
                 <ScrollView horizontal={false} style={{ backgroundColor: "transparent" }} showsVerticalScrollIndicator={false}>
-                    <View style={{ backgroundColor: "white", paddingHorizontal: 15, paddingVertical: 10, borderRadius: 5, marginTop: 10 }}>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate("JobDetails")}
+                        style={{ backgroundColor: "white", paddingHorizontal: 15, paddingVertical: 10, borderRadius: 5, marginTop: 10 }}>
+                        <View style={{ flex: 1, flexDirection: "row" }}>
+                            <View style={{ flex: 1 }}>
+                                <Image style={{ width: 75, height: 75 }} source={require("../assets/images/newlogo.png")} />
+                            </View>
+                            <View style={{ flex: 3, flexDirection: "column" }}>
+                                <Text style={{ fontSize: 18, fontWeight: "bold", marginTop: 5 }}>HAND MODEL</Text>
+                                <Text style={{ fontSize: 18, fontWeight: "bold", marginTop: 15 }}>Talent Book Casting</Text>
+                                <View style={{ flexDirection: "row" }}>
+                                    <FontAwesomeIcon icon={faStar} style={{ marginLeft: 0, color: theme['color-warning-500'] }} />
+                                    <FontAwesomeIcon icon={faStar} style={{ marginLeft: 5, color: theme['color-warning-500'] }} />
+                                    <FontAwesomeIcon icon={faStar} style={{ marginLeft: 5, color: theme['color-warning-500'] }} />
+                                    <FontAwesomeIcon icon={faStar} style={{ marginLeft: 5, color: theme['color-warning-500'] }} />
+                                    <FontAwesomeIcon icon={faStar} style={{ marginLeft: 5, color: theme['color-warning-500'] }} />
+                                    <Text>(5.0)</Text>
+                                </View>
+                            </View>
+
+                        </View>
+                        <TouchableOpacity
+                            style={{ position: "absolute", top: 0, right: 0, justifyContent: "center", alignItems: "center", height: 30, width: 30 }}>
+                            <FontAwesomeIcon icon={faBookmark} color={theme['color-warning-500']} />
+                        </TouchableOpacity>
+                        <View style={{ flexDirection: "row", marginTop: 5 }}>
+                            <FontAwesomeIcon icon={faLocationDot} size={12} style={{ marginTop: 2, marginRight: 5 }} />
+                            <Text style={{ fontSize: 12 }}>Petaling Jaya</Text>
+                        </View>
+                        <View style={{ flexDirection: "row", marginTop: 5 }}>
+                            <FontAwesomeIcon icon={faLocationDot} size={12} style={{ marginTop: 2, marginRight: 5 }} />
+                            <Text style={{ fontSize: 12 }}>RM 100/hour</Text>
+                        </View>
+                        <View style={{ flexDirection: "row", marginTop: 5 }}>
+                            <FontAwesomeIcon icon={faLocationDot} size={12} style={{ marginTop: 2, marginRight: 5 }} />
+                            <Text style={{ fontSize: 12 }}>01 October 2022 (1 day)</Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate("JobDetails")}
+                        style={{ backgroundColor: "white", paddingHorizontal: 15, paddingVertical: 10, borderRadius: 5, marginTop: 10 }}>
                         <View style={{ flex: 1, flexDirection: "row" }}>
                             <View style={{ flex: 1 }}>
                                 <Image style={{ width: 75, height: 75 }} source={require("../assets/images/newlogo.png")} />
@@ -160,8 +207,10 @@ const JobBoardScreen = ({ navigation }) => {
                             <FontAwesomeIcon icon={faLocationDot} size={12} style={{ marginTop: 2, marginRight: 5 }} />
                             <Text style={{ fontSize: 12 }}>01 October 2022 (1 day)</Text>
                         </View>
-                    </View>
-                    <View style={{ backgroundColor: "white", paddingHorizontal: 15, paddingVertical: 10, borderRadius: 5, marginTop: 10 }}>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate("JobDetails")}
+                        style={{ backgroundColor: "white", paddingHorizontal: 15, paddingVertical: 10, borderRadius: 5, marginTop: 10 }}>
                         <View style={{ flex: 1, flexDirection: "row" }}>
                             <View style={{ flex: 1 }}>
                                 <Image style={{ width: 75, height: 75 }} source={require("../assets/images/newlogo.png")} />
@@ -195,43 +244,8 @@ const JobBoardScreen = ({ navigation }) => {
                             <FontAwesomeIcon icon={faLocationDot} size={12} style={{ marginTop: 2, marginRight: 5 }} />
                             <Text style={{ fontSize: 12 }}>01 October 2022 (1 day)</Text>
                         </View>
-                    </View>
-                    <View style={{ backgroundColor: "white", paddingHorizontal: 15, paddingVertical: 10, borderRadius: 5, marginTop: 10 }}>
-                        <View style={{ flex: 1, flexDirection: "row" }}>
-                            <View style={{ flex: 1 }}>
-                                <Image style={{ width: 75, height: 75 }} source={require("../assets/images/newlogo.png")} />
-                            </View>
-                            <View style={{ flex: 3, flexDirection: "column" }}>
-                                <Text style={{ fontSize: 18, fontWeight: "bold", marginTop: 5 }}>HAND MODEL</Text>
-                                <Text style={{ fontSize: 18, fontWeight: "bold", marginTop: 15 }}>Talent Book Casting</Text>
-                                <View style={{ flexDirection: "row" }}>
-                                    <FontAwesomeIcon icon={faStar} style={{ marginLeft: 0, color: theme['color-warning-500'] }} />
-                                    <FontAwesomeIcon icon={faStar} style={{ marginLeft: 5, color: theme['color-warning-500'] }} />
-                                    <FontAwesomeIcon icon={faStar} style={{ marginLeft: 5, color: theme['color-warning-500'] }} />
-                                    <FontAwesomeIcon icon={faStar} style={{ marginLeft: 5, color: theme['color-warning-500'] }} />
-                                    <FontAwesomeIcon icon={faStar} style={{ marginLeft: 5, color: theme['color-warning-500'] }} />
-                                    <Text>(5.0)</Text>
-                                </View>
-                            </View>
-
-                        </View>
-                        <TouchableOpacity style={{ position: "absolute", top: 0, right: 0, justifyContent: "center", alignItems: "center", height: 30, width: 30 }}>
-                            <FontAwesomeIcon icon={faBookmark} color={theme['color-warning-500']} />
-                        </TouchableOpacity>
-                        <View style={{ flexDirection: "row", marginTop: 5 }}>
-                            <FontAwesomeIcon icon={faLocationDot} size={12} style={{ marginTop: 2, marginRight: 5 }} />
-                            <Text style={{ fontSize: 12 }}>Petaling Jaya</Text>
-                        </View>
-                        <View style={{ flexDirection: "row", marginTop: 5 }}>
-                            <FontAwesomeIcon icon={faLocationDot} size={12} style={{ marginTop: 2, marginRight: 5 }} />
-                            <Text style={{ fontSize: 12 }}>RM 100/hour</Text>
-                        </View>
-                        <View style={{ flexDirection: "row", marginTop: 5 }}>
-                            <FontAwesomeIcon icon={faLocationDot} size={12} style={{ marginTop: 2, marginRight: 5 }} />
-                            <Text style={{ fontSize: 12 }}>01 October 2022 (1 day)</Text>
-                        </View>
-                    </View>
-                    <View style={{ height: 435 }}>
+                    </TouchableOpacity>
+                    <View style={{ height: 475 }}>
 
                     </View>
                 </ScrollView>

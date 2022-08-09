@@ -12,11 +12,15 @@ import HomeScreen from './screens/HomeScreen';
 import GalleryCategoryScreen from './screens/GalleryCategoryScreen';
 import GalleryModelScreen from './screens/GalleryModelScreen';
 import JobBoardScreen from './screens/JobBoardScreen';
+import JobDetailsScreen from './screens/JobDetailsScreen';
+import NotificationScreen from './screens/NotificationScreen';
 import NewScreen from './screens/NewScreen';
 import HistoryScreen from './screens/HistoryScreen';
 import SavedJobScreen from './screens/SavedJobScreen';
 import ChatScreen from './screens/ChatScreen';
 import ProfileScreen from './screens/ProfileScreen';
+import EditProfileScreen from './screens/EditProfileScreen';
+import SettingsScreen from './screens/SettingsScreen';
 import MembershipScreen from './screens/MembershipScreen';
 import AddPhotosScreen from './screens/AddPhotosScreen';
 import AddVideoScreen from './screens/AddVideoScreen';
@@ -361,7 +365,25 @@ const HomeStack = () => (
             <Screen name='GalleryCategory' component={GalleryCategoryScreen} />
             <Screen name='GalleryModel' component={GalleryModelScreen} />
             <Screen name='JobBoard' component={JobBoardScreen} />
-            <Screen name='NewScreen' component={NewScreen} />
+            <Screen name='JobDetails' component={JobDetailsScreen} />
+            <Screen name='Notification' component={NotificationScreen} />
+        </Stack.Group>
+    </Stack.Navigator>
+);
+
+const HistoryStack = () => (
+    <Stack.Navigator>
+        <Stack.Group screenOptions={{ headerShown: false }}>
+            <Stack.Screen name='ApplicationHistory' component={HistoryScreen} />
+            <Stack.Screen name='JobDetails' component={JobDetailsScreen} />
+        </Stack.Group>
+    </Stack.Navigator>
+);
+const SavedJobStack = () => (
+    <Stack.Navigator>
+        <Stack.Group screenOptions={{ headerShown: false }}>
+            <Stack.Screen name='SavedJob' component={SavedJobScreen} />
+            <Stack.Screen name='JobDetails' component={JobDetailsScreen} />
         </Stack.Group>
     </Stack.Navigator>
 );
@@ -374,6 +396,8 @@ const ProfileStack = () => (
             <Screen name='Videos' component={AddVideoScreen} />
             <Screen name='Audios' component={AddAudioScreen} />
             <Screen name='Comp Card' component={AddCompCardScreen} />
+            <Screen name='EditProfile' component={EditProfileScreen} />
+            <Screen name='Settings' component={SettingsScreen} />
         </Stack.Group>
     </Stack.Navigator>
 );
@@ -426,8 +450,8 @@ const TabNavigator = () => (
     }}>
         <Stack.Group screenOptions={{ headerShown: false }}>
             <Screen name='HomeStack' options={{ headerShown: false }} component={HomeStack} />
-            <Screen name='Application History' component={HistoryScreen} />
-            <Screen name='Saved Job' component={SavedJobScreen} />
+            <Screen name='HistoryStack' component={HistoryStack} />
+            <Screen name='SavedJobStack' component={SavedJobStack} />
             <Screen name='Chat' component={ChatStack} />
             <Screen name='ProfileStack' component={ProfileStack} />
         </Stack.Group>

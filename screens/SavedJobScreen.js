@@ -55,14 +55,16 @@ const calendarIcon = () => (
     />
 );
 
-const SavedJobScreen = () => {
+const SavedJobScreen = ({ navigation }) => {
     return (
         <View style={{ flex: 1, backgroundColor: theme['color-primary-100'], width: "100%", marginTop: -50 }} >
             <StatusBarScreen />
-            <TopNav title="Saved Job" backbutton={0} />
-            <View style={{ flex: 0, flexDirection: "column", backgroundColor: theme['color-primary-100'], marginTop: 0, width: "100%", paddingVertical: 10, paddingHorizontal: 5, alignItems: "center", borderRadius: 10 }}>
-                <View style={{ flex: 0, flexDirection: "column", backgroundColor: "white", marginTop: 0, width: "98%", paddingVertical: 10, paddingHorizontal: 5, borderRadius: 10 }}>
-                    <View style={{ flex: 0, flexDirection: "row", width: "100%", marginVertical: 1, padding: 5, borderRadius: 5 }}>
+            <TopNav title="Saved Job" backbutton={0} navigation={navigation} />
+            <View style={{ flex: 0, flexDirection: "column", backgroundColor: theme['color-primary-100'], marginTop: 5, width: "100%", paddingVertical: 10, paddingHorizontal: 5, alignItems: "center", borderRadius: 10 }}>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate("JobDetails")}
+                    style={{ flex: 0, flexDirection: "column", backgroundColor: "white", marginTop: 0, width: "98%", paddingVertical: 10, paddingHorizontal: 5, borderRadius: 10 }}>
+                    <TouchableOpacity style={{ flex: 0, flexDirection: "row", width: "100%", marginVertical: 1, padding: 5, borderRadius: 5 }}>
                         <View style={{ width: "30%", height: 80 }}>
                             <Image style={{ borderRadius: 0, width: 80, height: 80, borderColor: theme['color-primary-500'], borderWidth: 1 }}
                                 source={require('../assets/images/newlogo.png')} />
@@ -119,7 +121,7 @@ const SavedJobScreen = () => {
                                 style={{ position: "absolute", top: 0, right: 0 }}
                             />
                         </View>
-                    </View>
+                    </TouchableOpacity>
                     <View style={{ flexDirection: "column" }}>
                         <View style={{ flexDirection: "row", marginBottom: -5 }}>
                             <Button
@@ -158,7 +160,7 @@ const SavedJobScreen = () => {
                             </Text>
                         </View>
                     </View>
-                </View>
+                </TouchableOpacity>
             </View>
         </View>
     )

@@ -54,7 +54,7 @@ const ChatScreen = ({ navigation }) => {
         <View style={{ flex: 1, backgroundColor: theme['color-primary-100'], width: "100%", marginTop: -50, }} >
             <StatusBarScreen />
             <TopNav title="Chat" backbutton={0} navigation={navigation} />
-            <ScrollView contentContainerStyle={{ flex: 1, flexDirection: "column", backgroundColor: theme['color-primary-100'], width: "100%", alignItems: "center" }}>
+            <ScrollView contentContainerStyle={{ flex: 1, flexDirection: "column", backgroundColor: theme['color-primary-100'], width: "100%", alignItems: "center", marginTop: 5 }}>
                 <TouchableOpacity
                     style={{ flex: 0, flexDirection: "column", backgroundColor: "white", marginTop: 10, width: "95%", padding: 5, borderRadius: 5 }}
                     onPress={() => { navigation.navigate("ChatMessage") }}

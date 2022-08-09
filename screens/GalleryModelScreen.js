@@ -25,7 +25,7 @@ const GalleryModelScreen = ({ navigation }) => {
             <ScrollView style={{ flex: 1, flexDirection: "column", backgroundColor: theme['color-primary-100'], marginTop: 0, width: "100%", marginBottom: 60 }}>
 
                 {/* every row of images */}
-                <View style={{ flexDirection: "row", backgroundColor: "transparent", height: 200 }}>
+                <View style={{ flexDirection: "row", backgroundColor: "transparent", height: 200, marginTop: 10 }}>
                     <TouchableOpacity style={{ flex: 1, marginHorizontal: 2.5, marginVertical: 5 }}>
                         <ImageBackground source={require("../assets/images/model/1.jpg")} resizeMode="cover">
                             <View style={{ height: "100%" }}>

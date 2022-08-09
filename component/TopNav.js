@@ -59,7 +59,7 @@ export const TopNav = (props) => {
 
     const renderRightActions2 = () => (
         <React.Fragment>
-            <TopNavigationAction icon={SettingIcon} />
+            <TopNavigationAction icon={SettingIcon} onPress={() => navigation.navigate("Settings")} />
         </React.Fragment>
     );
 

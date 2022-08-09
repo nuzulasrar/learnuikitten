@@ -20,7 +20,7 @@ const AddCompCardScreen = ({ navigation }) => {
     return (
         <View style={{ flex: 1, backgroundColor: theme['color-primary-100'], width: "100%", marginTop: -50 }} >
             <StatusBarScreen />
-            <TopNav title="Audios" backbutton={1} backto="profile" navigation={navigation} />
+            <TopNav title="Comp Card" backbutton={1} backto="profile" navigation={navigation} />
             <ScrollView style={{ marginTop: 0, paddingHorizontal: 10 }}>
                 <View style={{ flexDirection: "row", marginTop: 10, marginBottom: 5 }}>
                     <Text style={{ fontSize: 15 }}>Comp Card 1 </Text>
@@ -131,6 +131,9 @@ const AddCompCardScreen = ({ navigation }) => {
                         <FontAwesomeIcon icon={faStarOfLife} size={10} color={"red"} style={{ marginTop: 2 }} />
                         <Text style={{ fontSize: 10, fontWeight: "100" }}> Supported file types (.pdf, .jpg)</Text>
                     </View>
+                </View>
+                <View style={{ height: 60 }}>
+
                 </View>
             </ScrollView>
         </View >

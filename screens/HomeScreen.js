@@ -32,7 +32,7 @@ const HomeScreen = ({ navigation }) => {
                                 color="white"
                             />
                         }
-                        onPress={hello}
+                        onPress={() => navigation.navigate("Notification")}
                     />
                 </View>
                 <View style={{ justifyContent: "center", alignItems: "center" }}>
@@ -57,7 +57,7 @@ const HomeScreen = ({ navigation }) => {
                                 <Text style={{ alignSelf: "center", fontSize: 20 }}>GALLERY</Text>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => { navigation.navigate("NewScreen") }}>
+                        <TouchableOpacity onPress={() => { navigation.navigate("JobBoard") }}>
                             <View style={{ width: 120, height: 120, backgroundColor: "white", margin: 20, justifyContent: "center", alignItems: "center", borderColor: theme['color-primary-500'], borderWidth: 4, borderRadius: 5 }}>
                                 <Button
                                     buttonStyle={{ width: 120, height: 60, backgroundColor: "transparent" }}
@@ -66,7 +66,7 @@ const HomeScreen = ({ navigation }) => {
                                         size: 50,
                                         color: theme['color-primary-500']
                                     }}
-                                    onPress={() => { navigation.navigate("NewScreen") }}
+                                    onPress={() => { navigation.navigate("JobBoard") }}
                                 />
                                 <Text style={{ alignSelf: "center", fontSize: 20 }}>JOBS</Text>
                             </View>
