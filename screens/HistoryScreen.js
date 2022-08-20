@@ -19,13 +19,13 @@ const HistoryScreen = ({ navigation }) => {
         <View style={{ flex: 1, flexDirection: "column", width: "100%", marginTop: 0, padding: 5, borderRadius: 10 }}>
           <TouchableOpacity
             onPress={() => navigation.navigate("JobDetails")}
-            style={{ flex: 0, flexDirection: "row", backgroundColor: "white", width: "100%", padding: 5, borderRadius: 5, borderColor: theme['color-primary-300'], borderWidth: 0 }}>
-            <View style={{ width: "70%" }}>
+            style={{ flex: 0, flexDirection: "row", backgroundColor: "white", width: "100%", padding: 10, borderRadius: 5, borderColor: theme['color-primary-300'], borderWidth: 0 }}>
+            <View style={{ width: "60%" }}>
               <Text style={{ textAlign: "left", fontSize: 18, fontWeight: "800" }}>Hand Model</Text>
               <Text style={{ textAlign: "left", fontSize: 14, fontWeight: "700" }}>Talent Book Casting</Text>
-              <Text style={{ textAlign: "left", fontSize: 10 }}>{"\n"}Applied on 2 June 2022</Text>
+              <Text style={{ textAlign: "left", fontSize: 12 }}>{"\n"}Applied on 2 June 2022</Text>
             </View>
-            <View style={{ width: "30%", justifyContent: "center", alignItems: "center" }}>
+            <View style={{ width: "40%", justifyContent: "center", alignItems: "center" }}>
               <TouchableOpacity style={{ backgroundColor: theme['color-primary-500'], paddingVertical: 5, paddingHorizontal: 15, borderRadius: 5 }} >
                 <Text style={{ fontSize: 13, color: "white", fontWeight: "bold" }}>ACCEPTED</Text>
               </TouchableOpacity>
@@ -33,13 +33,13 @@ const HistoryScreen = ({ navigation }) => {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => navigation.navigate("JobDetails")}
-            style={{ flex: 0, flexDirection: "row", backgroundColor: "white", width: "100%", marginTop: 10, padding: 5, borderRadius: 5, borderColor: theme['color-primary-300'], borderWidth: 0 }}>
-            <View style={{ width: "70%" }}>
+            style={{ flex: 0, flexDirection: "row", backgroundColor: "white", width: "100%", marginTop: 10, padding: 10, borderRadius: 5, borderColor: theme['color-primary-300'], borderWidth: 0 }}>
+            <View style={{ width: "60%" }}>
               <Text style={{ textAlign: "left", fontSize: 18, fontWeight: "800" }}>Hand Model</Text>
               <Text style={{ textAlign: "left", fontSize: 14, fontWeight: "700" }}>Talent Book Casting</Text>
               <Text style={{ textAlign: "left", fontSize: 12 }}>{"\n"}Applied on 2 June 2022</Text>
             </View>
-            <View style={{ width: "30%", justifyContent: "center", alignItems: "center" }}>
+            <View style={{ width: "40%", justifyContent: "center", alignItems: "center" }}>
               <TouchableOpacity style={{ backgroundColor: theme['color-primary-500'], paddingVertical: 5, paddingHorizontal: 15, borderRadius: 5 }} >
                 <Text style={{ fontSize: 13, color: "white", fontWeight: "bold" }}>COMPLETED</Text>
               </TouchableOpacity>
@@ -47,13 +47,13 @@ const HistoryScreen = ({ navigation }) => {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => navigation.navigate("JobDetails")}
-            style={{ flex: 0, flexDirection: "row", backgroundColor: "white", width: "100%", marginTop: 10, padding: 5, borderRadius: 5, borderColor: theme['color-primary-300'], borderWidth: 0 }}>
-            <View style={{ width: "70%" }}>
+            style={{ flex: 0, flexDirection: "row", backgroundColor: "white", width: "100%", marginTop: 10, padding: 10, borderRadius: 5, borderColor: theme['color-primary-300'], borderWidth: 0 }}>
+            <View style={{ width: "60%" }}>
               <Text style={{ textAlign: "left", fontSize: 18, fontWeight: "800" }}>Hand Model</Text>
               <Text style={{ textAlign: "left", fontSize: 14, fontWeight: "700" }}>Talent Book Casting</Text>
-              <Text style={{ textAlign: "left", fontSize: 10 }}>{"\n"}Applied on 2 June 2022</Text>
+              <Text style={{ textAlign: "left", fontSize: 12 }}>{"\n"}Applied on 2 June 2022</Text>
             </View>
-            <View style={{ width: "30%", justifyContent: "center", alignItems: "center" }}>
+            <View style={{ width: "40%", justifyContent: "center", alignItems: "center" }}>
               <TouchableOpacity style={{ backgroundColor: theme['color-primary-500'], paddingVertical: 5, paddingHorizontal: 15, borderRadius: 5 }} >
                 <Text style={{ fontSize: 13, color: "white", fontWeight: "bold" }}>COMPLETED</Text>
               </TouchableOpacity>

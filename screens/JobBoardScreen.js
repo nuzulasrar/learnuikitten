@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TouchableOpacity, StyleSheet, View, Image, ImageBackground, ScrollView, TouchableWithoutFeedback, TextInput, Touchable } from 'react-native';
+import { TouchableOpacity, StyleSheet, View, Image, ImageBackground, ScrollView, TouchableWithoutFeedback, TextInput, Touchable, Platform } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Icon, BottomNavigation, BottomNavigationTab, Layout, Text, TopNavigation, TopNavigationAction, Input, Button } from '@ui-kitten/components';
@@ -14,6 +14,8 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons/faMagnifyin
 import { faSliders } from '@fortawesome/free-solid-svg-icons/faSliders'
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons/faLocationDot'
 import { faStar } from '@fortawesome/free-solid-svg-icons/faStar'
+import { faDollarSign } from '@fortawesome/free-solid-svg-icons/faDollarSign'
+import { faCalendar } from '@fortawesome/free-solid-svg-icons/faCalendar'
 import StatusBarScreen from '../component/StatusBarScreen';
 import TopNav from '../component/TopNav';
 
@@ -40,7 +42,11 @@ const JobBoardScreen = ({ navigation }) => {
                         style={{ flex: 8, backgroundColor: "white", borderTopRightRadius: 5, borderBottomRightRadius: 5, borderTopLeftRadius: 0, borderBottomLeftRadius: 0, borderColor: theme['color-primary-100'] }}
                     />
                 </View>
-                <View style={{ flexDirection: "row", marginTop: 10 }}>
+                <View
+                    style={{
+                        flexDirection: "row", marginTop: 10,
+                        alignItems: Platform.OS == "android" ? "center" : "flex-end"
+                    }}>
                     <Text style={{ fontSize: 20, fontWeight: "bold", marginRight: 10 }}>Urgent Hiring!</Text>
                     <TouchableOpacity style={{ marginTop: 4, backgroundColor: theme['color-danger-200'], borderRadius: 10, justifyContent: "center", alignItems: "center", height: 20, paddingHorizontal: 10 }}>
                         <Text style={{ color: "white", fontSize: 10, fontWeight: "bold" }}>URGENT</Text>
@@ -48,13 +54,42 @@ const JobBoardScreen = ({ navigation }) => {
                 </View>
 
                 <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{ marginTop: 10 }}>
-                    <View style={{ backgroundColor: "transparent", borderRadius: 5 }}>
-                        <TouchableOpacity
-                            onPress={() => navigation.navigate("JobDetails")}
-                            style={{ backgroundColor: "white", width: 230, margin: 10, marginTop: 0, padding: 10, borderRadius: 5 }}
-                        >
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate("JobDetails")}
+                        style={{ backgroundColor: "white", width: 230, marginRight: 10, marginTop: 0, borderRadius: 5 }}
+                    >
+                        <View style={{ padding: 15, justifyContent: "center" }}>
                             <View style={{ flexDirection: "row" }}>
-                                <Text style={{ flex: 9, fontSize: 18, fontWeight: "bold" }}>EMCEE / TV HOST</Text>
+                                <Text style={{ flex: 1, fontSize: 18, fontWeight: "bold" }}>EMCEE / TV HOST</Text>
+                                <TouchableOpacity onPress={() => alert("")} >
+                                    <FontAwesomeIcon icon={faBookmark} color={"#DADADA"} />
+                                </TouchableOpacity>
+                            </View>
+
+                            <View style={{ flexDirection: "row", marginTop: 5 }}>
+                                <FontAwesomeIcon icon={faLocationDot} size={12} style={{ marginTop: 2, marginRight: 5 }} />
+                                <Text style={{ fontSize: 12 }}>Petaling Jaya</Text>
+                            </View>
+                            <View style={{ flexDirection: "row", marginTop: 5 }}>
+                                <FontAwesomeIcon icon={faDollarSign} size={12} style={{ marginTop: 2, marginRight: 5 }} />
+                                <Text style={{ fontSize: 12 }}>RM 100/hour</Text>
+                            </View>
+                            <View style={{ flexDirection: "row", marginTop: 5 }}>
+                                <FontAwesomeIcon icon={faCalendar} size={12} style={{ marginTop: 2, marginRight: 5 }} />
+                                <Text style={{ fontSize: 12 }}>01 October 2022 (1 day)</Text>
+                            </View>
+                            <View style={{ borderRadius: 5 }}>
+                                <Text style={{ fontSize: 18, fontWeight: "bold", marginBottom: Platform.OS == "ios" ? 10 : 20, marginTop: 10 }}>Talent Book Casting</Text>
+                            </View>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate("JobDetails")}
+                        style={{ backgroundColor: "white", width: 230, marginRight: 10, marginTop: 0, borderRadius: 5 }}
+                    >
+                        <View style={{ padding: 15, justifyContent: "center" }}>
+                            <View style={{ flexDirection: "row" }}>
+                                <Text style={{ flex: 1, fontSize: 18, fontWeight: "bold" }}>EMCEE / TV HOST</Text>
                                 <FontAwesomeIcon icon={faBookmark} color={"#DADADA"} />
                             </View>
 
@@ -63,24 +98,25 @@ const JobBoardScreen = ({ navigation }) => {
                                 <Text style={{ fontSize: 12 }}>Petaling Jaya</Text>
                             </View>
                             <View style={{ flexDirection: "row", marginTop: 5 }}>
-                                <FontAwesomeIcon icon={faLocationDot} size={12} style={{ marginTop: 2, marginRight: 5 }} />
+                                <FontAwesomeIcon icon={faDollarSign} size={12} style={{ marginTop: 2, marginRight: 5 }} />
                                 <Text style={{ fontSize: 12 }}>RM 100/hour</Text>
                             </View>
                             <View style={{ flexDirection: "row", marginTop: 5 }}>
-                                <FontAwesomeIcon icon={faLocationDot} size={12} style={{ marginTop: 2, marginRight: 5 }} />
+                                <FontAwesomeIcon icon={faCalendar} size={12} style={{ marginTop: 2, marginRight: 5 }} />
                                 <Text style={{ fontSize: 12 }}>01 October 2022 (1 day)</Text>
                             </View>
-                            <View>
-                                <Text style={{ fontSize: 18, fontWeight: "bold", marginBottom: 10, marginTop: 10 }}>Talent Book Casting</Text>
+                            <View style={{ borderRadius: 5 }}>
+                                <Text style={{ fontSize: 18, fontWeight: "bold", marginBottom: Platform.OS == "ios" ? 10 : 20, marginTop: 10 }}>Talent Book Casting</Text>
                             </View>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={{ backgroundColor: "transparent", borderRadius: 5 }}>
-                        <TouchableOpacity
-                            onPress={() => navigation.navigate("JobDetails")}
-                            style={{ backgroundColor: "white", width: 230, marginRight: 5, marginTop: 0, padding: 10, borderRadius: 5 }}>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate("JobDetails")}
+                        style={{ backgroundColor: "white", width: 230, marginRight: 10, marginTop: 0, borderRadius: 5 }}
+                    >
+                        <View style={{ padding: 15, justifyContent: "center" }}>
                             <View style={{ flexDirection: "row" }}>
-                                <Text style={{ flex: 9, fontSize: 18, fontWeight: "bold" }}>EMCEE / TV HOST</Text>
+                                <Text style={{ flex: 1, fontSize: 18, fontWeight: "bold" }}>EMCEE / TV HOST</Text>
                                 <FontAwesomeIcon icon={faBookmark} color={"#DADADA"} />
                             </View>
 
@@ -89,48 +125,21 @@ const JobBoardScreen = ({ navigation }) => {
                                 <Text style={{ fontSize: 12 }}>Petaling Jaya</Text>
                             </View>
                             <View style={{ flexDirection: "row", marginTop: 5 }}>
-                                <FontAwesomeIcon icon={faLocationDot} size={12} style={{ marginTop: 2, marginRight: 5 }} />
+                                <FontAwesomeIcon icon={faDollarSign} size={12} style={{ marginTop: 2, marginRight: 5 }} />
                                 <Text style={{ fontSize: 12 }}>RM 100/hour</Text>
                             </View>
                             <View style={{ flexDirection: "row", marginTop: 5 }}>
-                                <FontAwesomeIcon icon={faLocationDot} size={12} style={{ marginTop: 2, marginRight: 5 }} />
+                                <FontAwesomeIcon icon={faCalendar} size={12} style={{ marginTop: 2, marginRight: 5 }} />
                                 <Text style={{ fontSize: 12 }}>01 October 2022 (1 day)</Text>
                             </View>
-                            <View>
-                                <Text style={{ fontSize: 18, fontWeight: "bold", marginBottom: 10, marginTop: 10 }}>Talent Book Casting</Text>
+                            <View style={{ borderRadius: 5 }}>
+                                <Text style={{ fontSize: 18, fontWeight: "bold", marginBottom: Platform.OS == "ios" ? 10 : 20, marginTop: 10 }}>Talent Book Casting</Text>
                             </View>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={{ backgroundColor: "transparent", borderRadius: 5 }}>
-                        <TouchableOpacity
-                            onPress={() => navigation.navigate("JobDetails")}
-                            style={{ backgroundColor: "white", width: 230, margin: 10, marginTop: 0, padding: 10, borderRadius: 5 }}>
-                            <View style={{ flexDirection: "row" }}>
-                                <Text style={{ flex: 9, fontSize: 18, fontWeight: "bold" }}>EMCEE / TV HOST</Text>
-                                <FontAwesomeIcon icon={faBookmark} color={"#DADADA"} />
-                            </View>
-
-                            <View style={{ flexDirection: "row", marginTop: 5 }}>
-                                <FontAwesomeIcon icon={faLocationDot} size={12} style={{ marginTop: 2, marginRight: 5 }} />
-                                <Text style={{ fontSize: 12 }}>Petaling Jaya</Text>
-                            </View>
-                            <View style={{ flexDirection: "row", marginTop: 5 }}>
-                                <FontAwesomeIcon icon={faLocationDot} size={12} style={{ marginTop: 2, marginRight: 5 }} />
-                                <Text style={{ fontSize: 12 }}>RM 100/hour</Text>
-                            </View>
-                            <View style={{ flexDirection: "row", marginTop: 5 }}>
-                                <FontAwesomeIcon icon={faLocationDot} size={12} style={{ marginTop: 2, marginRight: 5 }} />
-                                <Text style={{ fontSize: 12 }}>01 October 2022 (1 day)</Text>
-                            </View>
-                            <View>
-                                <Text style={{ fontSize: 18, fontWeight: "bold", marginBottom: 10, marginTop: 10 }}>Talent Book Casting</Text>
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-
+                        </View>
+                    </TouchableOpacity>
                 </ScrollView>
 
-                <Text style={{ fontSize: 20, fontWeight: "bold", marginRight: 10, marginTop: 10 }}>Posted Job</Text>
+                <Text style={{ fontSize: 20, fontWeight: "bold", marginRight: 10, marginTop: 20 }}>Posted Job</Text>
 
                 <ScrollView horizontal={false} style={{ backgroundColor: "transparent" }} showsVerticalScrollIndicator={false}>
                     <TouchableOpacity
@@ -163,11 +172,11 @@ const JobBoardScreen = ({ navigation }) => {
                             <Text style={{ fontSize: 12 }}>Petaling Jaya</Text>
                         </View>
                         <View style={{ flexDirection: "row", marginTop: 5 }}>
-                            <FontAwesomeIcon icon={faLocationDot} size={12} style={{ marginTop: 2, marginRight: 5 }} />
+                            <FontAwesomeIcon icon={faDollarSign} size={12} style={{ marginTop: 2, marginRight: 5 }} />
                             <Text style={{ fontSize: 12 }}>RM 100/hour</Text>
                         </View>
                         <View style={{ flexDirection: "row", marginTop: 5 }}>
-                            <FontAwesomeIcon icon={faLocationDot} size={12} style={{ marginTop: 2, marginRight: 5 }} />
+                            <FontAwesomeIcon icon={faCalendar} size={12} style={{ marginTop: 2, marginRight: 5 }} />
                             <Text style={{ fontSize: 12 }}>01 October 2022 (1 day)</Text>
                         </View>
                     </TouchableOpacity>
@@ -192,7 +201,8 @@ const JobBoardScreen = ({ navigation }) => {
                             </View>
 
                         </View>
-                        <TouchableOpacity style={{ position: "absolute", top: 0, right: 0, justifyContent: "center", alignItems: "center", height: 30, width: 30 }}>
+                        <TouchableOpacity
+                            style={{ position: "absolute", top: 0, right: 0, justifyContent: "center", alignItems: "center", height: 30, width: 30 }}>
                             <FontAwesomeIcon icon={faBookmark} color={theme['color-warning-500']} />
                         </TouchableOpacity>
                         <View style={{ flexDirection: "row", marginTop: 5 }}>
@@ -200,11 +210,11 @@ const JobBoardScreen = ({ navigation }) => {
                             <Text style={{ fontSize: 12 }}>Petaling Jaya</Text>
                         </View>
                         <View style={{ flexDirection: "row", marginTop: 5 }}>
-                            <FontAwesomeIcon icon={faLocationDot} size={12} style={{ marginTop: 2, marginRight: 5 }} />
+                            <FontAwesomeIcon icon={faDollarSign} size={12} style={{ marginTop: 2, marginRight: 5 }} />
                             <Text style={{ fontSize: 12 }}>RM 100/hour</Text>
                         </View>
                         <View style={{ flexDirection: "row", marginTop: 5 }}>
-                            <FontAwesomeIcon icon={faLocationDot} size={12} style={{ marginTop: 2, marginRight: 5 }} />
+                            <FontAwesomeIcon icon={faCalendar} size={12} style={{ marginTop: 2, marginRight: 5 }} />
                             <Text style={{ fontSize: 12 }}>01 October 2022 (1 day)</Text>
                         </View>
                     </TouchableOpacity>
@@ -229,7 +239,8 @@ const JobBoardScreen = ({ navigation }) => {
                             </View>
 
                         </View>
-                        <TouchableOpacity style={{ position: "absolute", top: 0, right: 0, justifyContent: "center", alignItems: "center", height: 30, width: 30 }}>
+                        <TouchableOpacity
+                            style={{ position: "absolute", top: 0, right: 0, justifyContent: "center", alignItems: "center", height: 30, width: 30 }}>
                             <FontAwesomeIcon icon={faBookmark} color={theme['color-warning-500']} />
                         </TouchableOpacity>
                         <View style={{ flexDirection: "row", marginTop: 5 }}>
@@ -237,11 +248,11 @@ const JobBoardScreen = ({ navigation }) => {
                             <Text style={{ fontSize: 12 }}>Petaling Jaya</Text>
                         </View>
                         <View style={{ flexDirection: "row", marginTop: 5 }}>
-                            <FontAwesomeIcon icon={faLocationDot} size={12} style={{ marginTop: 2, marginRight: 5 }} />
+                            <FontAwesomeIcon icon={faDollarSign} size={12} style={{ marginTop: 2, marginRight: 5 }} />
                             <Text style={{ fontSize: 12 }}>RM 100/hour</Text>
                         </View>
                         <View style={{ flexDirection: "row", marginTop: 5 }}>
-                            <FontAwesomeIcon icon={faLocationDot} size={12} style={{ marginTop: 2, marginRight: 5 }} />
+                            <FontAwesomeIcon icon={faCalendar} size={12} style={{ marginTop: 2, marginRight: 5 }} />
                             <Text style={{ fontSize: 12 }}>01 October 2022 (1 day)</Text>
                         </View>
                     </TouchableOpacity>

@@ -21,13 +21,37 @@ import ChatScreen from './screens/ChatScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import EditProfileScreen from './screens/EditProfileScreen';
 import SettingsScreen from './screens/SettingsScreen';
+import ReviewHistoryScreen from './screens/ReviewHistoryScreen';
+import ContactUsScreen from './screens/ContactUsScreen';
 import MembershipScreen from './screens/MembershipScreen';
+import PaymentScreen from './screens/PaymentScreen';
+import UploadPhotoPremiumScreen from './screens/UploadPhotoPremiumScreen';
+import UploadDetailsScreen from './screens/UploadDetailsScreen';
 import AddPhotosScreen from './screens/AddPhotosScreen';
 import AddVideoScreen from './screens/AddVideoScreen';
 import AddAudioScreen from './screens/AddAudioScreen';
 import AddCompCardScreen from './screens/AddCompCardScreen';
+import TermsAndConditionsScreen from './screens/TermsAndConditionsScreen';
+import JoinUsTalentScreen from './screens/JoinUsTalentScreen';
+import UploadProfileScreen from './screens/UploadProfileScreen';
 import { CommonContext, CommonContextProvider } from './context/CommonContext';
 import ChatMessageScreen from './screens/ChatMessageScreen';
+import SubscriptionPlan from './screens/SubscriptionPlan';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fab } from '@fortawesome/free-brands-svg-icons'
+import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus'
+import { faCircleCheck } from '@fortawesome/free-solid-svg-icons/faCircleCheck'
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons/faCheckCircle'
+import { faHome } from '@fortawesome/free-solid-svg-icons/faHome'
+import { faFileLines } from '@fortawesome/free-solid-svg-icons/faFileLines'
+import { faBookmark } from '@fortawesome/free-solid-svg-icons/faBookmark'
+import { faMessage } from '@fortawesome/free-solid-svg-icons/faMessage'
+import { faUser } from '@fortawesome/free-solid-svg-icons/faUser'
+import { faCheck } from '@fortawesome/free-solid-svg-icons/faCheck'
+import { faCircleArrowRight } from '@fortawesome/free-solid-svg-icons'
+
+library.add(fab, faPlus, faCircleCheck, faCircleArrowRight, faCheckCircle, faHome, faFileLines, faBookmark, faMessage, faUser)
 
 const { Navigator, Screen } = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -46,33 +70,33 @@ const renderIcon2 = (props) => (
 );
 
 const homeIcon = (props) => (
-    <TouchableWithoutFeedback>
-        <Icon {...props} name='home-outline' />
-    </TouchableWithoutFeedback>
+    // <TouchableWithoutFeedback>
+    <Icon {...props} name='home-outline' />
+    //</TouchableWithoutFeedback>
 );
 
 const historyIcon = (props) => (
-    <TouchableWithoutFeedback>
-        <Icon {...props} name='calendar-outline' />
-    </TouchableWithoutFeedback>
+    //<TouchableWithoutFeedback>
+    <Icon {...props} name='calendar-outline' />
+    //</TouchableWithoutFeedback>
 );
 
 const savedIcon = (props) => (
-    <TouchableWithoutFeedback>
-        <Icon {...props} name='bookmark-outline' />
-    </TouchableWithoutFeedback>
+    //<TouchableWithoutFeedback>
+    <Icon {...props} name='bookmark-outline' />
+    //</TouchableWithoutFeedback>
 );
 
 const chatIcon = (props) => (
-    <TouchableWithoutFeedback>
-        <Icon {...props} name='message-circle-outline' />
-    </TouchableWithoutFeedback>
+    //<TouchableWithoutFeedback>
+    <Icon {...props} name='message-circle-outline' />
+    //</TouchableWithoutFeedback>
 );
 
 const profileIcon = (props) => (
-    <TouchableWithoutFeedback>
-        <Icon {...props} name='person-outline' />
-    </TouchableWithoutFeedback>
+    //<TouchableWithoutFeedback>
+    <Icon {...props} name='person-outline' />
+    //</TouchableWithoutFeedback>
 );
 
 const renderCaption = () => {
@@ -149,7 +173,7 @@ const JoinScreen = ({ route, navigation }) => {
     return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "white" }}>
             {jointype == 1 ? <ImageBackground
-                source={require('./assets/images/background-image.jpg')}
+                source={require('./assets/images/loginbg/2.jpg')}
                 resizeMode="cover"
                 style={[styles.bgimage, { justifyContent: 'center', alignItems: 'center' }]}
             >
@@ -219,7 +243,7 @@ const JoinScreen = ({ route, navigation }) => {
                 <View style={{ justifyContent: "center", alignItems: "center" }}>
                     <Button
                         appearance="outline"
-                        onPress={() => navigation.navigate("Register")}
+                        onPress={() => navigation.navigate("JoinTalent")}
                     >
                         JOIN
                     </Button>
@@ -398,6 +422,13 @@ const ProfileStack = () => (
             <Screen name='Comp Card' component={AddCompCardScreen} />
             <Screen name='EditProfile' component={EditProfileScreen} />
             <Screen name='Settings' component={SettingsScreen} />
+            <Screen name='ReviewHistory' component={ReviewHistoryScreen} />
+            <Screen name='Membership' component={MembershipScreen} />
+            <Screen name='ContactUs' component={ContactUsScreen} />
+            <Screen name='Terms' component={TermsAndConditionsScreen} />
+            <Screen name='Payment' component={PaymentScreen} />
+            <Screen name='UploadPhotoPremium' component={UploadPhotoPremiumScreen} />
+            <Screen name='UploadDetails' component={UploadDetailsScreen} />
         </Stack.Group>
     </Stack.Navigator>
 );
@@ -429,15 +460,39 @@ const BottomTabBar = ({ navigation, state }) => {
         <>
             {isLoggedIn ? <BottomNavigation
                 appearance="noIndicator"
-                style={{ position: "absolute", bottom: bottomNavPosition }}
+                style={{
+                    position: "absolute", bottom: bottomNavPosition,
+                    backgroundColor: theme['color-primary-500']
+                }}
                 selectedIndex={state.index}
                 onSelect={index => navigation.navigate(state.routeNames[index])}
+                tabBarOptions={{
+                    activeTintColor: "white",
+                    inactiveTintColor: "white",
+                    keyboardHidesTabBar: true,
+                    style: {
+                        paddingTop: 10,
+                        //backgroundColor: theme["color-primary-500"],
+                        // height: Platform.OS === "ios" ? 79 : 60 + inset.bottom,
+                        // paddingBottom: Platform.OS === "ios" ? inset.bottom : 10,
+                    },
+                }}
             >
-                <BottomNavigationTab title='HOME' icon={homeIcon} />
-                <BottomNavigationTab title='HISTORY' icon={historyIcon} />
-                <BottomNavigationTab title='SAVED' icon={savedIcon} />
-                <BottomNavigationTab title='CHAT' icon={chatIcon} />
-                <BottomNavigationTab title='PROFILE' icon={profileIcon} />
+                <BottomNavigationTab title={evaProps => <Text style={{ color: "white", fontSize: 12 }}>Home</Text>}
+                    icon={evaProps => <FontAwesomeIcon icon={faHome} color={"white"} size={20} style={{ marginBottom: 5 }} />}
+                />
+                <BottomNavigationTab title={evaProps => <Text style={{ color: "white", fontSize: 12 }}>History</Text>}
+                    icon={evaProps => <FontAwesomeIcon icon={faFileLines} color={"white"} size={20} style={{ marginBottom: 5 }} />}
+                />
+                <BottomNavigationTab title={evaProps => <Text style={{ color: "white", fontSize: 12 }}>Saved</Text>}
+                    icon={evaProps => <FontAwesomeIcon icon={faBookmark} color={"white"} size={20} style={{ marginBottom: 5 }} />}
+                />
+                <BottomNavigationTab title={evaProps => <Text style={{ color: "white", fontSize: 12 }}>Chat</Text>}
+                    icon={evaProps => <FontAwesomeIcon icon={faMessage} color={"white"} size={20} style={{ marginBottom: 5 }} />}
+                />
+                <BottomNavigationTab title={evaProps => <Text style={{ color: "white", fontSize: 12 }}>Profile</Text>}
+                    icon={evaProps => <FontAwesomeIcon icon={faUser} color={"white"} size={20} style={{ marginBottom: 5 }} />}
+                />
             </BottomNavigation > : <></>}
         </>
     )
@@ -473,7 +528,9 @@ export const AppNavigator = () => {
                         <Stack.Screen name="Landing" component={LandingScreen} />
                         <Stack.Screen name="Login" component={LoginScreen} />
                         <Stack.Screen name="Join" component={JoinScreen} />
-                        <Stack.Screen name="Register" options={{ headerShown: true, title: "Join Us" }} component={RegisterScreen} />
+                        <Stack.Screen name="JoinTalent" component={JoinUsTalentScreen} />
+                        <Stack.Screen name="UploadProfile" component={UploadProfileScreen} />
+                        <Stack.Screen name="SubscriptionPlan" component={SubscriptionPlan} />
                     </Stack.Group>
                 </Stack.Navigator>
             )}

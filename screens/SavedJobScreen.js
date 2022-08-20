@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TouchableOpacity, StyleSheet, View, Image, ImageBackground, ScrollView, TouchableWithoutFeedback } from 'react-native';
+import { TouchableOpacity, StyleSheet, View, Image, ImageBackground, ScrollView, TouchableWithoutFeedback, Platform } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Icon, BottomNavigation, BottomNavigationTab, Layout, Text, TopNavigation, TopNavigationAction, Input, Button } from '@ui-kitten/components';
@@ -60,7 +60,7 @@ const SavedJobScreen = ({ navigation }) => {
         <View style={{ flex: 1, backgroundColor: theme['color-primary-100'], width: "100%", marginTop: -50 }} >
             <StatusBarScreen />
             <TopNav title="Saved Job" backbutton={0} navigation={navigation} />
-            <View style={{ flex: 0, flexDirection: "column", backgroundColor: theme['color-primary-100'], marginTop: 5, width: "100%", paddingVertical: 10, paddingHorizontal: 5, alignItems: "center", borderRadius: 10 }}>
+            <View style={{ flex: 0, flexDirection: "column", backgroundColor: theme['color-primary-100'], marginTop: 5, width: "100%", paddingVertical: 10, paddingHorizontal: 5, alignItems: "center", borderRadius: 0 }}>
                 <TouchableOpacity
                     onPress={() => navigation.navigate("JobDetails")}
                     style={{ flex: 0, flexDirection: "column", backgroundColor: "white", marginTop: 0, width: "98%", paddingVertical: 10, paddingHorizontal: 5, borderRadius: 10 }}>
@@ -73,43 +73,13 @@ const SavedJobScreen = ({ navigation }) => {
                             <Text style={{ textAlign: "left", fontSize: 18, fontWeight: "800" }}>Hand Model</Text>
                             <Text style={{ textAlign: "left", fontSize: 18, fontWeight: "800" }}> </Text>
                             <Text style={{ textAlign: "left", fontSize: 18, fontWeight: "700" }}>Talent Book Casting</Text>
-                            <View style={{ flexDirection: "row", marginBottom: 0 }}>
-                                {/* <Button
-                                size="tiny"
-                                appearance="ghost"
-                                accessoryRight={starIcon}
-                                style={{ marginLeft: 0 }}
-                            />
-                            <Button
-                                size="tiny"
-                                appearance="ghost"
-                                accessoryRight={starIcon}
-                                style={{ marginLeft: -10 }}
-                            />
-                            <Button
-                                size="tiny"
-                                appearance="ghost"
-                                accessoryRight={starIcon}
-                                style={{ marginLeft: -10 }}
-                            />
-                            <Button
-                                size="tiny"
-                                appearance="ghost"
-                                accessoryRight={starIcon}
-                                style={{ marginLeft: -10 }}
-                            />
-                            <Button
-                                size="tiny"
-                                appearance="ghost"
-                                accessoryRight={starIcon}
-                                style={{ marginLeft: -10 }}
-                            /> */}
+                            <View style={{ flexDirection: "row", marginBottom: 0, alignItems: Platform.OS == "android" ? "center" : "flex-end" }}>
                                 <FontAwesomeIcon icon={faStar} color={theme['color-warning-500']} size={15} style={{ marginLeft: 0 }} />
                                 <FontAwesomeIcon icon={faStar} color={theme['color-warning-500']} size={15} style={{ marginLeft: 5 }} />
                                 <FontAwesomeIcon icon={faStar} color={theme['color-warning-500']} size={15} style={{ marginLeft: 5 }} />
                                 <FontAwesomeIcon icon={faStar} color={theme['color-warning-500']} size={15} style={{ marginLeft: 5 }} />
                                 <FontAwesomeIcon icon={faStar} color={theme['color-warning-500']} size={15} style={{ marginLeft: 5 }} />
-                                <Text style={{ fontSize: 15, marginTop: -3 }}>(5.0)</Text>
+                                <Text style={{ fontSize: 15, marginTop: -3, marginLeft: 5 }}>(5.0)</Text>
                             </View>
                         </View>
                         <View style={{ width: "10%" }}>

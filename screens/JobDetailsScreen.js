@@ -40,16 +40,19 @@ const JobDetailsScreen = ({ navigation }) => {
                     <Image source={require("../assets/images/newlogo.png")} resizeMode="contain" style={{ width: 150, height: 200 }} />
                 </View>
                 <View style={{ width: "100%", justifyContent: "center", alignItems: "center" }}>
-                    <View style={{ width: 75, height: 75, borderRadius: 50, borderColor: theme['color-primary-500'], borderWidth: 1, backgroundColor: "white", marginTop: -35 }}>
-                        <Image source={require("../assets/images/newlogo.png")} style={{ width: "100%", height: "100%" }} />
+                    <View style={{ width: 75, height: 75, borderRadius: 50, borderColor: theme['color-primary-500'], borderWidth: 1, backgroundColor: "white", marginTop: -35, justifyContent: "center", alignItems: "center" }}>
+                        <Image source={require("../assets/images/newlogo.png")} style={{ width: "80%", height: "80%" }} />
                     </View>
                 </View>
+
                 <View style={{ marginTop: 15, width: "100%", justifyContent: "center", alignItems: "center", flexDirection: "row" }}>
                     <Text style={{ fontSize: 16 }}>Talent Book Casting</Text>
-                    <TouchableOpacity style={{ flexDirection: "row", marginLeft: 5, backgroundColor: "white", padding: 5, borderColor: "#CDCDCD", borderWidth: 1, borderRadius: 5 }}>
-                        <FontAwesomeIcon icon={faMessage} size={10} style={{ marginTop: 2 }} />
-                        <Text style={{ fontSize: 10, marginLeft: 5 }}>Chat</Text>
-                    </TouchableOpacity>
+                    {applicationStatus == 1 || applicationStatus == 3 ?
+                        <TouchableOpacity style={{ flexDirection: "row", marginLeft: 5, backgroundColor: "white", padding: 5, borderColor: "#CDCDCD", borderWidth: 1, borderRadius: 5, alignItems: "center" }}>
+                            <FontAwesomeIcon icon={faMessage} size={10} style={{ marginTop: 0 }} />
+                            <Text style={{ fontSize: 10, marginLeft: 5 }}>Chat</Text>
+                        </TouchableOpacity>
+                        : null}
                 </View>
                 <View style={{ justifyContent: "center", alignItems: "center", marginTop: 5 }}>
                     <Text style={{ fontSize: 32, fontWeight: "bold" }}>HAND MODEL</Text>
@@ -57,7 +60,7 @@ const JobDetailsScreen = ({ navigation }) => {
                 <View style={{ justifyContent: "center", alignItems: "center", marginTop: 10 }}>
 
                     <View style={{ backgroundColor: "white", width: "95%", borderRadius: 5, paddingVertical: 10, paddingHorizontal: 10 }}>
-                        <Text style={{ fontSize: 13, fontWeight: "700", marginBottom: 16 }}>Details</Text>
+                        <Text style={{ fontSize: 16, fontWeight: "700", marginBottom: 16 }}>Details</Text>
 
                         <View style={{ flexDirection: "row", marginBottom: 5 }}>
                             <FontAwesomeIcon icon={faCalendar} size={18} color={"#ABABAB"} style={{ marginTop: 8 }} />
@@ -101,7 +104,7 @@ const JobDetailsScreen = ({ navigation }) => {
                     </View>
 
                     <View style={{ marginTop: 10, backgroundColor: "white", width: "95%", borderRadius: 5, paddingVertical: 10, paddingHorizontal: 10 }}>
-                        <Text style={{ fontSize: 13, fontWeight: "700", marginBottom: 16 }}>Descriptions</Text>
+                        <Text style={{ fontSize: 16, fontWeight: "700", marginBottom: 16 }}>Descriptions</Text>
 
                         <Text style={{ fontSize: 15 }}>
                             "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ea commodo consequat.  "
@@ -146,14 +149,14 @@ const JobDetailsScreen = ({ navigation }) => {
                             <View style={{ justifyContent: "flex-start", width: "95%", marginTop: 0 }}>
                                 <View style={{ marginTop: 10, backgroundColor: "white", width: "100%", borderRadius: 5, paddingVertical: 10, paddingHorizontal: 10, flexDirection: "row" }}>
 
-                                    <View style={{ backgroundColor: "transparent", }}>
-                                        <ImageBackground source={require("../assets/images/newlogo.png")} resizeMode="contain" style={{ width: 100 }}>
+                                    <View style={{ backgroundColor: "rgba(0,0,0,0)", marginRight: 10, width: "25%" }}>
+                                        <ImageBackground source={require("../assets/images/bg-home.jpg")} resizeMode="contain" style={{ maxWidth: 75 }}>
                                             <View style={{ height: 75 }}>
 
                                             </View>
                                         </ImageBackground>
                                     </View>
-                                    <View>
+                                    <View style={{ maxWidth: "70%" }}>
                                         <Text style={{ fontSize: 15, fontWeight: "700", color: "#172B85", marginBottom: 2 }}>John Appleseed</Text>
                                         <View style={{ flexDirection: "row" }}>
                                             <FontAwesomeIcon icon={faStar} color={theme['color-warning-500']} />
@@ -163,7 +166,7 @@ const JobDetailsScreen = ({ navigation }) => {
                                             <FontAwesomeIcon icon={faStar} color={theme['color-warning-500']} style={{ marginLeft: 5 }} />
                                             <Text style={{ marginLeft: 5 }} >(5.0)</Text>
                                         </View>
-                                        <Text style={{ fontSize: 15 }}>I had a great time!</Text>
+                                        <Text style={{ fontSize: 15 }}>I had a great time! I had a great time!I had a great time!I had a great time!I had a great time!I had a great time!I had a great time!I had a great time!I had a great time!I had a great time!I had a great time!I had a great time!I had a great time!I had a great time!I had a great time!I had a great time!I had a great time!I had a great time!I had a great time!I had a great time!I had a great time!I had a great time!I had a great time!I had a great time!I had a great time!I had a great time!I had a great time!I had a great time!I had a great time!I had a great time!I had a great time!I had a great time!I had a great time!</Text>
                                     </View>
                                 </View>
                             </View>

@@ -21,8 +21,8 @@ const AddCompCardScreen = ({ navigation }) => {
         <View style={{ flex: 1, backgroundColor: theme['color-primary-100'], width: "100%", marginTop: -50 }} >
             <StatusBarScreen />
             <TopNav title="Comp Card" backbutton={1} backto="profile" navigation={navigation} />
-            <ScrollView style={{ marginTop: 0, paddingHorizontal: 10 }}>
-                <View style={{ flexDirection: "row", marginTop: 10, marginBottom: 5 }}>
+            <ScrollView style={{ marginTop: 5, paddingHorizontal: 10 }}>
+                <View style={{ flexDirection: "row", marginTop: 10, marginBottom: 5, alignItems: "flex-end" }}>
                     <Text style={{ fontSize: 15 }}>Comp Card 1 </Text>
                     <TouchableOpacity style={{ flexDirection: "row", marginLeft: 15, backgroundColor: theme['color-primary-500'], borderRadius: 5, paddingHorizontal: 8, paddingTop: 2, paddingBottom: 2 }}>
                         <FontAwesomeIcon icon={faShareNodes} color={"white"} />
@@ -49,7 +49,7 @@ const AddCompCardScreen = ({ navigation }) => {
                     <Text style={{ fontSize: 12 }}>WWW.NEWLOOKCASTING.COM</Text>
                 </View>
 
-                <View style={{ flexDirection: "row", marginTop: 20, marginBottom: 5 }}>
+                <View style={{ flexDirection: "row", marginTop: 20, marginBottom: 5, alignItems: "flex-end" }}>
                     <Text style={{ fontSize: 15 }}>Comp Card 2 </Text>
                     <TouchableOpacity style={{ flexDirection: "row", marginLeft: 15, backgroundColor: theme['color-primary-500'], borderRadius: 5, paddingHorizontal: 8, paddingTop: 2, paddingBottom: 2 }}>
                         <FontAwesomeIcon icon={faShareNodes} color={"white"} />
@@ -101,7 +101,7 @@ const AddCompCardScreen = ({ navigation }) => {
                     <Text style={{ color: "white", fontSize: 12, marginTop: 5, marginBottom: 5 }}>INFO@TALENTBOOK.COM / +60123456789</Text>
                 </View>
 
-                <View style={{ flexDirection: "row", marginTop: 20, marginBottom: 5 }}>
+                <View style={{ flexDirection: "row", marginTop: 20, marginBottom: 5, alignItems: "flex-end" }}>
                     <Text style={{ fontSize: 15 }}>Comp Card 3 </Text>
                     <TouchableOpacity style={{ flexDirection: "row", marginLeft: 15, backgroundColor: theme['color-primary-500'], borderRadius: 5, paddingHorizontal: 8, paddingTop: 2, paddingBottom: 2 }}>
                         <FontAwesomeIcon icon={faShareNodes} color={"white"} />

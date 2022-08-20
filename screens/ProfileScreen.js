@@ -11,10 +11,11 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus'
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons/faTrashCan'
+import { faStar } from '@fortawesome/free-solid-svg-icons/faStar'
 import StatusBarScreen from '../component/StatusBarScreen';
 import TopNav from '../component/TopNav';
 
-library.add(fab, faPlus, faTrashCan)
+library.add(fab, faPlus, faTrashCan, faStar)
 
 const bookmarkIcon = () => (
     <Icon
@@ -85,38 +86,13 @@ const ProfileScreen = ({ navigation }) => {
                                 CHANGE
                             </Button>
                             <Text style={{ color: theme['color-primary-200'], fontSize: 24, fontWeight: "700" }}>John Appleseed</Text>
-                            <View style={{ flexDirection: "row" }}>
-                                <Button
-                                    size="tiny"
-                                    appearance="ghost"
-                                    accessoryRight={starIcon}
-                                    style={{ marginLeft: 0 }}
-                                />
-                                <Button
-                                    size="tiny"
-                                    appearance="ghost"
-                                    accessoryRight={starIcon}
-                                    style={{ marginLeft: 0 }}
-                                />
-                                <Button
-                                    size="tiny"
-                                    appearance="ghost"
-                                    accessoryRight={starIcon}
-                                    style={{ marginLeft: 0 }}
-                                />
-                                <Button
-                                    size="tiny"
-                                    appearance="ghost"
-                                    accessoryRight={starIcon}
-                                    style={{ marginLeft: 0 }}
-                                />
-                                <Button
-                                    size="tiny"
-                                    appearance="ghost"
-                                    accessoryRight={starIcon}
-                                    style={{ marginLeft: 0 }}
-                                />
-                                <Text style={{ marginTop: 3.5 }}>(0.0)</Text>
+                            <View style={{ flexDirection: "row", marginVertical: 8 }}>
+                                <FontAwesomeIcon icon={faStar} size={16} color={"#DADADA"} />
+                                <FontAwesomeIcon icon={faStar} size={16} color={"#DADADA"} style={{ marginLeft: 5 }} />
+                                <FontAwesomeIcon icon={faStar} size={16} color={"#DADADA"} style={{ marginLeft: 5 }} />
+                                <FontAwesomeIcon icon={faStar} size={16} color={"#DADADA"} style={{ marginLeft: 5 }} />
+                                <FontAwesomeIcon icon={faStar} size={16} color={"#DADADA"} style={{ marginLeft: 5 }} />
+                                <Text style={{ marginTop: 0, marginLeft: 5 }}>(0.0)</Text>
 
                             </View>
                             <Text style={{ marginTop: -15 }}>{"\n"}Singing, Hand-Modelling, Piano</Text>
@@ -198,12 +174,7 @@ const ProfileScreen = ({ navigation }) => {
                                 <Text style={{ width: "60%", fontWeight: "700" }}>Singing, Hand Modelling, Piano</Text>
                             </View>
                         </View>
-                        {/* <View style={{ justifyContent: "center", alignItems: "center" }}>
-                            <Button
-                                onPress={() => navigation.navigate("EditProfile")}
-                                size="small" style={{ margin: 0, marginTop: 15, width: 150, borderRadius: 5, padding: 0 }}>EDIT PROFILE</Button>
-                            
-                        </View> */}
+
                         <View style={{ marginTop: 20, justifyContent: "center", alignItems: "center" }}>
                             <TouchableOpacity
                                 onPress={() => navigation.navigate("EditProfile")}
