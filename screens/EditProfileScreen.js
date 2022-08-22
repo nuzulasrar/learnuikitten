@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, createRef, useCallback } from 'react';
 import { TouchableOpacity, StyleSheet, View, Image, ImageBackground, ScrollView, TouchableWithoutFeedback } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -10,33 +10,52 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { faStar } from '@fortawesome/free-solid-svg-icons/faStar'
-import Checkbox from 'expo-checkbox';
+// import Checkbox from 'expo-checkbox';
 import RNPickerSelect from 'react-native-picker-select';
 import StatusBarScreen from '../component/StatusBarScreen';
 import TopNav from '../component/TopNav';
+import { CheckBox } from '@ui-kitten/components';
 
 const EditProfileScreen = ({ navigation }) => {
 
     const [thissection, setThisSection] = useState(1);
 
-    const [isChecked, setChecked] = useState(false);
+    // const [isChecked, setChecked] = useState(false);
 
     const posts = [
-        { id: 1, title: 'Commercial Shooting' },
-        { id: 2, title: 'Drama Acting' },
-        { id: 3, title: 'Performing Art' },
-        { id: 4, title: 'Cat Walk' },
-        { id: 5, title: 'Singing' },
-        { id: 6, title: 'Dancing' },
-        { id: 7, title: 'Piano' },
-        { id: 8, title: 'Presentation' },
-        { id: 9, title: 'Yoga' },
-        { id: 10, title: 'Martial Art' },
-        { id: 11, title: 'Live Streaming' },
-        { id: 12, title: 'Voice Over' },
+        { id: 1, title: 'Commercial Shooting', isChecked: false },
+        { id: 2, title: 'Drama Acting', isChecked: false },
+        { id: 3, title: 'Performing Art', isChecked: false },
+        { id: 4, title: 'Cat Walk', isChecked: false },
+        { id: 5, title: 'Singing', isChecked: false },
+        { id: 6, title: 'Dancing', isChecked: false },
+        { id: 7, title: 'Piano', isChecked: false },
+        { id: 8, title: 'Presentation', isChecked: true },
+        { id: 9, title: 'Yoga', isChecked: false },
+        { id: 10, title: 'Martial Art', isChecked: false },
+        { id: 11, title: 'Live Streaming', isChecked: false },
+        { id: 12, title: 'Voice Over', isChecked: false },
     ];
 
-    const [pickedSkills, setPickedSkills] = useState([])
+    const [products, setProducts] = useState(posts);
+
+    const handleChange = (id) => {
+        let temp = products.map((product) => {
+            if (id === product.id) {
+                return { ...product, isChecked: !product.isChecked };
+            }
+            return product;
+        });
+        setProducts(temp);
+    };
+
+    let selected = products.filter((product) => product.isChecked);
+
+
+    useEffect(() => {
+        alert(JSON.stringify(products))
+    }, [])
+
 
     return (
         <View style={{ flex: 1, backgroundColor: theme['color-primary-100'], width: "100%", marginTop: -50 }} >
@@ -76,12 +95,6 @@ const EditProfileScreen = ({ navigation }) => {
                         showsVerticalScrollIndicator={false}
                         style={{ flex: 0, marginTop: 16, width: "90%" }}
                     >
-                        {posts.map((post) =>
-                            <View key={post.id}>
-                                <Text>{post.title}</Text>
-                                <Text>{post.content}</Text>
-                            </View>
-                        )}
                         <Text style={{ fontSize: 14, marginLeft: 2, marginBottom: 2, marginTop: 10 }}>Name</Text>
                         <Input
                             placeholder='Name'
@@ -229,51 +242,26 @@ const EditProfileScreen = ({ navigation }) => {
 
                         <Text style={{ marginTop: 16 }}>Skill</Text>
                         <View style={{ width: "80%", alignSelf: "center", justifyContent: "center", backgroundColor: "transparent" }}>
-                            <View style={{ flexDirection: "row", backgroundColor: "transparent", marginTop: 10, flex: 1 }}>
-                                {posts.map((post) =>
-                                    <View style={{ width: "50%", flexDirection: "row" }}>
-                                        <Checkbox
-                                            style={{ margin: 8, width: 20, height: 20 }}
-                                            value={isChecked}
-                                            onValueChange={setChecked}
-                                            color={isChecked ? theme['color-primary-500'] : undefined}
-                                        />
-                                        <Text style={{ fontSize: 14, marginLeft: 2, marginBottom: 2, marginTop: 5 }}>{post.title}</Text>
+                            <View style={{ flexDirection: "row", backgroundColor: "transparent", marginTop: 10, flexWrap: "wrap" }}>
+                                {products.map((post) =>
+                                    <View style={{ width: "50%", maxWidth: "50%", height: 70, flexDirection: "row", flexWrap: "wrap", alignItems: "center" }}>
+                                        <View style={{ flex: 1 }}>
+                                            <CheckBox
+                                                style={{ width: 20, height: 20, borderRadius: 5 }}
+                                                checked={post.isChecked}
+                                                onChange={() => {
+                                                    handleChange(post.id);
+                                                }}
+                                            />
+                                        </View>
+                                        <View style={{ flex: 4 }}>
+                                            <Text style={{ fontSize: 14, marginLeft: 5, flexShrink: 1 }}>{post.title}</Text>
+                                        </View>
                                     </View>
                                 )}
-
-                            </View>
-                            <View style={{ flexDirection: "row", backgroundColor: "transparent", marginTop: 10, flex: 1 }}>
-                                <View style={{ width: "50%", flexDirection: "row" }}>
-                                    <Checkbox
-                                        style={{ margin: 8, width: 20, height: 20 }}
-                                        value={isChecked}
-                                        onValueChange={setChecked}
-                                        color={isChecked ? theme['color-primary-500'] : undefined}
-                                    />
-                                    <Text style={{ fontSize: 14, marginLeft: 2, marginBottom: 2, marginTop: 5 }}>abc</Text>
-                                </View>
-                                <View style={{ width: "50%", flexDirection: "row" }}>
-                                    <Checkbox
-                                        style={{ margin: 8, width: 20, height: 20 }}
-                                        value={isChecked}
-                                        onValueChange={setChecked}
-                                        color={isChecked ? theme['color-primary-500'] : undefined}
-                                    />
-                                    <Text style={{ fontSize: 14, marginLeft: 2, marginBottom: 2, marginTop: 5 }}>def</Text>
-                                </View>
-                                <View style={{ width: "50%", flexDirection: "row" }}>
-                                    <Checkbox
-                                        style={{ margin: 8, width: 20, height: 20 }}
-                                        value={isChecked}
-                                        onValueChange={setChecked}
-                                        color={isChecked ? theme['color-primary-500'] : undefined}
-                                    />
-                                    <Text style={{ fontSize: 14, marginLeft: 2, marginBottom: 2, marginTop: 5 }}>def</Text>
-                                </View>
                             </View>
                         </View>
-
+                        <View><Text>{JSON.stringify(selected)}</Text></View>
                         <View style={{ marginTop: 10, justifyContent: "center", alignItems: "center" }}>
                             <TouchableOpacity style={{ marginTop: 10, backgroundColor: theme['color-primary-500'], width: 120, justifyContent: "center", alignItems: "center", borderRadius: 0, paddingVertical: 7, paddingHorizontal: 15 }}>
                                 <Text style={{ color: "white", fontSize: 18, fontWeight: "bold" }}>UPDATE</Text>
@@ -284,7 +272,7 @@ const EditProfileScreen = ({ navigation }) => {
                         </View>
                     </ScrollView>
                     :
-                    <View style={{ flex: 0, marginTop: 20, width: "90%" }}>
+                    <View style={{ flex: 1, marginTop: 20, width: "90%" }}>
                         <Text style={{ fontSize: 14, marginLeft: 2, marginBottom: 2 }}>Phone Number</Text>
                         <Input
                             placeholder='Phone Number'
