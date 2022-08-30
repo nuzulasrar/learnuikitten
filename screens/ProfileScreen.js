@@ -174,7 +174,7 @@ const ProfileScreen = ({ navigation }) => {
                                 <Text style={{ width: "60%", fontWeight: "700" }}>Singing, Hand Modelling, Piano</Text>
                             </View>
                         </View>
-
+                        
                         <View style={{ marginTop: 20, justifyContent: "center", alignItems: "center" }}>
                             <TouchableOpacity
                                 onPress={() => navigation.navigate("EditProfile")}

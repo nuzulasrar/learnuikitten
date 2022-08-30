@@ -18,12 +18,10 @@ import TopNav from '../component/TopNav';
 const PaymentScreen = ({ navigation }) => {
     return (
         <View>
-            <Text>PaymentScreen</Text>
-            <Text>PaymentScreen</Text>
-            <Text>PaymentScreen</Text>
-            <Text>PaymentScreen</Text>
+            <Text style={{ marginVertical: 50 }}>PaymentScreen</Text>
+
             <Button
-                onPress={() => navigation.navigate("UploadPhotoPremium")}
+                onPress={() => navigation.navigate("UploadPhotoPremium", { plantype: 2 })}
                 status={'success'}
             >Payment Successful</Button>
             <Button status={'danger'}>Payment Unsuccessful</Button>

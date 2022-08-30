@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TouchableWithoutFeedback, StyleSheet, View, Image, ImageBackground, ScrollView } from 'react-native';
+import { TouchableWithoutFeedback, TouchableOpacity, StyleSheet, View, Image, ImageBackground, ScrollView } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Icon, BottomNavigation, BottomNavigationTab, Layout, Text, Button, TopNavigation, TopNavigationAction, Input } from '@ui-kitten/components';
@@ -10,14 +10,15 @@ import { default as theme } from '../custom-theme.json';
 const LandingScreen = ({ navigation }) => (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "white" }} >
         <ImageBackground
-            source={require('../assets/images/background-image.jpg')}
+            source={require('../assets/images/landing-bg.jpg')}
             resizeMode="cover"
             style={[styles.bgimage, { justifyContent: 'center', alignItems: 'center' }]}
         >
-            {/* <Image
-                style={[styles.stretch, { borderRadius: 500, width: 350, height: 350, marginBottom: 50 }]}
-                source={require('./assets/images/newlook-logo.png')}
+            <Image
+                style={{ width: 180, height: 180, marginBottom: 350 }}
+                source={require('../assets/images/newlogo.png')}
             />
+            {/* 
             <Text
                 style={{ fontWeight: "800", fontSize: 35, textAlign: "center" }}
             >
@@ -26,13 +27,60 @@ const LandingScreen = ({ navigation }) => (
             <Text style={{ textAlign: "center", margin: 20, marginBottom: 60 }}>
                 Show us your talent. We'll make it shine. {"\n"} Because talent should never be hidden and making the most out of your talent.
             </Text> */}
-            <Button
+            {/* <Button
                 appearance="filled"
                 onPress={() => navigation.navigate("Login", { appear: true })}
                 style={{ minWidth: "90%", borderBottomRightRadius: 0, borderTopRightRadius: 0, marginVertical: 10, marginTop: 350 }}>
                 LOG IN
-            </Button>
-            <View style={{ flexDirection: "row" }}>
+            </Button> */}
+            <View style={{ width: "90%" }}>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate("Join", { jointype: 1 })}
+                    style={{
+                        justifyContent: "center",
+                        alignItems: "center",
+                        backgroundColor: theme['color-primary-500'],
+                        paddingVertical: 10,
+                        paddingHorizontal: 15,
+                        borderRadius: 5,
+                        width: "100%",
+                        marginVertical: 5,
+                    }}
+                >
+                    <Text style={{ color: "white", fontWeight: "bold", fontSize: 22 }}>TALENT</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate("Join", { jointype: 2 })}
+                    style={{
+                        justifyContent: "center",
+                        alignItems: "center",
+                        backgroundColor: theme['color-primary-500'],
+                        paddingVertical: 10,
+                        paddingHorizontal: 15,
+                        borderRadius: 5,
+                        width: "100%",
+                        marginVertical: 5
+                    }}
+                >
+                    <Text style={{ color: "white", fontWeight: "bold", fontSize: 22 }}>CLIENT</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate("Login", { appear: true })}
+                    style={{
+                        justifyContent: "center",
+                        alignItems: "center",
+                        backgroundColor: theme['color-primary-500'],
+                        paddingVertical: 10,
+                        paddingHorizontal: 15,
+                        borderRadius: 5,
+                        width: "100%",
+                        marginVertical: 5
+                    }}
+                >
+                    <Text style={{ color: "white", fontWeight: "bold", fontSize: 22 }}>LOG IN</Text>
+                </TouchableOpacity>
+            </View>
+            {/* <View style={{ flexDirection: "row" }}>
                 <View style={{ width: "50%" }}>
                     <Button
                         appearance="outline"
@@ -46,13 +94,13 @@ const LandingScreen = ({ navigation }) => (
                     <Button
                         appearance="outline"
                         status="info"
-                        onPress={() => navigation.navigate("Help")}
+                        onPress={() => navigation.navigate("Join", { jointype: 2 })}
                         style={{ margin: 20, borderBottomLeftRadius: 0, borderTopLeftRadius: 0, width: "80%" }}
                     >
                         JOIN AS CLIENT
                     </Button>
                 </View>
-            </View>
+            </View> */}
         </ImageBackground>
     </View >
 );

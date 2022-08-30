@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { TouchableOpacity, StyleSheet, View, Image, ImageBackground, ScrollView } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -15,6 +15,7 @@ import { fab } from '@fortawesome/free-brands-svg-icons'
 import { faBell } from '@fortawesome/free-solid-svg-icons/faBell'
 import StatusBarScreen from '../component/StatusBarScreen';
 import TopNav from '../component/TopNav';
+import { CommonContext } from '../context/CommonContext'
 
 library.add(fab, faBell)
 
@@ -23,6 +24,9 @@ const hello = () => {
 }
 
 const HomeScreen = ({ navigation }) => {
+
+    const { accountType, setAccountType } = useContext(CommonContext)
+
     return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "white", width: "100%" }} >
             <ImageBackground
@@ -42,6 +46,7 @@ const HomeScreen = ({ navigation }) => {
                             style={{ width: 200, height: 200, marginBottom: 50 }}
                             source={require('../assets/images/newlogo.png')}
                         />
+                        {/* <Text>{accountType}</Text> */}
                         <View style={{ flex: 1, flexDirection: "row", justifyContent: "center", alignItems: "center", marginBottom: 50 }}>
                             <TouchableOpacity onPress={() => { navigation.navigate("GalleryCategory") }} style={{ borderRadius: 8 }}>
                                 <View style={{ width: 120, height: 120, backgroundColor: "white", margin: 20, justifyContent: "center", alignItems: "center", borderColor: theme['color-primary-500'], borderWidth: 4, borderRadius: 8 }}>
@@ -62,7 +67,7 @@ const HomeScreen = ({ navigation }) => {
                                     <Button
                                         buttonStyle={{ width: 120, height: 60, backgroundColor: "transparent" }}
                                         icon={{
-                                            name: "search",
+                                            name: accountType == 1 ? "search" : "assignment",
                                             size: 50,
                                             color: theme['color-primary-500']
                                         }}
@@ -72,6 +77,7 @@ const HomeScreen = ({ navigation }) => {
                                 </View>
                             </TouchableOpacity>
                         </View>
+                        {/* <Text>{accountType}</Text> */}
                         <View style={{ flex: 1, flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
                             <View style={{ width: 50, height: 50, backgroundColor: "transparent", margin: 0, justifyContent: "center", alignItems: "center" }}>
                                 <Button

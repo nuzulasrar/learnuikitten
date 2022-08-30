@@ -139,7 +139,9 @@ const SubscriptionPlan = ({ navigation }) => {
                     <FontAwesomeIcon icon="fa-brands fa-cc-mastercard" size={40} color={"black"} style={{ marginLeft: 10 }} /> */}
                 </View>
                 <View style={{ marginTop: 10, justifyContent: "center", alignItems: "center" }}>
-                    <TouchableOpacity style={{ marginTop: 10, backgroundColor: theme['color-primary-500'], width: 128, justifyContent: "center", alignItems: "center", borderRadius: 0, paddingVertical: 7, paddingHorizontal: 15 }}>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate("UploadPhotoPremium", { plantype: plantype })}
+                        style={{ marginTop: 10, backgroundColor: theme['color-primary-500'], width: 128, justifyContent: "center", alignItems: "center", borderRadius: 0, paddingVertical: 7, paddingHorizontal: 15 }}>
                         <Text style={{ color: "white", fontSize: 18, fontWeight: "bold" }}>NEXT</Text>
                     </TouchableOpacity>
                 </View>

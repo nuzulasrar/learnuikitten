@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { TouchableOpacity, StyleSheet, View, Image, ImageBackground, ScrollView, TouchableWithoutFeedback, Platform } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -15,10 +15,13 @@ import StatusBarScreen from '../component/StatusBarScreen';
 import TopNav from '../component/TopNav';
 import Checkbox from 'expo-checkbox';
 import RNPickerSelect from 'react-native-picker-select';
+import { CommonContext, CommonContextProvider } from '../context/CommonContext'
 
 library.add(fab, faStar, faCamera)
 
-const UploadProfileScreen = ({ navigation }) => {
+const UploadProfileScreen = ({ navigation, route }) => {
+    const { accounttype } = route.params;
+    const { isLoggedIn, setIsLoggedIn } = useContext(CommonContext);
     return (
         <View style={{ flex: 1, backgroundColor: theme['color-primary-100'], width: "100%", marginTop: -50, marginBottom: 0 }} >
             <StatusBarScreen />
@@ -33,9 +36,11 @@ const UploadProfileScreen = ({ navigation }) => {
                         style={{ marginTop: 10, marginBottom: 15, backgroundColor: theme['color-primary-500'], width: 181, justifyContent: "center", alignItems: "center", borderRadius: 0, paddingVertical: 7, paddingHorizontal: 15 }}>
                         <Text style={{ color: "white", fontSize: 18, fontWeight: "bold" }}>UPLOAD</Text>
                     </TouchableOpacity>
-
+                    {/* <Text>{accounttype}</Text> */}
                     <TouchableOpacity
-                        onPress={() => navigation.navigate("SubscriptionPlan")}
+                        onPress={() => {
+                            accounttype == 1 ? navigation.navigate("SubscriptionPlan") : setIsLoggedIn(true)
+                        }}
                         style={{ marginTop: 10, backgroundColor: "transparent", borderColor: theme['color-primary-500'], borderWidth: 1, width: 181, justifyContent: "center", alignItems: "center", borderRadius: 0, paddingVertical: 7, paddingHorizontal: 15 }}>
                         <Text style={{ color: theme['color-primary-500'], fontSize: 18, fontWeight: "bold" }}>SKIP</Text>
                     </TouchableOpacity>

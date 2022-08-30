@@ -38,30 +38,6 @@ const GalleryCategoryScreen = ({ navigation }) => {
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => { alert("press picture") }} style={{ backgroundColor: "white", width: 100, height: 100, borderRadius: 5, margin: 10 }}>
                             <ImageBackground
-                                source={require('../assets/images/category/2.jpg')}
-                                resizeMode="cover"
-                                style={{ width: "100%", height: "100%", borderRadius: 5, justifyContent: "center", alignItems: "center" }}
-                            >
-                                <View style={{ justifyContent: "center", alignItems: "center", backgroundColor: "rgba(0,0,0, 0.3)", width: "100%" }}>
-                                    <Text style={{ color: "white", fontSize: 16, fontWeight: "bold" }}>VOICE TALENT</Text>
-                                </View>
-                            </ImageBackground>
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={() => { alert("press picture") }} style={{ backgroundColor: "white", width: 100, height: 100, borderRadius: 5, margin: 10 }}>
-                            <ImageBackground
-                                source={require('../assets/images/category/3.jpg')}
-                                resizeMode="cover"
-                                style={{ width: "100%", height: "100%", borderRadius: 5, justifyContent: "center", alignItems: "center" }}
-                            >
-                                <View style={{ justifyContent: "center", alignItems: "center", backgroundColor: "rgba(0,0,0, 0.3)", width: "100%" }}>
-                                    <Text style={{ color: "white", fontSize: 16, fontWeight: "bold" }}>VOICE TALENT KIDS</Text>
-                                </View>
-                            </ImageBackground>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={{ flex: 0, flexDirection: "row", width: "100%", marginVertical: 1, justifyContent: "center", alignItems: "center" }}>
-                        <TouchableOpacity onPress={() => { alert("press picture") }} style={{ backgroundColor: "white", width: 100, height: 100, borderRadius: 5, margin: 10 }}>
-                            <ImageBackground
                                 source={require('../assets/images/category/4.jpg')}
                                 resizeMode="cover"
                                 style={{ width: "100%", height: "100%", borderRadius: 5, justifyContent: "center", alignItems: "center" }}
@@ -79,6 +55,30 @@ const GalleryCategoryScreen = ({ navigation }) => {
                             >
                                 <View style={{ justifyContent: "center", alignItems: "center", backgroundColor: "rgba(0,0,0, 0.3)", width: "100%" }}>
                                     <Text style={{ color: "white", fontSize: 16, fontWeight: "bold" }}>MALE</Text>
+                                </View>
+                            </ImageBackground>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={{ flex: 0, flexDirection: "row", width: "100%", marginVertical: 1, justifyContent: "center", alignItems: "center" }}>
+                        <TouchableOpacity onPress={() => { alert("press picture") }} style={{ backgroundColor: "white", width: 100, height: 100, borderRadius: 5, margin: 10 }}>
+                            <ImageBackground
+                                source={require('../assets/images/category/12.jpg')}
+                                resizeMode="cover"
+                                style={{ width: "100%", height: "100%", borderRadius: 5, justifyContent: "center", alignItems: "center" }}
+                            >
+                                <View style={{ justifyContent: "center", alignItems: "center", backgroundColor: "rgba(0,0,0, 0.3)", width: "100%" }}>
+                                    <Text style={{ color: "white", fontSize: 16, fontWeight: "bold", textAlign: "center" }}>TEENAGER FEMALE</Text>
+                                </View>
+                            </ImageBackground>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => { alert("press picture") }} style={{ backgroundColor: "white", width: 100, height: 100, borderRadius: 5, margin: 10 }}>
+                            <ImageBackground
+                                source={require('../assets/images/category/11.jpg')}
+                                resizeMode="cover"
+                                style={{ width: "100%", height: "100%", borderRadius: 5, justifyContent: "center", alignItems: "center" }}
+                            >
+                                <View style={{ justifyContent: "center", alignItems: "center", backgroundColor: "rgba(0,0,0, 0.3)", width: "100%" }}>
+                                    <Text style={{ color: "white", fontSize: 16, fontWeight: "bold", textAlign: "center" }}>TEENAGER MALE</Text>
                                 </View>
                             </ImageBackground>
                         </TouchableOpacity>
@@ -113,7 +113,7 @@ const GalleryCategoryScreen = ({ navigation }) => {
                                 style={{ width: "100%", height: "100%", borderRadius: 5, justifyContent: "center", alignItems: "center" }}
                             >
                                 <View style={{ justifyContent: "center", alignItems: "center", backgroundColor: "rgba(0,0,0, 0.3)", width: "100%" }}>
-                                    <Text style={{ color: "white", fontSize: 16, fontWeight: "bold" }}>BOY</Text>
+                                    <Text style={{ color: "white", fontSize: 16, fontWeight: "bold" }}>KIDS BOY</Text>
                                 </View>
                             </ImageBackground>
                         </TouchableOpacity>
@@ -124,14 +124,14 @@ const GalleryCategoryScreen = ({ navigation }) => {
                                 style={{ width: "100%", height: "100%", borderRadius: 5, justifyContent: "center", alignItems: "center" }}
                             >
                                 <View style={{ justifyContent: "center", alignItems: "center", backgroundColor: "rgba(0,0,0, 0.3)", width: "100%" }}>
-                                    <Text style={{ color: "white", fontSize: 16, fontWeight: "bold" }}>GIRL</Text>
+                                    <Text style={{ color: "white", fontSize: 16, fontWeight: "bold" }}>KIDS GIRL</Text>
                                 </View>
                             </ImageBackground>
                         </TouchableOpacity>
                     </View>
                 </View>
-            </ScrollView>
-        </View>
+            </ScrollView >
+        </View >
     )
 }
 

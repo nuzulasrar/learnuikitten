@@ -67,7 +67,7 @@ const ReviewHistoryScreen = ({ navigation }) => {
                 <TouchableOpacity
                     onPress={() => navigation.navigate("JobDetails")}
                     style={{ flex: 0, flexDirection: "column", backgroundColor: "white", marginTop: 0, width: "98%", paddingVertical: 10, paddingHorizontal: 10, borderRadius: 10 }}
-                >
+                >   
                     <Text style={{ fontSize: 18, fontWeight: "bold", marginBottom: 5 }}>BRAND AMBASSADOR</Text>
                     <Text style={{ fontSize: 14, fontWeight: "700", marginBottom: 5 }}>Talent Book Casting</Text>
                     <View style={{ flexDirection: "row", justifyContent: "space-evenly", width: 125, marginBottom: 5 }}>
@@ -77,6 +77,7 @@ const ReviewHistoryScreen = ({ navigation }) => {
                         <FontAwesomeIcon icon={faStar} color={theme['color-warning-500']} size={18} />
                         <FontAwesomeIcon icon={faStar} color={theme['color-warning-500']} size={18} />
                     </View>
+                    {/* asdasdasd */}
                     <View style={{ flexDirection: "row" }}>
                         <View style={{ flex: 9 }}>
                             <Text style={{ fontSize: 13, marginRight: 5 }}>"I had a great time!"</Text>

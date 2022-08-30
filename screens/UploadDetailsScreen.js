@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { TouchableOpacity, StyleSheet, View, Image, ImageBackground, ScrollView, TouchableWithoutFeedback } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -15,10 +15,50 @@ import { faStar } from '@fortawesome/free-solid-svg-icons/faStar'
 import Checkbox from 'expo-checkbox';
 import StatusBarScreen from '../component/StatusBarScreen';
 import TopNav from '../component/TopNav';
+import { CheckBox } from '@ui-kitten/components';
+import { CommonContext } from '../context/CommonContext';
 
 const UploadDetailsScreen = ({ navigation }) => {
 
     const [isChecked, setChecked] = useState(false);
+
+    const { isLoggedIn, setIsLoggedIn } = useContext(CommonContext);
+
+    const posts = [
+        { id: 1, title: 'Commercial Shooting', isChecked: false },
+        { id: 2, title: 'Drama Acting', isChecked: false },
+        { id: 3, title: 'Performing Art', isChecked: false },
+        { id: 4, title: 'Cat Walk', isChecked: false },
+        { id: 5, title: 'Singing', isChecked: false },
+        { id: 6, title: 'Dancing', isChecked: false },
+        { id: 7, title: 'Piano', isChecked: false },
+        { id: 8, title: 'Presentation', isChecked: true },
+        { id: 9, title: 'Yoga', isChecked: false },
+        { id: 10, title: 'Martial Art', isChecked: false },
+        { id: 11, title: 'Live Streaming', isChecked: false },
+        { id: 12, title: 'Voice Over', isChecked: false },
+    ];
+
+    const [products, setProducts] = useState(posts);
+
+    const handleChange = (id) => {
+        let temp = products.map((product) => {
+            if (id === product.id) {
+                return { ...product, isChecked: !product.isChecked };
+            }
+            return product;
+        });
+        setProducts(temp);
+    };
+
+    let selected = products.filter((product) => product.isChecked);
+
+    const handleSubmit = () => {
+        if (isLoggedIn)
+            navigation.navigate("Profile")
+        else
+            setIsLoggedIn(true)
+    }
 
     return (
         <View style={{ flex: 1, backgroundColor: theme['color-primary-100'], width: "100%", marginTop: -50 }} >
@@ -109,154 +149,34 @@ const UploadDetailsScreen = ({ navigation }) => {
                         </View>
                     </View>
                 </View>
-                <View style={{ justifyContent: "space-between", flexDirection: "row", alignSelf: "flex-start", marginHorizontal: "2.5%" }}>
-                    <View><Text style={{ marginTop: 16, textAlign: "left" }}>Skill</Text></View>
-                </View >
+                <View style={{ width: "95%" }}>
+                    <Text style={{ marginVertical: 16, alignSelf: "flex-start" }}>Skill</Text>
+                </View>
                 <View style={{ width: "80%", alignSelf: "center", justifyContent: "center", backgroundColor: "transparent" }}>
-                    <View style={{ flexDirection: "row", backgroundColor: "transparent", marginTop: 10, backgroundColor: "transparent" }}>
-                        <View style={{ width: "50%", flexDirection: "row", alignItems: "center" }}>
-                            <Checkbox
-                                style={{ margin: 8, width: 20, height: 20 }}
-                                value={isChecked}
-                                onValueChange={setChecked}
-                                color={isChecked ? theme['color-primary-500'] : undefined}
-                            />
-                            <Text style={{ fontSize: 14, marginLeft: 2, marginBottom: 2, marginTop: 0 }}>Singing</Text>
-                        </View>
-                        <View style={{ width: "50%", flexDirection: "row", alignItems: "center" }}>
-                            <Checkbox
-                                style={{ margin: 8, width: 20, height: 20 }}
-                                value={isChecked}
-                                onValueChange={setChecked}
-                                color={isChecked ? theme['color-primary-500'] : undefined}
-                            />
-                            <Text style={{ fontSize: 14, marginLeft: 2, marginBottom: 2, marginTop: 0 }}>Photograph</Text>
-                        </View>
-                    </View>
-                    <View style={{ flexDirection: "row", backgroundColor: "transparent", marginTop: 10 }}>
-                        <View style={{ width: "50%", flexDirection: "row", alignItems: "center" }}>
-                            <Checkbox
-                                style={{ margin: 8, width: 20, height: 20 }}
-                                value={isChecked}
-                                onValueChange={setChecked}
-                                color={isChecked ? theme['color-primary-500'] : undefined}
-                            />
-                            <Text style={{ fontSize: 14, marginLeft: 2, marginBottom: 2, marginTop: 0 }}>Hand-Modeling</Text>
-                        </View>
-                        <View style={{ width: "50%", flexDirection: "row", alignItems: "center" }}>
-                            <Checkbox
-                                style={{ margin: 8, width: 20, height: 20 }}
-                                value={isChecked}
-                                onValueChange={setChecked}
-                                color={isChecked ? theme['color-primary-500'] : undefined}
-                            />
-                            <Text style={{ fontSize: 14, marginLeft: 2, marginBottom: 2, marginTop: 0 }}>Photogenic</Text>
-                        </View>
-                    </View>
-                    <View style={{ flexDirection: "row", backgroundColor: "transparent", marginTop: 10 }}>
-                        <View style={{ width: "50%", flexDirection: "row", alignItems: "center" }}>
-                            <Checkbox
-                                style={{ margin: 8, width: 20, height: 20 }}
-                                value={isChecked}
-                                onValueChange={setChecked}
-                                color={isChecked ? theme['color-primary-500'] : undefined}
-                            />
-                            <Text style={{ fontSize: 14, marginLeft: 2, marginBottom: 2, marginTop: 0 }}>Piano</Text>
-                        </View>
-                        <View style={{ width: "50%", flexDirection: "row", alignItems: "center" }}>
-                            <Checkbox
-                                style={{ margin: 8, width: 20, height: 20 }}
-                                value={isChecked}
-                                onValueChange={setChecked}
-                                color={isChecked ? theme['color-primary-500'] : undefined}
-                            />
-                            <Text style={{ fontSize: 14, marginLeft: 2, marginBottom: 2, marginTop: 0 }}>Dancing</Text>
-                        </View>
-                    </View>
-                    <View style={{ flexDirection: "row", backgroundColor: "transparent", marginTop: 10 }}>
-                        <View style={{ width: "50%", flexDirection: "row", alignItems: "center" }}>
-                            <Checkbox
-                                style={{ margin: 8, width: 20, height: 20 }}
-                                value={isChecked}
-                                onValueChange={setChecked}
-                                color={isChecked ? theme['color-primary-500'] : undefined}
-                            />
-                            <Text style={{ fontSize: 14, marginLeft: 2, marginBottom: 2, marginTop: 0 }}>Debate</Text>
-                        </View>
-                        <View style={{ width: "50%", flexDirection: "row", alignItems: "center" }}>
-                            <Checkbox
-                                style={{ margin: 8, width: 20, height: 20 }}
-                                value={isChecked}
-                                onValueChange={setChecked}
-                                color={isChecked ? theme['color-primary-500'] : undefined}
-                            />
-                            <Text style={{ fontSize: 14, marginLeft: 2, marginBottom: 2, marginTop: 0 }}>Flexible</Text>
-                        </View>
-                    </View>
-                    <View style={{ flexDirection: "row", backgroundColor: "transparent", marginTop: 10 }}>
-                        <View style={{ width: "50%", flexDirection: "row", alignItems: "center" }}>
-                            <Checkbox
-                                style={{ margin: 8, width: 20, height: 20 }}
-                                value={isChecked}
-                                onValueChange={setChecked}
-                                color={isChecked ? theme['color-primary-500'] : undefined}
-                            />
-                            <Text style={{ fontSize: 14, marginLeft: 2, marginBottom: 2, marginTop: 0 }}>Communication</Text>
-                        </View>
-                        <View style={{ width: "50%", flexDirection: "row", alignItems: "center" }}>
-                            <Checkbox
-                                style={{ margin: 8, width: 20, height: 20 }}
-                                value={isChecked}
-                                onValueChange={setChecked}
-                                color={isChecked ? theme['color-primary-500'] : undefined}
-                            />
-                            <Text style={{ fontSize: 14, marginLeft: 2, marginBottom: 2, marginTop: 0 }}>Creative</Text>
-                        </View>
-                    </View>
-                    <View style={{ flexDirection: "row", backgroundColor: "transparent", marginTop: 10 }}>
-                        <View style={{ width: "50%", flexDirection: "row", alignItems: "center" }}>
-                            <Checkbox
-                                style={{ margin: 8, width: 20, height: 20 }}
-                                value={isChecked}
-                                onValueChange={setChecked}
-                                color={isChecked ? theme['color-primary-500'] : undefined}
-                            />
-                            <Text style={{ fontSize: 14, marginLeft: 2, marginBottom: 2, marginTop: 0 }}>Modelling</Text>
-                        </View>
-                        <View style={{ width: "50%", flexDirection: "row", alignItems: "center" }}>
-                            <Checkbox
-                                style={{ margin: 8, width: 20, height: 20 }}
-                                value={isChecked}
-                                onValueChange={setChecked}
-                                color={isChecked ? theme['color-primary-500'] : undefined}
-                            />
-                            <Text style={{ fontSize: 14, marginLeft: 2, marginBottom: 2, marginTop: 0 }}>Martial Art</Text>
-                        </View>
-                    </View>
-                    <View style={{ flexDirection: "row", backgroundColor: "transparent", marginTop: 10 }}>
-                        <View style={{ width: "50%", flexDirection: "row", alignItems: "center" }}>
-                            <Checkbox
-                                style={{ margin: 8, width: 20, height: 20 }}
-                                value={isChecked}
-                                onValueChange={setChecked}
-                                color={isChecked ? theme['color-primary-500'] : undefined}
-                            />
-                            <Text style={{ fontSize: 14, marginLeft: 2, marginBottom: 2, marginTop: 0 }}>Drawing</Text>
-                        </View>
-                        <View style={{ width: "50%", flexDirection: "row", alignItems: "center" }}>
-                            <Checkbox
-                                style={{ margin: 8, width: 20, height: 20 }}
-                                value={isChecked}
-                                onValueChange={setChecked}
-                                color={isChecked ? theme['color-primary-500'] : undefined}
-                            />
-                            <Text style={{ fontSize: 14, marginLeft: 2, marginBottom: 2, marginTop: 0 }}>Guitar</Text>
-                        </View>
+                    <View style={{ flexDirection: "row", backgroundColor: "transparent", marginTop: 10, flexWrap: "wrap" }}>
+                        {products.map((post) =>
+                            <View key={post.id} style={{ width: "50%", maxWidth: "50%", height: 70, flexDirection: "row", flexWrap: "wrap", alignItems: "flex-start", justifyContent: "center" }}>
+                                <View style={{ flex: 1, backgroundColor: "transparent" }}>
+                                    <CheckBox
+                                        style={{ width: 20, height: 20, borderRadius: 5 }}
+                                        checked={post.isChecked}
+                                        onChange={() => {
+                                            handleChange(post.id);
+                                        }}
+                                    />
+                                </View>
+                                <View style={{ flex: 4, backgroundColor: "transparent" }}>
+                                    <Text style={{ fontSize: 14, marginLeft: 5, flexShrink: 1 }}>{post.title}</Text>
+                                </View>
+                            </View>
+                        )}
                     </View>
                 </View>
 
                 <View style={{ marginTop: 20, justifyContent: "center", alignItems: "center" }}>
-                    <TouchableOpacity style={{ marginTop: 10, backgroundColor: theme['color-primary-500'], width: 120, justifyContent: "center", alignItems: "center", borderRadius: 0, paddingVertical: 7, paddingHorizontal: 15 }}>
+                    <TouchableOpacity
+                        onPress={() => handleSubmit()}
+                        style={{ marginTop: 10, backgroundColor: theme['color-primary-500'], width: 120, justifyContent: "center", alignItems: "center", borderRadius: 0, paddingVertical: 7, paddingHorizontal: 15 }}>
                         <Text style={{ color: "white", fontSize: 18, fontWeight: "bold" }}>SUBMIT</Text>
                     </TouchableOpacity>
                 </View>

@@ -1,5 +1,5 @@
-import React, { useContext, useState } from 'react';
-import { TouchableWithoutFeedback, StyleSheet, View, Image, ImageBackground, ScrollView } from 'react-native';
+import React, { useContext, useEffect, useState } from 'react';
+import { TouchableWithoutFeedback, TouchableOpacity, StyleSheet, View, Image, ImageBackground, ScrollView } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Icon, BottomNavigation, BottomNavigationTab, Layout, Text, Button, TopNavigation, TopNavigationAction, Input } from '@ui-kitten/components';
@@ -33,8 +33,10 @@ import AddAudioScreen from './screens/AddAudioScreen';
 import AddCompCardScreen from './screens/AddCompCardScreen';
 import TermsAndConditionsScreen from './screens/TermsAndConditionsScreen';
 import JoinUsTalentScreen from './screens/JoinUsTalentScreen';
+import JoinUsClientScreen from './screens/JoinUsClientScreen';
+import JobApplicants from './screens/JobApplicants';
 import UploadProfileScreen from './screens/UploadProfileScreen';
-import { CommonContext, CommonContextProvider } from './context/CommonContext';
+import { CommonContext, CommonContextProvider } from './context/CommonContext'
 import ChatMessageScreen from './screens/ChatMessageScreen';
 import SubscriptionPlan from './screens/SubscriptionPlan';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
@@ -50,6 +52,8 @@ import { faMessage } from '@fortawesome/free-solid-svg-icons/faMessage'
 import { faUser } from '@fortawesome/free-solid-svg-icons/faUser'
 import { faCheck } from '@fortawesome/free-solid-svg-icons/faCheck'
 import { faCircleArrowRight } from '@fortawesome/free-solid-svg-icons'
+import { LinearGradient } from 'expo-linear-gradient';
+import RNPickerSelect from 'react-native-picker-select';
 
 library.add(fab, faPlus, faCircleCheck, faCircleArrowRight, faCheckCircle, faHome, faFileLines, faBookmark, faMessage, faUser)
 
@@ -108,37 +112,59 @@ const renderCaption = () => {
     )
 }
 
-const LoginScreen = (paramss) => {
-    const { isLoggedIn, setIsLoggedIn } = useContext(CommonContext);
+const LoginScreen = ({navigation}) => {
+    const { isLoggedIn, setIsLoggedIn, accountType, setAccountType } = useContext(CommonContext);
+
+    useEffect(() => {
+      setAccountType(1)
+    }, [])
+    
+
     return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "white" }}>
             <ImageBackground
-                source={require('./assets/images/background-image.jpg')}
+                source={require('./assets/images/loginbg/1.jpg')}
                 resizeMode="cover"
                 style={[styles.bgimage, { justifyContent: 'center', alignItems: 'center' }]}
             >
 
                 <View style={{ flexDirection: "row", marginBottom: 230 }}>
                     <View style={{ width: "30%" }}>
-
                     </View>
+
                     <View style={{ width: "70%" }}>
                         <Text
-                            style={{ fontWeight: "800", fontSize: 35, textAlign: "center", marginRight: 0, color: "white" }}
+                            style={{
+                                fontWeight: "bold", fontSize: 32, textAlign: "center", marginRight: 0, color: "white",
+                                textShadowColor: 'black',
+                                textShadowOffset: { width: 0.5, height: 0.5 },
+                                textShadowRadius: 8,
+                            }}
                         >
                             It's Your Time {"\n"} to SHINE
                         </Text>
                     </View>
                 </View>
 
-                <View style={{ width: "90%", padding: 10, backgroundColor: "rgba(237, 241, 240, 0.374)", borderRadius: 5, justifyContent: 'center', alignItems: 'center' }}>
+                <View style={{ width: "90%", padding: 10, backgroundColor: "rgba(237, 241, 240, 0.374)", borderRadius: 8, justifyContent: 'center', alignItems: 'center' }}>
+                    <View style={{ backgroundColor: theme['color-primary-400'], borderRadius: 5, width: "97%", alignSelf: "center", marginTop: 10 }}>
+                        <RNPickerSelect
+                            style={pickerSelectStyles}
+                            placeholder={{}}
+                            onValueChange={(value) => setAccountType(value)}
+                            items={[
+                                { label: 'Professional Model / Talent', value: 1 },
+                                { label: 'Client', value: 2 },
+                            ]}  
+                        /> 
+                    </View>
                     <Input
                         value={""}
                         // label='Email'
                         placeholder='Email'
                         accessoryLeft={renderIcon1}
                         secureTextEntry={false}
-                        style={styles.input}
+                        style={[styles.input, { marginTop: 16 }]}
                     />
                     <Input
                         value={""}
@@ -148,18 +174,28 @@ const LoginScreen = (paramss) => {
                         secureTextEntry={true}
                         style={styles.input}
                     />
-                    <Button
+                    {/* <Button
                         status="primary"
                         onPress={() => setIsLoggedIn(true)}
                         style={{ margin: 10, width: "95%" }}
                     >
                         SIGN IN
-                    </Button>
-                    <Text style={{ color: "white" }}>
-                        Not registered yet? <Text style={{ color: "maroon" }}>Create Account</Text>
-                    </Text>
-                    <Text style={{ color: "white" }}>
-                        {"\n"}
+                    </Button> */}
+                    <TouchableOpacity
+                        onPress={() => setIsLoggedIn(true)}
+                        style={{
+                            backgroundColor: theme['color-primary-500'], paddingVertical: 10, paddingHorizontal: 15, width: "95%", justifyContent: "center", alignItems: "center",
+                            marginBottom: 16, marginTop: 10, borderRadius: 5
+                        }}>     
+                        <Text style={{ fontSize: 18, color: "white", fontWeight: "bold" }}>SIGN IN</Text>
+                    </TouchableOpacity>
+                    <View style={{ alignItems: "center", flexDirection: "row" }}>
+                        <Text style={{ color: "white", fontSize: 14, marginRight: 8}}>Not registered yet?</Text> 
+                        <TouchableOpacity onPress={()=>navigation.navigate("RegisterScreen")}>
+                            <Text style={{ color: "maroon" }}>Create Account</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <Text style={{ color: "white", fontSize: 14, marginVertical: 10 }}>
                         Forgot Password
                     </Text>
                 </View>
@@ -170,90 +206,99 @@ const LoginScreen = (paramss) => {
 
 const JoinScreen = ({ route, navigation }) => {
     const { jointype } = route.params;
+    const { accountType, setAccountType } = useContext(CommonContext);
+
+    useEffect(() => {
+        { jointype == 1 ? setAccountType(1) : jointype == 2 ? setAccountType(2) : setAccountType(0) }
+    }, [])
+
     return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "white" }}>
-            {jointype == 1 ? <ImageBackground
-                source={require('./assets/images/loginbg/2.jpg')}
-                resizeMode="cover"
-                style={[styles.bgimage, { justifyContent: 'center', alignItems: 'center' }]}
-            >
-
-                <View style={{ flexDirection: "row", marginBottom: 50 }}>
-
-                    <View style={{ width: "95%" }}>
-                        <Text
-                            style={{ fontWeight: "800", fontSize: 25, textAlign: "center", marginRight: 0, color: "white" }}
-                        >
-                            DIRECT COMMUNICATION
-                        </Text>
-                        <View style={{ paddingHorizontal: 30, marginTop: 10 }}>
-                            <Text
-                                style={{ fontWeight: "800", fontSize: 20, textAlign: "center", color: "white", fontWeight: "300" }}
-                            >
-                                Can apply job directly without {"\n"}
-                                middleman and get direct {"\n"} booking with client.
-                            </Text>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: theme['color-primary-100'] }}>
+            {jointype == 1 ? <>
+                <View style={{ marginTop: 400 }}></View>
+                <ImageBackground
+                    source={require('./assets/images/talent2-bg.jpg')}
+                    resizeMode="cover"
+                    style={{ justifyContent: 'center', alignItems: 'center', width: "100%", height: 400 }}
+                ><Text style={{ marginTop: -280, fontSize: 24, fontWeight: "bold", textAlign: "center" }}>PROFESSIONAL{"\n"}MODEL / TALENT</Text></ImageBackground>
+                <LinearGradient colors={['rgba(0,0,0,0.1)', 'rgba(0,0,0,0.1)']} style={[styles.bgimage, { justifyContent: 'center', alignItems: 'center', paddingBottom: 100, flex: 0 }]}>
+                    <ScrollView
+                        showsVerticalScrollIndicator={false}
+                        contentContainerStyle={{
+                            justifyContent: "flex-start", alignItems: "center", flexGrow: 1, width: "100%"
+                        }}>
+                        <View style={{ width: "95%", marginTop: 10, paddingVertical: 20, backgroundColor: "transparent", borderRadius: 10, justifyContent: "center", alignItems: "flex-start", paddingHorizontal: 25 }}>
+                            <Text style={styles.shadowText}>{"\u2022"} Direct job booking from client.</Text>
+                            <Text style={styles.shadowText}>{"\u2022"} Get jobs notification.</Text>
+                            <Text style={styles.shadowText}>{"\u2022"} Direct communication with client on jobs.</Text>
+                            <Text style={styles.shadowText}>{"\u2022"} Accessible by client to view your profile instantly with 100% exposure worldwide.</Text>
+                            <Text style={styles.shadowText}>{"\u2022"} Direct negation on fees with client.</Text>
+                            <Text style={styles.shadowText}>{"\u2022"} No agency fees for every job you do.</Text>
+                            <Text style={styles.shadowText}>{"\u2022"} Update photos and your own particulars any time.</Text>
+                            <Text style={styles.shadowText}>{"\u2022"} A permanent and booking platform to host your profile and comp card.</Text>
+                            <Text style={styles.shadowText}>{"\u2022"} Other model agent may find you here too.</Text>
+                            <Text style={styles.shadowText}>{"\u2022"} Low joining annual fees as member.</Text>
                         </View>
-                    </View>
-                    <View style={{ width: "5%" }}>
-
-                    </View>
-                </View>
-                <View style={{ flexDirection: "row", marginBottom: 100 }}>
-                    <View style={{ width: "20%" }}>
-
-                    </View>
-                    <View style={{ width: "80%" }}>
-                        <Text
-                            style={{ fontWeight: "800", fontSize: 25, textAlign: "center", marginRight: 0, color: "white" }}
-                        >
-                            100% EXPOSURE
-                        </Text>
-                        <View style={{ paddingHorizontal: 30, marginTop: 10 }}>
-                            <Text
-                                style={{ fontWeight: "800", fontSize: 20, textAlign: "center", color: "white", fontWeight: "300" }}
-                            >
-                                Get a complete set of profile {"\n"} and can be accessible by client.
-                            </Text>
+                        <TouchableOpacity
+                            onPress={() => navigation.navigate("JoinTalent")}
+                            style={{ justifyContent: "center", alignItems: "center", borderWidth: 1, backgroundColor: theme['color-primary-500'], borderColor: theme['color-primary-500'], paddingHorizontal: 15, paddingVertical: 10, width: 130 }}>
+                            <Text style={{ color: "white", fontWeight: "bold" }}>JOIN</Text>
+                        </TouchableOpacity>
+                        <View style={{ height: 400 }}>
+                            
                         </View>
-                    </View>
-                </View>
+                    </ScrollView>
+                </LinearGradient>
+            </>
+                :
+                <>
+                    <View style={{ marginTop: 400 }}></View>
+                    <ImageBackground
+                        source={require('./assets/images/client-bg.jpg')}
+                        resizeMode="cover"
+                        style={{ justifyContent: 'center', alignItems: 'center', width: "100%", height: 400 }}
+                    ><Text style={{
+                        marginTop: -300,
+                        fontSize: 24,
+                        fontWeight: "bold",
+                        textAlign: "center",
+                        color: "white",
+                        textShadowColor: 'black',
+                        textShadowOffset: { width: 0.5, height: 0.5 },
+                        textShadowRadius: 6,
+                    }}>CLIENT</Text></ImageBackground>
+                    <LinearGradient colors={['rgba(0,0,0,0.1)', 'rgba(0,0,0,0.1)']} style={[styles.bgimage, { justifyContent: 'center', alignItems: 'center', paddingBottom: 100, flex: 0 }]}>
+                        <ScrollView
+                            showsVerticalScrollIndicator={false}
+                            contentContainerStyle={{
+                                justifyContent: "flex-start", alignItems: "center", flexGrow: 1, width: "100%"
+                            }}>
+                            <View style={{ width: "95%", marginTop: 10, paddingVertical: 20, backgroundColor: "transparent", borderRadius: 10, justifyContent: "center", alignItems: "flex-start", paddingHorizontal: 25 }}>
+                                <Text style={styles.shadowText}>{"\u2022"} A welcome gift of free 200 credits to post jobs.</Text>
+                                <Text style={styles.shadowText}>{"\u2022"} Send message to invite the suitable talents for casting.</Text>
+                                <Text style={styles.shadowText}>{"\u2022"} Function of “select”  and “download” talent profiles for presentation.</Text>
+                                <Text style={styles.shadowText}>{"\u2022"} Direct booking with your desired talent or model.</Text>
+                                <Text style={styles.shadowText}>{"\u2022"} Direct communication with talent or model.</Text>
+                                <Text style={styles.shadowText}>{"\u2022"} Pay direct to the talent.</Text>
+                                <Text style={styles.shadowText}>{"\u2022"} Accessible to unlimited and clear and updated talent cards and casting videos or listen to their VO files.</Text>
+                                <Text style={styles.shadowText}>{"\u2022"} Search function by using keyword to shortlist talents.</Text>
+                            </View>
+                            <TouchableOpacity
+                                onPress={() => navigation.navigate("JoinClient")}
+                                style={{ justifyContent: "center", alignItems: "center", borderWidth: 1, backgroundColor: theme['color-primary-500'], borderColor: theme['color-primary-500'], paddingHorizontal: 15, paddingVertical: 10, width: 130 }}>
+                                <Text style={{ color: "white", fontWeight: "bold" }}>JOIN</Text>
+                            </TouchableOpacity>
+                            <View style={{ height: 400 }}>
 
-                <View style={{ flexDirection: "row", marginBottom: 100 }}>
-
-                    <View style={{ width: "80%" }}>
-                        <Text
-                            style={{ fontWeight: "800", fontSize: 25, textAlign: "center", marginRight: 0, color: "white" }}
-                        >
-                            LOW FEE
-                        </Text>
-                        <View style={{ paddingHorizontal: 30, marginTop: 10 }}>
-                            <Text
-                                style={{ fontWeight: "800", fontSize: 20, textAlign: "center", color: "white", fontWeight: "300" }}
-                            >
-                                There will be no agency fees {"\n"} from us.
-                            </Text>
-                        </View>
-                    </View>
-                    <View style={{ width: "20%" }}>
-
-                    </View>
-                </View>
-
-                <View style={{ justifyContent: "center", alignItems: "center" }}>
-                    <Button
-                        appearance="outline"
-                        onPress={() => navigation.navigate("JoinTalent")}
-                    >
-                        JOIN
-                    </Button>
-                </View>
-            </ImageBackground> : <></>}
+                            </View>
+                        </ScrollView>
+                    </LinearGradient>
+                </>}
         </View>
     )
 };
 
-const RegisterScreen = (paramss) => (
+const RegisterScreen = ({navigation}) => (
     <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "#E8F2F6" }}>
         <ScrollView contentContainerStyle={{ justifyContent: 'center', alignItems: 'center', }}>
             <Image
@@ -390,6 +435,7 @@ const HomeStack = () => (
             <Screen name='GalleryModel' component={GalleryModelScreen} />
             <Screen name='JobBoard' component={JobBoardScreen} />
             <Screen name='JobDetails' component={JobDetailsScreen} />
+            <Screen name='JobApplicants' component={JobApplicants} />
             <Screen name='Notification' component={NotificationScreen} />
         </Stack.Group>
     </Stack.Navigator>
@@ -529,8 +575,11 @@ export const AppNavigator = () => {
                         <Stack.Screen name="Login" component={LoginScreen} />
                         <Stack.Screen name="Join" component={JoinScreen} />
                         <Stack.Screen name="JoinTalent" component={JoinUsTalentScreen} />
+                        <Stack.Screen name="JoinClient" component={JoinUsClientScreen} />
                         <Stack.Screen name="UploadProfile" component={UploadProfileScreen} />
                         <Stack.Screen name="SubscriptionPlan" component={SubscriptionPlan} />
+                        <Screen name='UploadPhotoPremium' component={UploadPhotoPremiumScreen} />
+                        <Screen name='UploadDetails' component={UploadDetailsScreen} />
                     </Stack.Group>
                 </Stack.Navigator>
             )}
@@ -548,11 +597,47 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     input: {
-        margin: 5,
+        marginHorizontal: 5,
+        marginVertical: 10
     },
     bgimage: {
         flex: 1,
         width: "100%",
         justifyContent: "center"
+    },
+    shadowText: {
+        fontSize: 17, marginBottom: 15, color: "black", textAlign: "left"
+        // textShadowColor: 'black',
+        // textShadowOffset: { width: 0.5, height: 0.5 },
+        // textShadowRadius: 6,
+    }
+});
+
+const pickerSelectStyles = StyleSheet.create({
+    inputIOS: {
+        fontSize: 16,
+        paddingVertical: 2,
+        paddingHorizontal: 10,
+        borderWidth: 0,
+        borderColor: 'gray',
+        borderRadius: 4,
+        margin: 2,
+        color: 'white',
+        backgroundColor: "white",
+        paddingRight: 30, // to ensure the text is never behind the icon
+        height: 40
+    },
+    inputAndroid: {
+        fontSize: 10,
+        padding: 0,
+        borderWidth: 0.5,
+        borderColor: 'purple',
+        borderRadius: 50,
+        color: 'rgba(50,50,50,1)',
+        fontWeight: '800',
+        // backgroundColor: "white",
+        height: 40,
+        marginTop: -5,
+        marginBottom: 7,
     },
 });

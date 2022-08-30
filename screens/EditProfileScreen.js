@@ -51,9 +51,8 @@ const EditProfileScreen = ({ navigation }) => {
 
     let selected = products.filter((product) => product.isChecked);
 
-
     useEffect(() => {
-        alert(JSON.stringify(products))
+        // alert(JSON.stringify(products))
     }, [])
 
 
@@ -244,8 +243,8 @@ const EditProfileScreen = ({ navigation }) => {
                         <View style={{ width: "80%", alignSelf: "center", justifyContent: "center", backgroundColor: "transparent" }}>
                             <View style={{ flexDirection: "row", backgroundColor: "transparent", marginTop: 10, flexWrap: "wrap" }}>
                                 {products.map((post) =>
-                                    <View style={{ width: "50%", maxWidth: "50%", height: 70, flexDirection: "row", flexWrap: "wrap", alignItems: "center" }}>
-                                        <View style={{ flex: 1 }}>
+                                    <View key={post.id} style={{ width: "50%", maxWidth: "50%", height: 70, flexDirection: "row", flexWrap: "wrap", alignItems: "flex-start", justifyContent: "center" }}>
+                                        <View style={{ flex: 1, backgroundColor: "transparent" }}>
                                             <CheckBox
                                                 style={{ width: 20, height: 20, borderRadius: 5 }}
                                                 checked={post.isChecked}
@@ -254,16 +253,18 @@ const EditProfileScreen = ({ navigation }) => {
                                                 }}
                                             />
                                         </View>
-                                        <View style={{ flex: 4 }}>
+                                        <View style={{ flex: 4, backgroundColor: "transparent" }}>
                                             <Text style={{ fontSize: 14, marginLeft: 5, flexShrink: 1 }}>{post.title}</Text>
                                         </View>
                                     </View>
                                 )}
                             </View>
                         </View>
-                        <View><Text>{JSON.stringify(selected)}</Text></View>
+                        {/* <View><Text>{JSON.stringify(selected)}</Text></View> */}
                         <View style={{ marginTop: 10, justifyContent: "center", alignItems: "center" }}>
-                            <TouchableOpacity style={{ marginTop: 10, backgroundColor: theme['color-primary-500'], width: 120, justifyContent: "center", alignItems: "center", borderRadius: 0, paddingVertical: 7, paddingHorizontal: 15 }}>
+                            <TouchableOpacity
+                                onPress={() => navigation.navigate("Profile")}
+                                style={{ marginTop: 10, backgroundColor: theme['color-primary-500'], width: 120, justifyContent: "center", alignItems: "center", borderRadius: 0, paddingVertical: 7, paddingHorizontal: 15 }}>
                                 <Text style={{ color: "white", fontSize: 18, fontWeight: "bold" }}>UPDATE</Text>
                             </TouchableOpacity>
                         </View>
@@ -272,7 +273,7 @@ const EditProfileScreen = ({ navigation }) => {
                         </View>
                     </ScrollView>
                     :
-                    <View style={{ flex: 1, marginTop: 20, width: "90%" }}>
+                    <View style={{ flex: 0, marginTop: 20, width: "90%" }}>
                         <Text style={{ fontSize: 14, marginLeft: 2, marginBottom: 2 }}>Phone Number</Text>
                         <Input
                             placeholder='Phone Number'
