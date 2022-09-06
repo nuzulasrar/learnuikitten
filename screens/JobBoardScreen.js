@@ -696,7 +696,7 @@ const JobBoardScreen = ({ navigation }) => {
               marginVertical: 20,
               alignSelf: "center",
             }}
-            onPress={() => alert("hello")}
+            onPress={() => navigation.navigate("PostJob")}
           >
             <FontAwesomeIcon
               icon={faFileMedical}

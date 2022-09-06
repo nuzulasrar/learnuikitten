@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, createRef } from 'react';
 import { TouchableWithoutFeedback, TouchableOpacity, StyleSheet, View, Image, ImageBackground, ScrollView } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -36,6 +36,7 @@ import JoinUsTalentScreen from './screens/JoinUsTalentScreen';
 import JoinUsClientScreen from './screens/JoinUsClientScreen';
 import JobApplicants from './screens/JobApplicants';
 import UploadProfileScreen from './screens/UploadProfileScreen';
+import PostJobScreen from './screens/PostJobScreen';
 import { CommonContext, CommonContextProvider } from './context/CommonContext'
 import ChatMessageScreen from './screens/ChatMessageScreen';
 import SubscriptionPlan from './screens/SubscriptionPlan';
@@ -113,7 +114,7 @@ const renderCaption = () => {
 }
 
 const LoginScreen = ({navigation}) => {
-    const { isLoggedIn, setIsLoggedIn, accountType, setAccountType } = useContext(CommonContext);
+    const { isLoggedIn, setIsLoggedIn, accountType, setAccountType, login } = useContext(CommonContext);
 
     useEffect(() => {
       setAccountType(1)
@@ -182,7 +183,8 @@ const LoginScreen = ({navigation}) => {
                         SIGN IN
                     </Button> */}
                     <TouchableOpacity
-                        onPress={() => setIsLoggedIn(true)}
+                        // onPress={() => setIsLoggedIn(true)}
+                        onPress={() => login()}
                         style={{
                             backgroundColor: theme['color-primary-500'], paddingVertical: 10, paddingHorizontal: 15, width: "95%", justifyContent: "center", alignItems: "center",
                             marginBottom: 16, marginTop: 10, borderRadius: 5
@@ -437,6 +439,7 @@ const HomeStack = () => (
             <Screen name='JobDetails' component={JobDetailsScreen} />
             <Screen name='JobApplicants' component={JobApplicants} />
             <Screen name='Notification' component={NotificationScreen} />
+            <Screen name='PostJob' component={PostJobScreen} />
         </Stack.Group>
     </Stack.Navigator>
 );
@@ -559,11 +562,15 @@ const TabNavigator = () => (
     </Navigator>
 );
 
+const navigationRef = createRef();
+
 export const AppNavigator = () => {
     const { isLoggedIn, setIsLoggedIn } = useContext(CommonContext);
     const [selectedIndex, setSelectedIndex] = React.useState(0);
     return (
-        <NavigationContainer>
+        <NavigationContainer
+        ref={navigationRef}
+        >
             {isLoggedIn ? (
                 // Screens for logged in users
                 <TabNavigator />
