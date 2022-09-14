@@ -41,7 +41,7 @@ library.add(fab, faStar, faCamera);
 
 const UploadProfileScreen = ({ navigation, route }) => {
   const { accounttype } = route.params;
-  const { isLoggedIn, setIsLoggedIn } = useContext(CommonContext);
+  const { isLoggedIn, setIsLoggedIn, getData } = useContext(CommonContext);
 
   const [image, setImage] = useState(null);
 
@@ -73,6 +73,11 @@ const UploadProfileScreen = ({ navigation, route }) => {
     //alert(JSON.stringify(data._parts[0][1]));
     console.log(JSON.stringify(data));
   };
+
+  const handleSubmit = () => {
+    alert("hello")
+  }
+
 
   return (
     <View
@@ -141,6 +146,7 @@ const UploadProfileScreen = ({ navigation, route }) => {
           }}
         >
           <TouchableOpacity
+            onPress={() => { handleSubmit() }}
             style={{
               marginTop: 10,
               marginBottom: 15,

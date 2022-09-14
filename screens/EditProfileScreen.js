@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createRef, useCallback } from 'react';
+import React, { useState, useEffect, createRef, useCallback, useContext } from 'react';
 import { TouchableOpacity, StyleSheet, View, Image, ImageBackground, ScrollView, TouchableWithoutFeedback } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -15,8 +15,22 @@ import RNPickerSelect from 'react-native-picker-select';
 import StatusBarScreen from '../component/StatusBarScreen';
 import TopNav from '../component/TopNav';
 import { CheckBox } from '@ui-kitten/components';
+import { CommonContext } from '../context/CommonContext';
 
 const EditProfileScreen = ({ navigation }) => {
+
+    const {
+        genderlist,
+        getgenderlist,
+        countrylist,
+        getcountrylist,
+        racelist,
+        getracelist,
+        statelist,
+        getstatelist,
+        getData
+    } = useContext(CommonContext)
+
 
     const [thissection, setThisSection] = useState(1);
 
@@ -38,6 +52,7 @@ const EditProfileScreen = ({ navigation }) => {
     ];
 
     const [products, setProducts] = useState(posts);
+    const [selected, setSelected] = useState({});
 
     const handleChange = (id) => {
         let temp = products.map((product) => {
@@ -49,12 +64,90 @@ const EditProfileScreen = ({ navigation }) => {
         setProducts(temp);
     };
 
-    let selected = products.filter((product) => product.isChecked);
+    useEffect(() => {
+        setSelected(products.filter((product) => product.isChecked))
+    }, [products])
 
     useEffect(() => {
-        // alert(JSON.stringify(products))
-    }, [])
+        texthandler('skills', selected)
+    }, [selected])
 
+    const [values, setValues] = useState({
+        name: '',
+        gender: 6,
+        age: 0,
+        race: 0,
+        nationality: 0,
+        state: 0,
+        country: 0,
+        height: 0.0,
+        weight: 0.0,
+        shoulder: 0.0,
+        pant_length: 0.0,
+        clothing_size: 0,
+        shoe_size: 0.0,
+        skills: {},
+        twitter: '',
+        instagram: '',
+        facebook: '',
+        youtube: '',
+        phone: '',
+        email: '',
+    });
+
+    const texthandler = (name, value) => {
+        setValues({ ...values, [name]: value });
+    }
+
+    const handleSubmit = () => {
+        // alert(JSON.stringify(values))
+        console.log(values)
+    }
+
+    const checkUser = async () => {
+        let userdata = await getData('user')
+
+        // console.log(typeof (userdata))
+        // console.log(Object.keys(userdata).length)
+        checkNum(userdata)
+    }
+
+    const checkNum = (value) => {
+        let count = 0;
+        Object.keys(value).forEach(element => {
+            // return count += 3;
+            return (
+                Object.keys(values).forEach(element2 => {
+                    if (element === element2) {
+                        // if (value[element] == null)
+                        //     // console.log(element2, "NULLLL");
+                        //     texthandler(element2, "")
+                        // else
+                        //     // console.log(element2, value[element]);
+                        //     texthandler(element2, value)
+
+                        // setValues({ ...values, [element2]: value[element] })
+                        // texthandler(element2, value)
+                        if (element == "youtube")
+                            texthandler("youtube", value[element])
+
+                        console.log(`element: ${element} element2: ${element2} type: ${typeof (value[element])}`);
+                    }
+                }
+                ));
+        });
+
+        // console.log(element);
+    }
+
+    useEffect(() => {
+        getgenderlist()
+        getcountrylist()
+        getracelist()
+        getstatelist()
+        checkUser()
+        // checkNum()
+    }, [])
 
     return (
         <View style={{ flex: 1, backgroundColor: theme['color-primary-100'], width: "100%", marginTop: -50 }} >
@@ -75,7 +168,7 @@ const EditProfileScreen = ({ navigation }) => {
                     >
                         <Text style={{ color: thissection == 1 ? "white" : theme['color-primary-500'], fontSize: 16, fontWeight: "bold" }}>DETAILS</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity
+                    {/* <TouchableOpacity
                         onPress={() => setThisSection(2)}
                         style={{
                             backgroundColor: thissection == 2 ? theme['color-primary-500'] : "transparent",
@@ -87,7 +180,7 @@ const EditProfileScreen = ({ navigation }) => {
                         }}
                     >
                         <Text style={{ color: thissection == 2 ? "white" : theme['color-primary-500'], fontSize: 16, fontWeight: "bold" }}>CONTACT</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                 </View>
                 {thissection == 1 ?
                     <ScrollView
@@ -96,29 +189,32 @@ const EditProfileScreen = ({ navigation }) => {
                     >
                         <Text style={{ fontSize: 14, marginLeft: 2, marginBottom: 2, marginTop: 10 }}>Name</Text>
                         <Input
+                            value={values.name}
                             placeholder='Name'
                             width="70%"
                             style={styles.input}
+                            onChangeText={(text) => texthandler('name', text)}
                         />
 
                         <Text style={{ fontSize: 14, marginLeft: 2, marginBottom: 2, marginTop: 16 }}>Gender</Text>
                         <View style={{ backgroundColor: "white", borderRadius: 5 }}>
                             <RNPickerSelect
+                                value={values.gender}
                                 style={pickerSelectStyles}
                                 placeholder={{}}
-                                onValueChange={(value) => console.log(value)}
-                                items={[
-                                    { label: 'Male', value: 0 },
-                                    { label: 'Female', value: 1 }
-                                ]}
+                                // onValueChange={(value) => console.log(value)}
+                                onValueChange={(text) => texthandler('gender', text)}
+                                items={genderlist}
                             />
                         </View>
 
                         <Text style={{ fontSize: 14, marginLeft: 2, marginBottom: 2, marginTop: 16 }}>Age</Text>
                         <Input
+                            value={values.age}
                             placeholder='Age'
                             width="70%"
                             style={styles.input}
+                            onChangeText={(text) => texthandler('age', text)}
                         />
 
                         <View style={{ flexDirection: "row", backgroundColor: "transparent", marginTop: 16 }}>
@@ -126,15 +222,12 @@ const EditProfileScreen = ({ navigation }) => {
                                 <Text style={{ fontSize: 14, marginLeft: 2, marginBottom: 2, marginTop: 0 }}>Race</Text>
                                 <View style={{ backgroundColor: "white", borderRadius: 5, marginRight: 10 }}>
                                     <RNPickerSelect
+                                        value={values.race}
                                         style={pickerSelectStyles}
                                         placeholder={{}}
-                                        onValueChange={(value) => console.log(value)}
-                                        items={[
-                                            { label: 'Malay', value: 1 },
-                                            { label: 'Indian', value: 2 },
-                                            { label: 'Chinese', value: 3 },
-                                            { label: 'Others', value: 4 },
-                                        ]}
+                                        // onValueChange={(value) => console.log(value)}
+                                        items={racelist}
+                                        onValueChange={(text) => texthandler('race', text)}
                                     />
                                 </View>
                             </View>
@@ -142,61 +235,64 @@ const EditProfileScreen = ({ navigation }) => {
                                 <Text style={{ fontSize: 14, marginLeft: 2, marginBottom: 2, marginTop: 0 }}>Nationality</Text>
                                 <View style={{ backgroundColor: "white", borderRadius: 5 }}>
                                     <RNPickerSelect
+                                        value={values.country}
                                         style={pickerSelectStyles}
                                         placeholder={{}}
-                                        onValueChange={(value) => console.log(value)}
-                                        items={[
-                                            { label: 'Malaysia', value: 1 },
-                                            { label: 'Sri Lanka', value: 2 },
-                                            { label: 'Japan', value: 3 },
-                                            { label: 'Ecuador', value: 4 },
-                                        ]}
+                                        // onValueChange={(value) => console.log(value)}
+                                        items={countrylist}
+                                        onValueChange={(text) => texthandler('nationality', text)}
+                                    />
+                                </View>
+                            </View>
+                        </View>
+                        <View style={{ flexDirection: "row", backgroundColor: "transparent", marginTop: 16 }}>
+                            <View style={{ width: "50%" }}>
+                                <Text style={{ fontSize: 14, marginLeft: 2, marginBottom: 2, marginTop: 0 }}>State</Text>
+                                <View style={{ backgroundColor: "white", borderRadius: 5, marginRight: 10 }}>
+                                    <RNPickerSelect
+                                        value={values.race}
+                                        style={pickerSelectStyles}
+                                        placeholder={{}}
+                                        // onValueChange={(value) => console.log(value)}
+                                        items={statelist}
+                                        onValueChange={(text) => texthandler('state', text)}
+                                    />
+                                </View>
+                            </View>
+                            <View style={{ width: "50%" }}>
+                                <Text style={{ fontSize: 14, marginLeft: 2, marginBottom: 2, marginTop: 0 }}>Country</Text>
+                                <View style={{ backgroundColor: "white", borderRadius: 5 }}>
+                                    <RNPickerSelect
+                                        value={values.country}
+                                        style={pickerSelectStyles}
+                                        placeholder={{}}
+                                        // onValueChange={(value) => console.log(value)}
+                                        items={countrylist}
+                                        onValueChange={(text) => texthandler('country', text)}
                                     />
                                 </View>
                             </View>
                         </View>
 
-                        <Text style={{ fontSize: 14, marginLeft: 2, marginBottom: 2, marginTop: 16 }}>State</Text>
-                        <View style={{ backgroundColor: "white", borderRadius: 5 }}>
-                            <RNPickerSelect
-                                style={pickerSelectStyles}
-                                placeholder={{}}
-                                onValueChange={(value) => console.log(value)}
-                                items={[
-                                    { label: 'Johor', value: 1 },
-                                    { label: 'kedah', value: 2 },
-                                    { label: 'Kelantan', value: 3 },
-                                    { label: 'Malacca', value: 4 },
-                                    { label: 'Negeri Sembilan', value: 5 },
-                                    { label: 'Pahang', value: 6 },
-                                    { label: 'Penang', value: 7 },
-                                    { label: 'Perak', value: 8 },
-                                    { label: 'Perlis', value: 9 },
-                                    { label: 'Sabah', value: 10 },
-                                    { label: 'Sarawak', value: 11 },
-                                    { label: 'Selangor', value: 12 },
-                                    { label: 'Terengganu', value: 13 },
-                                    { label: 'Kuala Lumpur', value: 14 },
-                                    { label: 'Labuan', value: 15 },
-                                    { label: 'Putrajaya', value: 16 },
-                                ]}
-                            />
-                        </View>
                         <View style={{ flexDirection: "row", backgroundColor: "transparent", marginTop: 16 }}>
                             <View style={{ width: "50%" }}>
                                 <Text style={{ fontSize: 14, marginLeft: 2, marginBottom: 2, marginTop: 0 }}>Height (cm)</Text>
                                 <Input
+                                    value={values.height}
                                     placeholder='Height'
                                     width="100%"
                                     style={[styles.input, { marginRight: 10 }]}
+                                    onChangeText={(text) => texthandler('height', text)}
                                 />
                             </View>
                             <View style={{ width: "50%" }}>
                                 <Text style={{ fontSize: 14, marginLeft: 2, marginBottom: 2, marginTop: 0 }}>Weight (kg)</Text>
                                 <Input
+                                    value={values.weight}
                                     placeholder='Weight'
                                     width="100%"
                                     style={styles.input}
+                                    onChangeText={(text) => texthandler('weight', text)}
                                 />
                             </View>
                         </View>
@@ -205,17 +301,21 @@ const EditProfileScreen = ({ navigation }) => {
                             <View style={{ width: "50%" }}>
                                 <Text style={{ fontSize: 14, marginLeft: 2, marginBottom: 2, marginTop: 0 }}>Shoulder (cm)</Text>
                                 <Input
+                                    value={values.shoulder}
                                     placeholder='Shoulder'
                                     width="100%"
                                     style={[styles.input, { marginRight: 10 }]}
+                                    onChangeText={(text) => texthandler('shoulder', text)}
                                 />
                             </View>
                             <View style={{ width: "50%" }}>
                                 <Text style={{ fontSize: 14, marginLeft: 2, marginBottom: 2, marginTop: 0 }}>Pant Length (cm)</Text>
                                 <Input
+                                    value={values.pant_length}
                                     placeholder='Pant Length'
                                     width="100%"
                                     style={styles.input}
+                                    onChangeText={(text) => texthandler('pant_length', text)}
                                 />
                             </View>
                         </View>
@@ -224,21 +324,25 @@ const EditProfileScreen = ({ navigation }) => {
                             <View style={{ width: "50%" }}>
                                 <Text style={{ fontSize: 14, marginLeft: 2, marginBottom: 2 }}>Clothing Size</Text>
                                 <Input
+                                    value={values.clothing_size}
                                     placeholder='Clothing Size'
                                     width="100%"
                                     style={[styles.input, { marginRight: 10 }]}
+                                    onChangeText={(text) => texthandler('clothing_size', text)}
                                 />
                             </View>
                             <View style={{ width: "50%" }}>
                                 <Text style={{ fontSize: 14, marginLeft: 2, marginBottom: 2 }}>Shoe Size (Euro)</Text>
                                 <Input
+                                    value={values.shoe_size}
                                     placeholder='Shoe Size'
                                     width="100%"
                                     style={styles.input}
+                                    onChangeText={(text) => texthandler('shoe_size', text)}
                                 />
                             </View>
                         </View>
-
+                        {/* <View><Text>{JSON.stringify(selected)}</Text></View> */}
                         <Text style={{ marginTop: 16 }}>Skill</Text>
                         <View style={{ width: "80%", alignSelf: "center", justifyContent: "center", backgroundColor: "transparent" }}>
                             <View style={{ flexDirection: "row", backgroundColor: "transparent", marginTop: 10, flexWrap: "wrap" }}>
@@ -260,10 +364,79 @@ const EditProfileScreen = ({ navigation }) => {
                                 )}
                             </View>
                         </View>
-                        {/* <View><Text>{JSON.stringify(selected)}</Text></View> */}
+                        <Text style={{ marginTop: 16 }}>Social Medias</Text>
+                        <View style={{ flexDirection: "row", backgroundColor: "transparent", marginTop: 16 }}>
+                            <View style={{ width: "50%" }}>
+                                <Text style={{ fontSize: 14, marginLeft: 2, marginBottom: 2, marginTop: 0 }}>Twitter</Text>
+                                <Input
+                                    value={values.twitter}
+                                    placeholder='Twitter'
+                                    width="100%"
+                                    style={[styles.input, { marginRight: 10 }]}
+                                    onChangeText={(text) => texthandler('twitter', text)}
+                                />
+                            </View>
+                            <View style={{ width: "50%" }}>
+                                <Text style={{ fontSize: 14, marginLeft: 2, marginBottom: 2, marginTop: 0 }}>Instagram</Text>
+                                <Input
+                                    value={values.instagram}
+                                    placeholder='Instagram'
+                                    width="100%"
+                                    style={styles.input}
+                                    onChangeText={(text) => texthandler('instagram', text)}
+                                />
+                            </View>
+                        </View>
+
+                        <View style={{ flexDirection: "row", backgroundColor: "transparent", marginTop: 16 }}>
+                            <View style={{ width: "50%" }}>
+                                <Text style={{ fontSize: 14, marginLeft: 2, marginBottom: 2, marginTop: 0 }}>Facebook</Text>
+                                <Input
+                                    value={values.facebook}
+                                    placeholder='Facebook'
+                                    width="100%"
+                                    style={[styles.input, { marginRight: 10 }]}
+                                    onChangeText={(text) => texthandler('facebook', text)}
+                                />
+                            </View>
+                            <View style={{ width: "50%" }}>
+                                <Text style={{ fontSize: 14, marginLeft: 2, marginBottom: 2, marginTop: 0 }}>Youtube</Text>
+                                <Input
+                                    value={values.youtube}
+                                    placeholder='Youtube'
+                                    width="100%"
+                                    style={styles.input}
+                                    onChangeText={(text) => texthandler('youtube', text)}
+                                />
+                            </View>
+                        </View>
+
+                        <Text style={{ marginTop: 40, fontWeight: "bold" }}>Contact</Text>
+                        <View style={{ flexDirection: "row", backgroundColor: "transparent", marginTop: 16 }}>
+                            <View style={{ width: "50%" }}>
+                                <Text style={{ fontSize: 14, marginLeft: 2, marginBottom: 2, marginTop: 0 }}>Phone</Text>
+                                <Input
+                                    placeholder='Phone'
+                                    width="100%"
+                                    style={[styles.input, { marginRight: 10 }]}
+                                    onChangeText={(text) => texthandler('phone', text)}
+                                />
+                            </View>
+                            <View style={{ width: "50%" }}>
+                                <Text style={{ fontSize: 14, marginLeft: 2, marginBottom: 2, marginTop: 0 }}>Email</Text>
+                                <Input
+                                    value={values.email}
+                                    placeholder='Email'
+                                    width="100%"
+                                    style={styles.input}
+                                    onChangeText={(text) => texthandler('email', text)}
+                                />
+                            </View>
+                        </View>
+
                         <View style={{ marginTop: 10, justifyContent: "center", alignItems: "center" }}>
                             <TouchableOpacity
-                                onPress={() => navigation.navigate("Profile")}
+                                onPress={() => handleSubmit()}
                                 style={{ marginTop: 10, backgroundColor: theme['color-primary-500'], width: 120, justifyContent: "center", alignItems: "center", borderRadius: 0, paddingVertical: 7, paddingHorizontal: 15 }}>
                                 <Text style={{ color: "white", fontSize: 18, fontWeight: "bold" }}>UPDATE</Text>
                             </TouchableOpacity>

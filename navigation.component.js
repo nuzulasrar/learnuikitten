@@ -113,13 +113,38 @@ const renderCaption = () => {
     )
 }
 
-const LoginScreen = ({navigation}) => {
+const LoginScreen = ({ navigation }) => {
     const { isLoggedIn, setIsLoggedIn, accountType, setAccountType, login } = useContext(CommonContext);
 
     useEffect(() => {
-      setAccountType(1)
+        setAccountType(1)
     }, [])
-    
+
+    const [values, setValues] = useState({ email: 'nuzul@gmail.com', password: 'abc123' });
+
+    const onChangeText = (name, value) => {
+        setValues({ ...values, [name]: value })
+    }
+
+    const handleSubmit = () => {
+        // console.log(values);
+        if (values.email == '' || values.email == " " || values.email == null
+            || values.password == '' || values.password == " " || values.password == null
+        ) {
+            alert("Please fill in all the details")
+        } else {
+            let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+            if (reg.test(values.email) === false) {
+                // setModalVisible(true)
+                alert("Email format is incorrect. Please enter correct email format.")
+                return false;
+            }
+            else {
+                login(values)
+            }
+        }
+    }
+
 
     return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "white" }}>
@@ -156,20 +181,20 @@ const LoginScreen = ({navigation}) => {
                             items={[
                                 { label: 'Professional Model / Talent', value: 1 },
                                 { label: 'Client', value: 2 },
-                            ]}  
-                        /> 
+                            ]}
+                        />
                     </View>
                     <Input
-                        value={""}
-                        // label='Email'
+                        value={values.email}
+                        onChangeText={(text) => onChangeText('email', text)}
                         placeholder='Email'
                         accessoryLeft={renderIcon1}
                         secureTextEntry={false}
                         style={[styles.input, { marginTop: 16 }]}
                     />
                     <Input
-                        value={""}
-                        // label='Password'
+                        value={values.password}
+                        onChangeText={(text) => onChangeText('password', text)}
                         placeholder='Password'
                         accessoryLeft={renderIcon2}
                         secureTextEntry={true}
@@ -184,16 +209,16 @@ const LoginScreen = ({navigation}) => {
                     </Button> */}
                     <TouchableOpacity
                         // onPress={() => setIsLoggedIn(true)}
-                        onPress={() => login()}
+                        onPress={() => handleSubmit()}
                         style={{
                             backgroundColor: theme['color-primary-500'], paddingVertical: 10, paddingHorizontal: 15, width: "95%", justifyContent: "center", alignItems: "center",
                             marginBottom: 16, marginTop: 10, borderRadius: 5
-                        }}>     
+                        }}>
                         <Text style={{ fontSize: 18, color: "white", fontWeight: "bold" }}>SIGN IN</Text>
                     </TouchableOpacity>
                     <View style={{ alignItems: "center", flexDirection: "row" }}>
-                        <Text style={{ color: "white", fontSize: 14, marginRight: 8}}>Not registered yet?</Text> 
-                        <TouchableOpacity onPress={()=>navigation.navigate("RegisterScreen")}>
+                        <Text style={{ color: "white", fontSize: 14, marginRight: 8 }}>Not registered yet?</Text>
+                        <TouchableOpacity onPress={() => navigation.navigate("RegisterScreen")}>
                             <Text style={{ color: "maroon" }}>Create Account</Text>
                         </TouchableOpacity>
                     </View>
@@ -247,7 +272,7 @@ const JoinScreen = ({ route, navigation }) => {
                             <Text style={{ color: "white", fontWeight: "bold" }}>JOIN</Text>
                         </TouchableOpacity>
                         <View style={{ height: 400 }}>
-                            
+
                         </View>
                     </ScrollView>
                 </LinearGradient>
@@ -300,7 +325,7 @@ const JoinScreen = ({ route, navigation }) => {
     )
 };
 
-const RegisterScreen = ({navigation}) => (
+const RegisterScreen = ({ navigation }) => (
     <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "#E8F2F6" }}>
         <ScrollView contentContainerStyle={{ justifyContent: 'center', alignItems: 'center', }}>
             <Image
@@ -562,14 +587,14 @@ const TabNavigator = () => (
     </Navigator>
 );
 
-const navigationRef = createRef();
+// const navigationRef = createRef();
 
 export const AppNavigator = () => {
     const { isLoggedIn, setIsLoggedIn } = useContext(CommonContext);
     const [selectedIndex, setSelectedIndex] = React.useState(0);
     return (
         <NavigationContainer
-        ref={navigationRef}
+        // ref={navigationRef}
         >
             {isLoggedIn ? (
                 // Screens for logged in users
@@ -629,7 +654,7 @@ const pickerSelectStyles = StyleSheet.create({
         borderColor: 'gray',
         borderRadius: 4,
         margin: 2,
-        color: 'white',
+        color: 'black',
         backgroundColor: "white",
         paddingRight: 30, // to ensure the text is never behind the icon
         height: 40

@@ -80,9 +80,9 @@ const JoinUsTalentScreen = ({ navigation }) => {
     } = useContext(CommonContext)
 
     useEffect(() => {
-        if(doneRegister)
-            navigation.navigate("UploadProfile", {accounttype: 1})
-      }, [doneRegister])
+        if (doneRegister)
+            navigation.navigate("UploadProfile", { accounttype: 1 })
+    }, [doneRegister])
 
 
     const [agreementcheck, setAgreementCheck] = useState(false);
@@ -124,7 +124,7 @@ const JoinUsTalentScreen = ({ navigation }) => {
         ageC: true,
     })
 
-    const textHandler = (name, value) =>{
+    const textHandler = (name, value) => {
         if (name == 'phone' || name == 'age') {
             let numberonly = value.replace(/[^0-9]/g, '')
             setValues({ ...values, [name]: numberonly })
@@ -133,9 +133,8 @@ const JoinUsTalentScreen = ({ navigation }) => {
         }
     }
 
-    const handleSubmit = () =>
-    {
-        if(
+    const handleSubmit = () => {
+        if (
             values.firstName == "" || values.firstName == " " || values.firstName == null
             || values.lastName == "" || values.lastName == " " || values.lastName == null
             || values.displayName == "" || values.displayName == " " || values.displayName == null
@@ -151,13 +150,11 @@ const JoinUsTalentScreen = ({ navigation }) => {
             || values.password2 == "" || values.password2 == " " || values.password2 == null
             || values.termsC == false
             || values.ageC == false
-        )
-        {
+        ) {
             // alert("Please fill in all the details: \n\n"+JSON.stringify(values));
             alert("Please fill in all the details!");
-        } 
-        else
-        {
+        }
+        else {
             if (values.password != values.password2) {
                 // setModalVisible(true)
                 alert("Please make sure both passwords are matched.")
@@ -169,10 +166,10 @@ const JoinUsTalentScreen = ({ navigation }) => {
                     return false;
                 }
                 else {
-                    if(values.password.length <4){
+                    if (values.password.length < 4) {
                         alert("Please make sure password length are more than 4 characters.")
                     }
-                    else{
+                    else {
                         let data = {
                             p1: values.firstName,
                             p2: values.lastName,
@@ -237,7 +234,7 @@ const JoinUsTalentScreen = ({ navigation }) => {
                         placeholder='First Name'
                         secureTextEntry={false}
                         style={[styles.input, { marginBottom: 20 }]}
-                        onChangeText={(text)=>textHandler('firstName', text)}
+                        onChangeText={(text) => textHandler('firstName', text)}
                     />
                     <Input
                         value={values.lastName}
@@ -245,7 +242,7 @@ const JoinUsTalentScreen = ({ navigation }) => {
                         placeholder='Last Name'
                         secureTextEntry={false}
                         style={[styles.input, { marginBottom: 20 }]}
-                        onChangeText={(text)=>textHandler('lastName', text)}
+                        onChangeText={(text) => textHandler('lastName', text)}
                     />
                     <Input
                         value={values.displayName}
@@ -253,7 +250,7 @@ const JoinUsTalentScreen = ({ navigation }) => {
                         placeholder='Display Name'
                         secureTextEntry={false}
                         style={[styles.input, { marginBottom: 20 }]}
-                        onChangeText={(text)=>textHandler('displayName', text)}
+                        onChangeText={(text) => textHandler('displayName', text)}
                     />
                     <Input
                         value={values.email}
@@ -261,7 +258,7 @@ const JoinUsTalentScreen = ({ navigation }) => {
                         placeholder='Email'
                         secureTextEntry={false}
                         style={[styles.input, { marginBottom: 20 }]}
-                        onChangeText={(text)=>textHandler('email', text)}
+                        onChangeText={(text) => textHandler('email', text)}
                     />
                     <Input
                         value={values.phone}
@@ -269,7 +266,7 @@ const JoinUsTalentScreen = ({ navigation }) => {
                         placeholder='Phone Number'
                         secureTextEntry={false}
                         style={[styles.input, { marginBottom: 20 }]}
-                        onChangeText={(text)=>textHandler('phone', text)}
+                        onChangeText={(text) => textHandler('phone', text)}
                         maxLength={13}
                     />
                     <View style={{ alignSelf: "flex-start", width: "100%", marginBottom: 20 }}>
@@ -291,8 +288,8 @@ const JoinUsTalentScreen = ({ navigation }) => {
                         placeholder='Age'
                         secureTextEntry={false}
                         style={[styles.input, { marginBottom: 20 }]}
-                        onChangeText={(text)=>textHandler('age', text)}
-                        // maxLength={2}
+                        onChangeText={(text) => textHandler('age', text)}
+                    // maxLength={2}
                     />
                     <View style={{ alignSelf: "flex-start", width: "100%", marginBottom: 20 }}>
                         <Text style={{ fontSize: 14, marginLeft: 2, marginBottom: 2 }}>Nationality</Text>
@@ -349,7 +346,7 @@ const JoinUsTalentScreen = ({ navigation }) => {
                         placeholder='Password'
                         secureTextEntry={true}
                         style={[styles.input, { marginBottom: 20 }]}
-                        onChangeText={(text)=>textHandler('password', text)}
+                        onChangeText={(text) => textHandler('password', text)}
                     />
                     <Input
                         value={values.password2}
@@ -357,7 +354,7 @@ const JoinUsTalentScreen = ({ navigation }) => {
                         placeholder='Confirm Password'
                         secureTextEntry={true}
                         style={[styles.input, { marginBottom: 20 }]}
-                        onChangeText={(text)=>textHandler('password2', text)}
+                        onChangeText={(text) => textHandler('password2', text)}
                     />
                     <View style={{ flexDirection: "row", alignItems: "center", alignSelf: "flex-start", marginBottom: 0 }}>
                         <Checkbox

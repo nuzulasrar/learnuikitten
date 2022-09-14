@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { TouchableOpacity, StyleSheet, View, Image, ImageBackground, ScrollView } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -25,7 +25,7 @@ const hello = () => {
 
 const HomeScreen = ({ navigation }) => {
 
-    const { accountType, setAccountType } = useContext(CommonContext)
+    const { accountType, setAccountType, getData } = useContext(CommonContext)
 
     return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "white", width: "100%" }} >
