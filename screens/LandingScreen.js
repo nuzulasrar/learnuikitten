@@ -50,7 +50,7 @@ const LandingScreen = ({ navigation }) => (
                     <Text style={{ color: "white", fontWeight: "bold", fontSize: 22 }}>TALENT</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                    onPress={() => navigation.navigate("Join", { jointype: 2 })}
+                    // onPress={() => navigation.navigate("Join", { jointype: 2 })}
                     style={{
                         justifyContent: "center",
                         alignItems: "center",

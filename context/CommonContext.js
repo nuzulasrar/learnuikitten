@@ -244,10 +244,19 @@ const CommonContextProvider = ({ children }) => {
         p22: values.youtube,
         p23: values.phone,
         p24: values.email,
+        p25: values.address,
       })
       .then(function (response) {
         // alert(JSON.stringify(response.data));
         console.log(response.data);
+        if (response.data.error)
+          alert(response.data.error)
+        if (response.data.success) {
+          setModalVisible(!modalVisible);
+          setAlertMessages(response.data.success);
+          storeData("user", response.data.user);
+          storeData("skills", response.data.skills);
+        }
       })
       .catch(function (error) {
         alert(JSON.stringify(error));
@@ -304,7 +313,7 @@ const CommonContextProvider = ({ children }) => {
     );
   }
 
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
 
   return (
     <CommonContext.Provider

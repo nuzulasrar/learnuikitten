@@ -55,6 +55,7 @@ const EditProfileScreen = ({ navigation }) => {
     user,
     memberSkills,
     updateprofile,
+    ModalWindow
   } = useContext(CommonContext);
 
   const [thissection, setThisSection] = useState(1);
@@ -130,6 +131,7 @@ const EditProfileScreen = ({ navigation }) => {
     age: 0,
     race: 0,
     nationality: 0,
+    address: "",
     state: 0,
     country: 0,
     height: 0.0,
@@ -176,6 +178,7 @@ const EditProfileScreen = ({ navigation }) => {
       age: value.age,
       race: Number(value.race),
       nationality: Number(value.nationality),
+      address: value.address,
       state: Number(value.state),
       country: Number(value.country),
       height: value.height,
@@ -435,6 +438,23 @@ const EditProfileScreen = ({ navigation }) => {
                 </View>
               </View>
             </View>
+            <Text
+              style={{
+                fontSize: 14,
+                marginLeft: 2,
+                marginBottom: 2,
+                marginTop: 16,
+              }}
+            >
+              Address
+            </Text>
+            <Input
+              value={values.address}
+              placeholder="Address"
+              width="70%"
+              style={styles.input}
+              onChangeText={(text) => texthandler("address", text)}
+            />
             <View
               style={{
                 flexDirection: "row",
@@ -674,7 +694,7 @@ const EditProfileScreen = ({ navigation }) => {
               </View>
             </View>
             <Text style={{ marginTop: 20, fontWeight: "bold" }}>
-              Social Medias Link
+              Social Media Links
             </Text>
             <View
               style={{
@@ -809,6 +829,7 @@ const EditProfileScreen = ({ navigation }) => {
                   Email
                 </Text>
                 <Input
+                  disabled={true}
                   value={values.email}
                   placeholder="Email"
                   width="100%"
@@ -900,6 +921,7 @@ const EditProfileScreen = ({ navigation }) => {
             </View>
           </View>
         )}
+        <ModalWindow />
       </View>
     </View>
   );
