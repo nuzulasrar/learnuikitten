@@ -120,7 +120,7 @@ const LoginScreen = ({ navigation }) => {
         setAccountType(1)
     }, [])
 
-    const [values, setValues] = useState({ email: 'nuzul@gmail.com', password: 'abc123' });
+    const [values, setValues] = useState({ email: '', password: '' });
 
     const onChangeText = (name, value) => {
         setValues({ ...values, [name]: value })

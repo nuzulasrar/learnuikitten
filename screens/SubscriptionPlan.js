@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { TouchableOpacity, StyleSheet, View, Image, ImageBackground, ScrollView, TouchableWithoutFeedback, Platform } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -17,10 +17,13 @@ import { faCircleArrowRight } from '@fortawesome/free-solid-svg-icons'
 import { LinearGradient } from 'expo-linear-gradient';
 import StatusBarScreen from '../component/StatusBarScreen';
 import TopNav from '../component/TopNav';
+import { CommonContext } from '../context/CommonContext';
 
 const SubscriptionPlan = ({ navigation }) => {
 
     const [plantype, setPlantype] = useState(0)
+
+    const { isLoggedIn, setIsLoggedIn } = useContext(CommonContext)
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: "white", width: "100%", marginTop: -50 }} >
@@ -82,6 +85,36 @@ const SubscriptionPlan = ({ navigation }) => {
                         colors={['#e7f9fc', 'transparent']} ate
                         style={styles.background}>
                     </LinearGradient>
+                    <View
+                        style={{
+                            width: 200,
+                            padding: 10,
+                            paddingLeft: 20,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            backgroundColor: 'red',
+                            height: 40,
+                            borderTopRightRadius: 3,
+                            borderBottomRightRadius: 3,
+                            marginLeft: -40,
+                            marginTop: -15,
+                        }}>
+                        <Text style={{ color: '#FFF', fontWeight: 'bold' }}>Free for 1 Year</Text>
+                    </View>
+                    <View
+                        style={{
+                            width: 0,
+                            height: 0,
+                            backgroundColor: 'transparent',
+                            borderStyle: 'solid',
+                            borderRightWidth: 20,
+                            borderTopWidth: 20,
+                            borderRightColor: 'transparent',
+                            borderTopColor: 'red',
+                            transform: [{ rotate: '90deg' }],
+                            marginLeft: -40,
+                        }}
+                    />
 
                     <Text style={{ fontSize: 28, fontWeight: "700", marginBottom: 20, textAlign: "center" }}>Premium</Text>
 
@@ -140,7 +173,9 @@ const SubscriptionPlan = ({ navigation }) => {
                 </View>
                 <View style={{ marginTop: 10, justifyContent: "center", alignItems: "center" }}>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate("UploadPhotoPremium", { plantype: plantype })}
+                        // onPress={() => navigation.navigate("UploadPhotoPremium", { plantype: plantype })}
+                        onPress={() => navigation.navigate("Login")}
+                        // onPress={() => setIsLoggedIn(true)}
                         style={{ marginTop: 10, backgroundColor: theme['color-primary-500'], width: 128, justifyContent: "center", alignItems: "center", borderRadius: 0, paddingVertical: 7, paddingHorizontal: 15 }}>
                         <Text style={{ color: "white", fontSize: 18, fontWeight: "bold" }}>NEXT</Text>
                     </TouchableOpacity>

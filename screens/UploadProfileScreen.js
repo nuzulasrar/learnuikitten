@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   TouchableOpacity,
   StyleSheet,
@@ -36,6 +36,7 @@ import Checkbox from "expo-checkbox";
 import RNPickerSelect from "react-native-picker-select";
 import { CommonContext, CommonContextProvider } from "../context/CommonContext";
 import * as ImagePicker from "expo-image-picker";
+import axios from "axios";
 
 library.add(fab, faStar, faCamera);
 
@@ -44,8 +45,24 @@ const UploadProfileScreen = ({ navigation, route }) => {
   const { isLoggedIn, setIsLoggedIn, getData } = useContext(CommonContext);
 
   const [image, setImage] = useState(null);
+  const [formdata, setFormdata] = useState(null);
+  const [userdata, setUserdata] = useState({});
 
   const data = new FormData();
+
+  const checkUser = async () => {
+    let userdata = await getData("user");
+    let userskills = await getData("skills");
+
+    setUserdata(userdata);
+
+    // alert(JSON.stringify(userdata.fname))
+  };
+
+  useEffect(() => {
+    checkUser()
+  }, [])
+
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -58,26 +75,77 @@ const UploadProfileScreen = ({ navigation, route }) => {
 
     console.log(result);
 
-    if (!result.cancelled) {
-      setImage(result.uri);
-      data.append("fileToUpload", {
-        uri: image,
-        type: "image/jpeg", // or photo.type
-        name: "avatar_",
-      });
-      dataUri();
+    if (result.cancelled) {
+      return;
     }
+
+    let localUri = result.uri;
+    setImage(localUri);
+    let filename = localUri.split("/").pop();
+
+    let match = /\.(\w+)$/.exec(filename);
+    let type = match ? `image/${match[1]}` : `image`;
+
+    let formData = new FormData();
+
+    filename = userdata.id + "_" + filename;
+
+    formData.append("photo", { uri: localUri, name: filename, type });
+    formData.append("req", "b-uploadprofilepic");
+    formData.append("p1", userdata.id);
+    formData.append("p2", userdata.skey);
+
+    setFormdata(formData);
+
+    // alert(JSON.stringify(thisUser.lname));
   };
 
-  const dataUri = () => {
-    //alert(JSON.stringify(data._parts[0][1]));
-    console.log(JSON.stringify(data));
+  const uploadHandler = async () => {
+    await axios
+      .post("http://rubysb.com/talentbook/api.php", {
+        req: "b-uploadprofilepic",
+        p1: userdata.id,
+        p2: userdata.skey,
+      })
+      .then((res) => {
+        // alert(JSON.stringify(res.data));
+        if (res.data.validated == true) {
+          uploadHandler2()
+        }
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+  };
+  const uploadHandler2 = async () => {
+    await axios
+      .post("http://rubysb.com/talentbook/uploadfile.php", formdata, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+      .then((res) => {
+        // alert(JSON.stringify(res.data));
+        if (res.data.status == 1)
+          alert("Only jpg, jpeg, and png allowed.")
+        else if (res.data.status == 2)
+          alert("Picture size must not exceed 3 Megabytes.")
+        else if (res.data.status == 3) {
+          alert("Upload Successfull")
+          navigation.navigate("SubscriptionPlan")
+        }
+        else if (res.data.status == 4)
+          alert("Error. Please try again later.")
+
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+    // alert(JSON.stringify(formdata));
+    // console.log(formdata);
   };
 
   const handleSubmit = () => {
     alert("hello")
   }
-
 
   return (
     <View
@@ -146,7 +214,7 @@ const UploadProfileScreen = ({ navigation, route }) => {
           }}
         >
           <TouchableOpacity
-            onPress={() => { handleSubmit() }}
+            onPress={() => { uploadHandler() }}
             style={{
               marginTop: 10,
               marginBottom: 15,
@@ -193,6 +261,7 @@ const UploadProfileScreen = ({ navigation, route }) => {
               SKIP
             </Text>
           </TouchableOpacity>
+          {/* <Text>{JSON.stringify(userdata)}</Text> */}
         </View>
       </View>
     </View>

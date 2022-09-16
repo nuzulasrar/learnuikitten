@@ -174,6 +174,10 @@ const CommonContextProvider = ({ children }) => {
           setModalVisible(!modalVisible);
           setAlertMessages(JSON.stringify(response.data.error));
         } else {
+          storeData("user", response.data.user);
+          storeData("skills", response.data.skills);
+          setMemberSkills(response.data.skills);
+          setUser(response.data.user);
           setModalVisible(!modalVisible);
           setAlertMessages(JSON.stringify(response.data.success));
           setOkAction(1);

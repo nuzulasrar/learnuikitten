@@ -641,9 +641,10 @@ const EditProfileScreen = ({ navigation }) => {
               </View>
             </View>
             <View>
-              <Text>{JSON.stringify(selected)}</Text>
+              {/* <Text>{JSON.stringify(selected)}</Text> */}
             </View>
-            <Text style={{ marginTop: 16 }}>Skill {stringarray}</Text>
+            {/* <Text style={{ marginTop: 16 }}>Skill {stringarray}</Text> */}
+            <Text style={{ marginTop: 16 }}>Skill</Text>
             <View
               style={{
                 width: "80%",
