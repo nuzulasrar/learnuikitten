@@ -74,6 +74,8 @@ const CommonContextProvider = ({ children }) => {
   const [racelist, setRaceList] = useState([]);
   const [statelist, setStateList] = useState([]);
 
+  const DEBUG = true;
+
   const getgenderlist = () => {
     axios
       .post("http://rubysb.com/talentbook/api.php", {
@@ -148,6 +150,8 @@ const CommonContextProvider = ({ children }) => {
 
   const register = (data) => {
     // alert(JSON.stringify(data.p1))
+    setOkAction(1);
+    setDoneRegister(false);
 
     axios
       .post("http://rubysb.com/talentbook/api.php", {
@@ -173,6 +177,8 @@ const CommonContextProvider = ({ children }) => {
           // if resnpose.data.status == false
           setModalVisible(!modalVisible);
           setAlertMessages(JSON.stringify(response.data.error));
+          setOkAction(0);
+          setDoneRegister(false);
         } else {
           storeData("user", response.data.user);
           storeData("skills", response.data.skills);
@@ -253,8 +259,7 @@ const CommonContextProvider = ({ children }) => {
       .then(function (response) {
         // alert(JSON.stringify(response.data));
         console.log(response.data);
-        if (response.data.error)
-          alert(response.data.error)
+        if (response.data.error) alert(response.data.error);
         if (response.data.success) {
           setModalVisible(!modalVisible);
           setAlertMessages(response.data.success);
@@ -317,7 +322,7 @@ const CommonContextProvider = ({ children }) => {
     );
   }
 
-  useEffect(() => { }, []);
+  useEffect(() => {}, []);
 
   return (
     <CommonContext.Provider

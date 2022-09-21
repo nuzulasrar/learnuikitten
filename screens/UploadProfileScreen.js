@@ -60,9 +60,8 @@ const UploadProfileScreen = ({ navigation, route }) => {
   };
 
   useEffect(() => {
-    checkUser()
-  }, [])
-
+    checkUser();
+  }, []);
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -110,7 +109,7 @@ const UploadProfileScreen = ({ navigation, route }) => {
       .then((res) => {
         // alert(JSON.stringify(res.data));
         if (res.data.validated == true) {
-          uploadHandler2()
+          uploadHandler2();
         }
       })
       .catch((err) => {
@@ -123,18 +122,15 @@ const UploadProfileScreen = ({ navigation, route }) => {
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then((res) => {
-        // alert(JSON.stringify(res.data));
-        if (res.data.status == 1)
-          alert("Only jpg, jpeg, and png allowed.")
+        alert(JSON.stringify(res.data));
+        if (res.data.status == 1) alert("Only jpg, jpeg, and png allowed.");
         else if (res.data.status == 2)
-          alert("Picture size must not exceed 3 Megabytes.")
+          alert("Picture size must not exceed 3 Megabytes.");
         else if (res.data.status == 3) {
-          alert("Upload Successfull")
-          navigation.navigate("SubscriptionPlan")
-        }
-        else if (res.data.status == 4)
-          alert("Error. Please try again later.")
-
+          alert("Upload Successfull");
+          navigation.navigate("SubscriptionPlan");
+        } else if (res.data.status == 4)
+          alert("Error. Please try again later.");
       })
       .catch((err) => {
         console.log(err.response);
@@ -144,8 +140,8 @@ const UploadProfileScreen = ({ navigation, route }) => {
   };
 
   const handleSubmit = () => {
-    alert("hello")
-  }
+    alert("hello");
+  };
 
   return (
     <View
@@ -214,7 +210,9 @@ const UploadProfileScreen = ({ navigation, route }) => {
           }}
         >
           <TouchableOpacity
-            onPress={() => { uploadHandler() }}
+            onPress={() => {
+              uploadHandler();
+            }}
             style={{
               marginTop: 10,
               marginBottom: 15,
