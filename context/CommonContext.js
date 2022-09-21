@@ -223,6 +223,29 @@ const CommonContextProvider = ({ children }) => {
     // console.log(values.email);
   };
 
+  const updatemembership = (values) => {
+    axios
+      .post("http://rubysb.com/talentbook/api.php", {
+        req: "b-updatemembership",
+        p1: id,
+        p2: skey,
+      })
+      .then(function (response) {
+        // alert(JSON.stringify(response.data));
+        if (response.data.error) {
+          alert(JSON.stringify(response.data.error));
+        }
+        if (response.data.success) {
+          setModalVisible(!modalVisible);
+          setAlertMessages(JSON.stringify(response.data.success));
+        }
+      })
+      .catch(function (error) {
+        alert(JSON.stringify(error));
+      });
+    // console.log(values.email);
+  };
+
   const updateprofile = (id, skey, values) => {
     // let abc = values.skills;
     // let def = typeof JSON.stringify(abc);
@@ -257,14 +280,15 @@ const CommonContextProvider = ({ children }) => {
         p25: values.address,
       })
       .then(function (response) {
-        // alert(JSON.stringify(response.data));
-        console.log(response.data);
+        alert(JSON.stringify(response.data));
+        //console.log(response.data);
         if (response.data.error) alert(response.data.error);
         if (response.data.success) {
           setModalVisible(!modalVisible);
           setAlertMessages(response.data.success);
           storeData("user", response.data.user);
           storeData("skills", response.data.skills);
+          setMemberSkills(response.data.skills);
         }
       })
       .catch(function (error) {

@@ -55,7 +55,7 @@ const EditProfileScreen = ({ navigation }) => {
     user,
     memberSkills,
     updateprofile,
-    ModalWindow
+    ModalWindow,
   } = useContext(CommonContext);
 
   const [thissection, setThisSection] = useState(1);
@@ -81,6 +81,10 @@ const EditProfileScreen = ({ navigation }) => {
   const [selected, setSelected] = useState([]);
   const [stringarray, setStringArray] = useState("");
   const [ok1, setOk1] = useState(false);
+
+  // useEffect(() => {
+  //   alert(JSON.stringify(memberSkills));
+  // }, []);
 
   useEffect(() => {
     let stringarray2 = stringarray;
@@ -166,6 +170,9 @@ const EditProfileScreen = ({ navigation }) => {
     let userskills = await getData("skills");
 
     setRealValues(userdata, userskills);
+    console.log("arghh", userskills);
+
+    setProducts(userskills);
   };
 
   const setRealValues = (value, value2) => {
@@ -641,10 +648,10 @@ const EditProfileScreen = ({ navigation }) => {
               </View>
             </View>
             <View>
-              {/* <Text>{JSON.stringify(selected)}</Text> */}
+              <Text>{JSON.stringify(selected)}</Text>
             </View>
-            {/* <Text style={{ marginTop: 16 }}>Skill {stringarray}</Text> */}
-            <Text style={{ marginTop: 16 }}>Skill</Text>
+            <Text style={{ marginTop: 16 }}>Skill {stringarray}</Text>
+            {/* <Text style={{ marginTop: 16 }}>Skill</Text> */}
             <View
               style={{
                 width: "80%",

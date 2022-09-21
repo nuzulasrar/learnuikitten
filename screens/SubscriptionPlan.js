@@ -511,11 +511,9 @@ const SubscriptionPlan = ({ navigation }) => {
           }}
         >
           <TouchableOpacity
-            onPress={() =>
-              // navigation.navigate("UploadPhotoPremium", { plantype: plantype })
-              navigation.navigate("Profile")
-            }
-            // onPress={() => navigation.navigate("Login")}
+            // onPress={() => navigation.navigate("UploadPhotoPremium", { plantype: plantype })
+            // }
+            onPress={() => navigation.navigate("Login")}
             // onPress={() => setIsLoggedIn(true)}
             style={{
               marginTop: 10,
