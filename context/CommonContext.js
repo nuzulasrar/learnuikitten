@@ -63,6 +63,8 @@ const CommonContextProvider = ({ children }) => {
   const [okaction, setOkAction] = useState(0);
 
   const [doneRegister, setDoneRegister] = useState(false);
+  const [finishRegistrationFlow, setFinishRegistrationFlow] = useState(false);
+  const [disableSubmit, setDisableSubmit] = useState(false);
 
   /*
   okaction
@@ -148,10 +150,20 @@ const CommonContextProvider = ({ children }) => {
     }
   };
 
+  const removeData = async (key) => {
+    try {
+      const jsonValue = await AsyncStorage.removeItem(key);
+      return 1;
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   const register = (data) => {
     // alert(JSON.stringify(data.p1))
     setOkAction(1);
     setDoneRegister(false);
+    setDisableSubmit(true);
 
     axios
       .post("http://rubysb.com/talentbook/api.php", {
@@ -172,7 +184,7 @@ const CommonContextProvider = ({ children }) => {
       })
       .then(function (response) {
         //alert(JSON.stringify(response.data));
-
+        setDisableSubmit(false);
         if (!response.data.status) {
           // if resnpose.data.status == false
           setModalVisible(!modalVisible);
@@ -223,7 +235,8 @@ const CommonContextProvider = ({ children }) => {
     // console.log(values.email);
   };
 
-  const updatemembership = (values) => {
+  const updatemembership = (id, skey) => {
+    setOkAction(2);
     axios
       .post("http://rubysb.com/talentbook/api.php", {
         req: "b-updatemembership",
@@ -234,10 +247,10 @@ const CommonContextProvider = ({ children }) => {
         // alert(JSON.stringify(response.data));
         if (response.data.error) {
           alert(JSON.stringify(response.data.error));
-        }
-        if (response.data.success) {
+        } else if (response.data.success) {
           setModalVisible(!modalVisible);
           setAlertMessages(JSON.stringify(response.data.success));
+          setOkAction(2);
         }
       })
       .catch(function (error) {
@@ -280,7 +293,7 @@ const CommonContextProvider = ({ children }) => {
         p25: values.address,
       })
       .then(function (response) {
-        alert(JSON.stringify(response.data));
+        // alert(JSON.stringify(response.data));
         //console.log(response.data);
         if (response.data.error) alert(response.data.error);
         if (response.data.success) {
@@ -302,7 +315,10 @@ const CommonContextProvider = ({ children }) => {
     setAlertMessages("");
     if (action == 1) {
       setDoneRegister(true);
+    } else if (action == 2) {
+      setFinishRegistrationFlow(true);
     }
+    setOkAction(0);
   };
 
   function ModalWindow() {
@@ -372,13 +388,19 @@ const CommonContextProvider = ({ children }) => {
         alertMessages,
         setAlertMessages,
         ModalWindow,
+        pressOK,
         doneRegister,
         setDoneRegister,
         storeData,
         getData,
+        removeData,
         user,
         memberSkills,
         updateprofile,
+        updatemembership,
+        disableSubmit,
+        setDisableSubmit,
+        finishRegistrationFlow,
       }}
     >
       {children}

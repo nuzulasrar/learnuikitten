@@ -170,7 +170,6 @@ const EditProfileScreen = ({ navigation }) => {
     let userskills = await getData("skills");
 
     setRealValues(userdata, userskills);
-    console.log("arghh", userskills);
 
     setProducts(userskills);
   };
@@ -647,11 +646,9 @@ const EditProfileScreen = ({ navigation }) => {
                 />
               </View>
             </View>
-            <View>
-              <Text>{JSON.stringify(selected)}</Text>
-            </View>
-            <Text style={{ marginTop: 16 }}>Skill {stringarray}</Text>
-            {/* <Text style={{ marginTop: 16 }}>Skill</Text> */}
+            <View>{/* <Text>{JSON.stringify(selected)}</Text> */}</View>
+            {/* <Text style={{ marginTop: 16 }}>Skill {stringarray}</Text> */}
+            <Text style={{ marginTop: 16 }}>Skill</Text>
             <View
               style={{
                 width: "80%",

@@ -42,7 +42,18 @@ library.add(fab, faStar, faCamera);
 
 const UploadProfileScreen = ({ navigation, route }) => {
   const { accounttype } = route.params;
-  const { isLoggedIn, setIsLoggedIn, getData } = useContext(CommonContext);
+  const {
+    isLoggedIn,
+    setIsLoggedIn,
+    getData,
+    modalVisible,
+    setModalVisible,
+    alertMessages,
+    setAlertMessages,
+    ModalWindow,
+    pressOK,
+    finishRegistrationFlow,
+  } = useContext(CommonContext);
 
   const [image, setImage] = useState(null);
   const [formdata, setFormdata] = useState(null);
@@ -139,9 +150,34 @@ const UploadProfileScreen = ({ navigation, route }) => {
     // console.log(formdata);
   };
 
-  const handleSubmit = () => {
-    alert("hello");
-  };
+  useEffect(() => {
+    // if (!finishRegistrationFlow) {
+    //   navigation.addListener("beforeRemove", (e) => {
+    //     e.preventDefault();
+    //     setModalVisible(!modalVisible);
+    //     setAlertMessages(
+    //       `Going back to previous screens is disabled temporarily. ${"\n\n"} Please finish the whole registration process first. Thank you!`
+    //     );
+    //     return;
+    //   });
+    // } else {
+    //   return;
+    // }
+
+    if (!finishRegistrationFlow) {
+      navigation.addListener("beforeRemove", (e) => {
+        e.preventDefault();
+        setModalVisible(!modalVisible);
+        // setAlertMessages(
+        //   `Going back to previous screens is disabled temporarily. ${"\n\n"} Please finish the whole registration process first. Thank you!`
+        // );
+        setAlertMessages(JSON.stringify(finishRegistrationFlow));
+        return;
+      });
+    } else {
+      // alert("trueeee");
+    }
+  }, [navigation]);
 
   return (
     <View
@@ -156,7 +192,7 @@ const UploadProfileScreen = ({ navigation, route }) => {
       <StatusBarScreen />
       <TopNav
         title="Upload Profile Picture"
-        backbutton={1}
+        backbutton={0}
         navigation={navigation}
       />
       <View
@@ -261,6 +297,7 @@ const UploadProfileScreen = ({ navigation, route }) => {
           </TouchableOpacity>
           {/* <Text>{JSON.stringify(userdata)}</Text> */}
         </View>
+        <ModalWindow />
       </View>
     </View>
   );

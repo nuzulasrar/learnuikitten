@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   TouchableOpacity,
   StyleSheet,
@@ -8,6 +8,7 @@ import {
   ScrollView,
   TouchableWithoutFeedback,
   Platform,
+  Alert,
 } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -40,8 +41,71 @@ import { CommonContext } from "../context/CommonContext";
 
 const SubscriptionPlan = ({ navigation }) => {
   const [plantype, setPlantype] = useState(0);
+  const [thisUser, setThisUser] = useState({});
 
-  const { isLoggedIn, setIsLoggedIn } = useContext(CommonContext);
+  const {
+    isLoggedIn,
+    setIsLoggedIn,
+    updatemembership,
+    getData,
+    modalVisible,
+    setModalVisible,
+    alertMessages,
+    setAlertMessages,
+    ModalWindow,
+    finishRegistrationFlow,
+  } = useContext(CommonContext);
+
+  useEffect(() => {
+    if (finishRegistrationFlow) {
+      setIsLoggedIn(true);
+    }
+  }, [finishRegistrationFlow]);
+
+  const checkUser = async () => {
+    let userdata = await getData("user");
+    let userskills = await getData("skills");
+
+    // alert(JSON.stringify(userdata));
+
+    setThisUser(userdata);
+  };
+
+  useEffect(() => {
+    checkUser();
+  }, []);
+
+  const handleSubmit = () => {
+    if (plantype < 1) alert("Please pick one subscription plan");
+    else {
+      return Alert.alert(
+        "Confirm Subscription Plan",
+        plantype == 1
+          ? "Are you sure you want to choose Basic Plan?"
+          : plantype == 2
+          ? "Are you sure you want to subscribe to Premium Plan?"
+          : null,
+        [
+          // The "Yes" button
+          {
+            text: "Yes",
+            onPress: () => {
+              plantype == 1
+                ? setIsLoggedIn(true)
+                : plantype == 2
+                ? updatemembership(thisUser.id, thisUser.skey)
+                : null;
+            },
+          },
+          // The "No" button
+          // Does nothing but dismiss the dialog when tapped
+          {
+            text: "No",
+          },
+        ]
+      );
+    }
+  };
 
   return (
     <SafeAreaView
@@ -85,8 +149,16 @@ const SubscriptionPlan = ({ navigation }) => {
             />
           </View>
           <View>
-            <Text style={{ fontSize: 14 }}>Angelina Jolie</Text>
-            <Text style={{ fontSize: 14 }}>angelina@gmail.com</Text>
+            <Text style={{ fontSize: 14 }}>
+              {/* {JSON.stringify(thisUser.fname).replaceAll('"', "").toUpperCase()}{" "}
+              {JSON.stringify(thisUser.lname).replaceAll('"', "").toUpperCase()} */}
+              {thisUser.fname} {thisUser.lname}
+            </Text>
+            <Text style={{ fontSize: 14 }}>
+              {/* {JSON.stringify(thisUser.email).replaceAll('"', "")} */}
+              {thisUser.email}
+              {JSON.stringify(finishRegistrationFlow)}
+            </Text>
           </View>
         </View>
         <View
@@ -421,7 +493,7 @@ const SubscriptionPlan = ({ navigation }) => {
             <Text
               style={{ color: "white", marginTop: 20, textAlign: "center" }}
             >
-              /
+              /{" "}
             </Text>
             <Text
               style={{ color: "white", marginTop: 20, textAlign: "center" }}
@@ -503,6 +575,7 @@ const SubscriptionPlan = ({ navigation }) => {
           {/* <FontAwesomeIcon icon="fa-brands fa-cc-visa" size={40} color={"black"} />
                     <FontAwesomeIcon icon="fa-brands fa-cc-mastercard" size={40} color={"black"} style={{ marginLeft: 10 }} /> */}
         </View>
+        {/* <Text>{JSON.stringify(thisUser)}</Text> */}
         <View
           style={{
             marginTop: 10,
@@ -513,7 +586,8 @@ const SubscriptionPlan = ({ navigation }) => {
           <TouchableOpacity
             // onPress={() => navigation.navigate("UploadPhotoPremium", { plantype: plantype })
             // }
-            onPress={() => navigation.navigate("Login")}
+            // onPress={() => navigation.navigate("Login")}
+            onPress={() => handleSubmit()}
             // onPress={() => setIsLoggedIn(true)}
             style={{
               marginTop: 10,
@@ -531,6 +605,7 @@ const SubscriptionPlan = ({ navigation }) => {
             </Text>
           </TouchableOpacity>
         </View>
+        <ModalWindow />
         <View style={{ height: 100 }}></View>
       </ScrollView>
     </SafeAreaView>

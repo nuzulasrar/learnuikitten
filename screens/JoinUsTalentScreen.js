@@ -119,6 +119,7 @@ const JoinUsTalentScreen = ({ navigation }) => {
     setAlertMessages,
     ModalWindow,
     doneRegister,
+    disableSubmit,
   } = useContext(CommonContext);
 
   useEffect(() => {
@@ -527,6 +528,7 @@ const JoinUsTalentScreen = ({ navigation }) => {
             <TouchableOpacity
               // onPress={() => navigation.navigate("UploadProfile", { accounttype: 1 })}
               onPress={() => handleSubmit()}
+              disabled={disableSubmit}
               style={{
                 marginTop: 10,
                 backgroundColor: theme["color-primary-500"],

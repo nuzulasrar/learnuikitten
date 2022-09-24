@@ -1061,6 +1061,7 @@ export const AppNavigator = () => {
             <Stack.Screen
               name="UploadProfile"
               component={UploadProfileScreen}
+              options={{ gestureEnabled: false }}
             />
             <Stack.Screen
               name="SubscriptionPlan"
