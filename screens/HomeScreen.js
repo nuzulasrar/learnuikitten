@@ -127,7 +127,7 @@ const HomeScreen = ({ navigation }) => {
                 onPress={() => {
                   navigation.navigate("GalleryCategory");
                 }}
-                style={{ borderRadius: 8 }}
+                style={{ borderRadius: 20 }}
               >
                 <View
                   style={{
@@ -139,7 +139,7 @@ const HomeScreen = ({ navigation }) => {
                     alignItems: "center",
                     borderColor: theme["color-primary-500"],
                     borderWidth: 4,
-                    borderRadius: 8,
+                    borderRadius: 20,
                   }}
                 >
                   <Button
@@ -166,7 +166,7 @@ const HomeScreen = ({ navigation }) => {
                 onPress={() => {
                   navigation.navigate("JobBoard");
                 }}
-                style={{ borderRadius: 8 }}
+                style={{ borderRadius: 20 }}
               >
                 <View
                   style={{
@@ -178,7 +178,7 @@ const HomeScreen = ({ navigation }) => {
                     alignItems: "center",
                     borderColor: theme["color-primary-500"],
                     borderWidth: 4,
-                    borderRadius: 8,
+                    borderRadius: 20,
                   }}
                 >
                   <Button

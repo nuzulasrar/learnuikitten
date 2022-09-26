@@ -129,41 +129,41 @@ const JoinUsTalentScreen = ({ navigation }) => {
   const [agreementcheck, setAgreementCheck] = useState(false);
   const [agecheck, setAgeCheck] = useState(false);
 
-  // const [values, setValues] = useState({
-  //     firstName: '',
-  //     lastName: '',
-  //     displayName: '',
-  //     email: '',
-  //     phone: '',
-  //     gender: '',
-  //     age: '',
-  //     nationality: 0,
-  //     race: 0,
-  //     state: 0,
-  //     country: 0,
-  //     password: '',
-  //     password2: '',
-  //     termsC: false,
-  //     ageC: false,
-  // })
-
   const [values, setValues] = useState({
-    firstName: "ahmad",
-    lastName: "nuzul",
-    displayName: "display",
-    email: "nuzul@gmail.com",
-    phone: "01121484808",
-    gender: 5,
-    age: "18",
-    nationality: 2,
-    race: 2,
-    state: 2,
-    country: 2,
-    password: "abc123",
-    password2: "abc123",
-    termsC: true,
-    ageC: true,
-  });
+    firstName: '',
+    lastName: '',
+    displayName: '',
+    email: '',
+    phone: '',
+    gender: '',
+    age: '',
+    nationality: 0,
+    race: 0,
+    state: 0,
+    country: 0,
+    password: '',
+    password2: '',
+    termsC: false,
+    ageC: false,
+  })
+
+  // const [values, setValues] = useState({
+  //   firstName: "ahmad",
+  //   lastName: "nuzul",
+  //   displayName: "display",
+  //   email: "nuzul@gmail.com",
+  //   phone: "01121484808",
+  //   gender: 5,
+  //   age: "18",
+  //   nationality: 2,
+  //   race: 2,
+  //   state: 2,
+  //   country: 2,
+  //   password: "abc123",
+  //   password2: "abc123",
+  //   termsC: true,
+  //   ageC: true,
+  // });
 
   const textHandler = (name, value) => {
     if (name == "phone" || name == "age") {
@@ -397,7 +397,7 @@ const JoinUsTalentScreen = ({ navigation }) => {
             secureTextEntry={false}
             style={[styles.input, { marginBottom: 20 }]}
             onChangeText={(text) => textHandler("age", text)}
-            // maxLength={2}
+          // maxLength={2}
           />
           <View
             style={{ alignSelf: "flex-start", width: "100%", marginBottom: 20 }}
