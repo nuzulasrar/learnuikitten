@@ -133,15 +133,16 @@ const UploadProfileScreen = ({ navigation, route }) => {
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then((res) => {
-        alert(JSON.stringify(res.data));
+        // alert(JSON.stringify(res.data));
         if (res.data.status == 1) alert("Only jpg, jpeg, and png allowed.");
         else if (res.data.status == 2)
-          alert("Picture size must not exceed 3 Megabytes.");
+          alert("Picture size must not exceed 5 Megabytes.");
         else if (res.data.status == 3) {
           alert("Upload Successfull");
           navigation.navigate("SubscriptionPlan");
         } else if (res.data.status == 4)
           alert("Error. Please try again later.");
+        else if (res.data.status == 5) alert("User not found!");
       })
       .catch((err) => {
         console.log(err.response);

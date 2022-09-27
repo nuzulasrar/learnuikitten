@@ -91,6 +91,18 @@ const CommonContextProvider = ({ children }) => {
       });
   };
 
+  const getgenderlist2 = async () => {
+    const resp = await axios
+      .post("http://rubysb.com/talentbook/api.php", {
+        req: "a-getgenderlist",
+      })
+      .catch(function (error) {
+        alert(JSON.stringify(error));
+      });
+
+    return resp.data;
+  };
+
   const getcountrylist = () => {
     axios
       .post("http://rubysb.com/talentbook/api.php", {
@@ -117,6 +129,17 @@ const CommonContextProvider = ({ children }) => {
         alert(JSON.stringify(error));
       });
   };
+  const getracelist2 = async () => {
+    const resp = await axios
+      .post("http://rubysb.com/talentbook/api.php", {
+        req: "a-getracelist",
+      })
+      .catch(function (error) {
+        alert(JSON.stringify(error));
+      });
+
+    return resp.data;
+  };
   const getstatelist = () => {
     axios
       .post("http://rubysb.com/talentbook/api.php", {
@@ -129,6 +152,16 @@ const CommonContextProvider = ({ children }) => {
       .catch(function (error) {
         alert(JSON.stringify(error));
       });
+  };
+  const getstatelist2 = async () => {
+    const resp = await axios
+      .post("http://rubysb.com/talentbook/api.php", {
+        req: "a-getstatelist",
+      })
+      .catch(function (error) {
+        alert(JSON.stringify(error));
+      });
+    return resp.data;
   };
 
   const storeData = async (key, value) => {
@@ -220,7 +253,7 @@ const CommonContextProvider = ({ children }) => {
           alert(JSON.stringify(response.data.error));
         }
         if (response.data.success) {
-          alert(JSON.stringify(response.data.success));
+          // alert(JSON.stringify(response.data.success));
           console.log(response.data.user);
           setIsLoggedIn(true);
           storeData("user", response.data.user);
@@ -309,6 +342,21 @@ const CommonContextProvider = ({ children }) => {
       });
     // console.log(values.email);
   };
+  const getUserMedias = async (id, skey, type) => {
+    // alert(id);
+    const resp = await axios
+      .post("http://rubysb.com/talentbook/api.php", {
+        req: "b-getusermedias",
+        p1: id,
+        p2: skey,
+        p3: type,
+      })
+      .catch(function (error) {
+        alert(JSON.stringify(error));
+      });
+
+    return resp.data.result;
+  };
 
   const pressOK = (action) => {
     setModalVisible(!modalVisible);
@@ -376,12 +424,15 @@ const CommonContextProvider = ({ children }) => {
         login,
         genderlist,
         getgenderlist,
+        getgenderlist2,
         countrylist,
         getcountrylist,
         racelist,
         getracelist,
+        getracelist2,
         statelist,
         getstatelist,
+        getstatelist2,
         register,
         modalVisible,
         setModalVisible,
@@ -401,6 +452,7 @@ const CommonContextProvider = ({ children }) => {
         disableSubmit,
         setDisableSubmit,
         finishRegistrationFlow,
+        getUserMedias,
       }}
     >
       {children}

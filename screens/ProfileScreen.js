@@ -85,7 +85,44 @@ const calendarIcon = () => (
 );
 
 const ProfileScreen = ({ navigation }) => {
-  const { getData } = useContext(CommonContext);
+  const { getData, getgenderlist2, getracelist2, getstatelist2 } =
+    useContext(CommonContext);
+
+  const [thisUser, setThisUser] = useState({});
+  const [stringGender, setStringGender] = useState("");
+  const [stringRace, setStringRace] = useState("");
+  const [stringState, setStringState] = useState("");
+
+  const checkUser = async () => {
+    let userdata = await getData("user");
+    setThisUser(userdata);
+
+    let genderlist = await getgenderlist2();
+    setStringGender(genderlist.gender[userdata.gender].label);
+
+    let racelist = await getracelist2();
+    setStringRace(racelist.race[userdata.race].label);
+
+    let statelist = await getstatelist2();
+    setStringState(statelist.state[userdata.state].label);
+  };
+
+  useEffect(() => {
+    checkUser();
+  }, []);
+
+  function Capitalize(str) {
+    return (
+      String(str).charAt(0).toUpperCase() + String(str).slice(1).toLowerCase()
+    );
+  }
+  function Clearstring(str) {
+    let newstr = String(str);
+    if (newstr.charAt(0) == '"') newstr = newstr.slice(1);
+    if (newstr.charAt(newstr.length - 1) == '"')
+      newstr = newstr.slice(0, newstr.length - 1);
+    return newstr;
+  }
 
   return (
     <View
@@ -178,7 +215,7 @@ const ProfileScreen = ({ navigation }) => {
                   fontWeight: "700",
                 }}
               >
-                John Appleseed
+                {Capitalize(thisUser.fname)} {Capitalize(thisUser.lname)}
               </Text>
               <View style={{ flexDirection: "row", marginVertical: 8 }}>
                 <FontAwesomeIcon
@@ -304,7 +341,7 @@ const ProfileScreen = ({ navigation }) => {
                   marginVertical: 16,
                 }}
               >
-                Membership plan: Expired on 31 December 2022
+                Membership plan: Expired on {thisUser?.subscription_end}
               </Text>
               <Button
                 status="danger"
@@ -330,15 +367,21 @@ const ProfileScreen = ({ navigation }) => {
             >
               <View style={{ flexDirection: "row", margin: 5 }}>
                 <Text style={{ width: "40%" }}>Gender</Text>
-                <Text style={{ width: "60%", fontWeight: "700" }}>Female</Text>
+                <Text style={{ width: "60%", fontWeight: "700" }}>
+                  {Clearstring(JSON.stringify(stringGender))}
+                </Text>
               </View>
               <View style={{ flexDirection: "row", margin: 5 }}>
                 <Text style={{ width: "40%" }}>Age</Text>
-                <Text style={{ width: "60%", fontWeight: "700" }}>24</Text>
+                <Text style={{ width: "60%", fontWeight: "700" }}>
+                  {thisUser?.age}
+                </Text>
               </View>
               <View style={{ flexDirection: "row", margin: 5 }}>
                 <Text style={{ width: "40%" }}>Race</Text>
-                <Text style={{ width: "60%", fontWeight: "700" }}>Malay</Text>
+                <Text style={{ width: "60%", fontWeight: "700" }}>
+                  {Clearstring(JSON.stringify(stringRace))}
+                </Text>
               </View>
               <View style={{ flexDirection: "row", margin: 5 }}>
                 <Text style={{ width: "40%" }}>Nationality</Text>
@@ -349,34 +392,44 @@ const ProfileScreen = ({ navigation }) => {
               <View style={{ flexDirection: "row", margin: 5 }}>
                 <Text style={{ width: "40%" }}>State</Text>
                 <Text style={{ width: "60%", fontWeight: "700" }}>
-                  Selangor
+                  {Clearstring(JSON.stringify(stringState))}
                 </Text>
               </View>
               <View style={{ flexDirection: "row", margin: 5 }}>
                 <Text style={{ width: "40%" }}>Height (cm)</Text>
                 <Text style={{ width: "60%", fontWeight: "700" }}>
-                  Selangor
+                  {thisUser?.height}
                 </Text>
               </View>
               <View style={{ flexDirection: "row", margin: 5 }}>
                 <Text style={{ width: "40%" }}>Weight (kg)</Text>
-                <Text style={{ width: "60%", fontWeight: "700" }}>44</Text>
+                <Text style={{ width: "60%", fontWeight: "700" }}>
+                  {thisUser?.weight}
+                </Text>
               </View>
               <View style={{ flexDirection: "row", margin: 5 }}>
                 <Text style={{ width: "40%" }}>Shoulder (cm)</Text>
-                <Text style={{ width: "60%", fontWeight: "700" }}>44</Text>
+                <Text style={{ width: "60%", fontWeight: "700" }}>
+                  {thisUser?.shoulder}
+                </Text>
               </View>
               <View style={{ flexDirection: "row", margin: 5 }}>
                 <Text style={{ width: "40%" }}>Pant Length (cm)</Text>
-                <Text style={{ width: "60%", fontWeight: "700" }}>81.28</Text>
+                <Text style={{ width: "60%", fontWeight: "700" }}>
+                  {thisUser?.pant_length}
+                </Text>
               </View>
               <View style={{ flexDirection: "row", margin: 5 }}>
                 <Text style={{ width: "40%" }}>Clothing Size</Text>
-                <Text style={{ width: "60%", fontWeight: "700" }}>S</Text>
+                <Text style={{ width: "60%", fontWeight: "700" }}>
+                  {thisUser?.clothing_size}
+                </Text>
               </View>
               <View style={{ flexDirection: "row", margin: 5 }}>
                 <Text style={{ width: "40%" }}>Shoe Size (Euro)</Text>
-                <Text style={{ width: "60%", fontWeight: "700" }}>36</Text>
+                <Text style={{ width: "60%", fontWeight: "700" }}>
+                  {thisUser?.shoe_size}
+                </Text>
               </View>
               <View style={{ flexDirection: "row", margin: 5 }}>
                 <Text style={{ width: "40%" }}>Skill</Text>
@@ -442,12 +495,12 @@ const ProfileScreen = ({ navigation }) => {
                   icon={["fab", "twitter"]}
                   color={theme["color-primary-200"]}
                 />
-                <Text style={{ marginLeft: 5 }}> @abcd </Text>
-                <FontAwesomeIcon
+                <Text style={{ marginLeft: 5 }}> {thisUser?.twitter} </Text>
+                {/* <FontAwesomeIcon
                   icon={faTrashCan}
                   color={theme["color-primary-500"]}
                   style={{ marginLeft: 5 }}
-                />
+                /> */}
               </View>
               <View
                 style={{
@@ -462,12 +515,12 @@ const ProfileScreen = ({ navigation }) => {
                   icon={["fab", "instagram"]}
                   color={theme["color-primary-200"]}
                 />
-                <Text style={{ marginLeft: 5 }}> @abcd </Text>
-                <FontAwesomeIcon
+                <Text style={{ marginLeft: 5 }}> {thisUser?.instagram} </Text>
+                {/* <FontAwesomeIcon
                   icon={faTrashCan}
                   color={theme["color-primary-500"]}
                   style={{ marginLeft: 5 }}
-                />
+                /> */}
               </View>
             </View>
             <View
@@ -486,12 +539,12 @@ const ProfileScreen = ({ navigation }) => {
                   icon={["fab", "facebook"]}
                   color={theme["color-primary-200"]}
                 />
-                <Text style={{ marginLeft: 5 }}> @abcd </Text>
-                <FontAwesomeIcon
+                <Text style={{ marginLeft: 5 }}> {thisUser?.facebook} </Text>
+                {/* <FontAwesomeIcon
                   icon={faTrashCan}
                   color={theme["color-primary-500"]}
                   style={{ marginLeft: 5 }}
-                />
+                /> */}
               </View>
               <View
                 style={{
@@ -503,15 +556,15 @@ const ProfileScreen = ({ navigation }) => {
                 }}
               >
                 <FontAwesomeIcon
-                  icon={faPlus}
+                  icon={["fab", "youtube"]}
                   color={theme["color-primary-200"]}
                 />
-                <Text style={{ marginLeft: 5 }}> @abcd </Text>
-                <FontAwesomeIcon
+                <Text style={{ marginLeft: 5 }}> {thisUser?.youtube} </Text>
+                {/* <FontAwesomeIcon
                   icon={faTrashCan}
                   color={theme["color-primary-500"]}
                   style={{ marginLeft: 5 }}
-                />
+                /> */}
               </View>
             </View>
           </View>

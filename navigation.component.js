@@ -172,8 +172,8 @@ const LoginScreen = ({ navigation }) => {
   }, []);
 
   const [values, setValues] = useState({
-    email: "",
-    password: "",
+    email: "nuzul@gmail.com",
+    password: "abc123",
   });
 
   const onChangeText = (name, value) => {
@@ -340,8 +340,8 @@ const JoinScreen = ({ route, navigation }) => {
       jointype == 1
         ? setAccountType(1)
         : jointype == 2
-          ? setAccountType(2)
-          : setAccountType(0);
+        ? setAccountType(2)
+        : setAccountType(0);
     }
   }, []);
 
