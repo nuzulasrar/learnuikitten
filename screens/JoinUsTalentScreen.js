@@ -130,22 +130,22 @@ const JoinUsTalentScreen = ({ navigation }) => {
   const [agecheck, setAgeCheck] = useState(false);
 
   const [values, setValues] = useState({
-    firstName: '',
-    lastName: '',
-    displayName: '',
-    email: '',
-    phone: '',
-    gender: '',
-    age: '',
+    firstName: "",
+    lastName: "",
+    displayName: "",
+    email: "",
+    phone: "",
+    gender: "",
+    age: "",
     nationality: 0,
     race: 0,
     state: 0,
     country: 0,
-    password: '',
-    password2: '',
+    password: "",
+    password2: "",
     termsC: false,
     ageC: false,
-  })
+  });
 
   // const [values, setValues] = useState({
   //   firstName: "ahmad",
@@ -397,7 +397,7 @@ const JoinUsTalentScreen = ({ navigation }) => {
             secureTextEntry={false}
             style={[styles.input, { marginBottom: 20 }]}
             onChangeText={(text) => textHandler("age", text)}
-          // maxLength={2}
+            // maxLength={2}
           />
           <View
             style={{ alignSelf: "flex-start", width: "100%", marginBottom: 20 }}

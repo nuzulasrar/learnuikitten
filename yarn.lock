@@ -3376,7 +3376,7 @@ expo-asset@~8.5.0:
 
 expo-av@~11.2.3:
   version "11.2.3"
-  resolved "https://registry.yarnpkg.com/expo-av/-/expo-av-11.2.3.tgz#254242dae76e3cd60ef9d9c33618e4a12d37aa33"
+  resolved "https://registry.npmjs.org/expo-av/-/expo-av-11.2.3.tgz"
   integrity sha512-ptTe96s33Ct0eOsOmNTvtaWFx4B0SDkQmDfPbiuX/C2afqbLQf8geEopw7BRO8ZZl7Qe3qBMH6YLHXKTkZkTyQ==
   dependencies:
     "@expo/config-plugins" "^4.0.14"
@@ -3392,6 +3392,14 @@ expo-constants@~13.1.0, expo-constants@~13.1.1:
   integrity sha512-QRVHrrMCLenBzWZ8M+EvCXM+jjdQzFMW27YQHRac3SGGoND1hWr81scOmGwlFo2wLZrYXm8HcYt1E6ry3IIwrA==
   dependencies:
     "@expo/config" "^6.0.14"
+    uuid "^3.3.2"
+
+expo-document-picker@~10.2.1:
+  version "10.2.1"
+  resolved "https://registry.yarnpkg.com/expo-document-picker/-/expo-document-picker-10.2.1.tgz#df2d06a8c1d85ca6417b56f521925ec66704092e"
+  integrity sha512-cjul250naq3Z7ZDe03bDY0V+nYpw/5WAXNwSZRX/04GIWE/l7EqIQ1xp9Vxrb9Zfvmn3N1C5A4Yu2jixdx4vjw==
+  dependencies:
+    "@expo/config-plugins" "^4.0.14"
     uuid "^3.3.2"
 
 expo-eas-client@~0.2.0:
@@ -5936,6 +5944,13 @@ react-native-codegen@^0.0.17:
     flow-parser "^0.121.0"
     jscodeshift "^0.13.1"
     nullthrows "^1.1.1"
+
+react-native-document-picker@^8.1.1:
+  version "8.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-document-picker/-/react-native-document-picker-8.1.1.tgz#642bbe25752cc428b96416318f8dc07cef29ee10"
+  integrity sha512-mH0oghd7ndgU9/1meVJdqts1sAkOfUQW1qbrqTTsvR5f2K9r0BAj/X02dve5IBMOMZvlGd7qWrNVuIFg5AUXWg==
+  dependencies:
+    invariant "^2.2.4"
 
 react-native-elements@^3.4.2:
   version "3.4.2"

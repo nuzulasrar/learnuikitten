@@ -16,6 +16,7 @@ import {
   ScrollView,
   TouchableWithoutFeedback,
   TextInput,
+  Alert,
 } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -42,24 +43,36 @@ import StatusBarScreen from "../component/StatusBarScreen";
 import TopNav from "../component/TopNav";
 import axios from "axios";
 import { CommonContext } from "../context/CommonContext";
+import * as ImagePicker from "expo-image-picker";
 
 library.add(fab, faCirclePlus, faTrashCan);
 
 const AddPhotosScreen = ({ navigation }) => {
   const { getData, getUserMedias } = useContext(CommonContext);
 
+  const [userdata, setUserdata] = useState({});
   const [thisPhotos, setThisPhotos] = useState([]);
+  const [formdata, setFormdata] = useState(null);
+
+  const [showList, setShowList] = useState(true);
+
+  const [buttonPressed, setButtonPressed] = useState(0);
 
   const checkUser = async () => {
     let userdata = await getData("user");
     let userphotos = await getUserMedias(userdata.id, userdata.skey, 1);
 
+    setUserdata(userdata);
     setThisPhotos(userphotos);
   };
 
   useEffect(() => {
     checkUser();
   }, []);
+
+  useEffect(() => {
+    checkUser();
+  }, [buttonPressed]);
 
   function Clearstring(str) {
     let newstr = String(str);
@@ -91,8 +104,161 @@ const AddPhotosScreen = ({ navigation }) => {
   const runFunction = (value) => {
     // value.focus();
     // alert(value);
-    console.log(myRefs.current[value].current);
+    // console.log(myRefs.current[value].current);
+    myRefs.current[value].current.setNativeProps({ text: "whatt" });
     // alert(JSON.stringify(value, getCircularReplacer));
+  };
+
+  const uploadHandler = async () => {
+    await axios
+      .post("http://rubysb.com/talentbook/uploadfile.php", formdata, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+      .then((res) => {
+        // alert(JSON.stringify(res.data));
+        if (res.data.status == 1) alert("Only jpg, jpeg, and png allowed.");
+        else if (res.data.status == 2)
+          alert("Picture size must not exceed 5 Megabytes.");
+        else if (res.data.status == 3) {
+          alert("Upload Successfull");
+          navigation.navigate("SubscriptionPlan");
+        } else if (res.data.status == 4)
+          alert("Error. Please try again later.");
+        else if (res.data.status == 5) alert("User not found!");
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+    // alert(JSON.stringify(formdata));
+    // console.log(formdata);
+  };
+
+  const [gotnewphotos, setGotnewphotos] = useState(0);
+
+  const pickImage = async (index) => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (result.cancelled) {
+      return;
+    } else {
+      setGotnewphotos(gotnewphotos + 1);
+    }
+
+    let localUri = result.uri;
+
+    let filename = localUri.split("/").pop();
+
+    let match = /\.(\w+)$/.exec(filename);
+    let type = match ? `image/${match[1]}` : `image`;
+
+    let formData = new FormData();
+
+    filename = userdata.id + "_" + filename;
+
+    formData.append("media", { uri: localUri, name: filename, type });
+    formData.append("req", "b-uploadmedia");
+    formData.append("p1", userdata.id);
+    formData.append("p2", userdata.skey);
+    formData.append("p3", 1);
+    formData.append("p4", index);
+
+    // setFormdata(formData);
+    myRefs.current[index].current.setNativeProps({
+      source: [{ uri: result.uri }],
+    });
+
+    try {
+      setShowList(false);
+      let uploadresult = await axios.post(
+        "http://rubysb.com/talentbook/uploadfile.php",
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
+      // alert(uploadresult.data);
+      if (uploadresult.data) {
+        setShowList(true);
+        checkUser();
+      }
+      if (
+        uploadresult.data.status == 0 ||
+        uploadresult.data.status == 1 ||
+        uploadresult.data.status == 2 ||
+        uploadresult.data.status == 4 ||
+        uploadresult.data.status == 6
+      ) {
+        alert(uploadresult.data.error);
+      } else if (
+        uploadresult.data.status == 32 ||
+        uploadresult.data.status == 52
+      )
+        console.log(uploadresult.data);
+      else if (uploadresult.data.status == 31 || uploadresult.data.status == 51)
+        alert(uploadresult.data.success);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const confirmDelete = (index) => {
+    return Alert.alert(
+      "Confirm Photo Deletion",
+      "Are you sure you want to delete this photo?",
+      [
+        {
+          text: "Yes",
+          onPress: () => {
+            deleteFile(index);
+          },
+        },
+        {
+          text: "No",
+        },
+      ]
+    );
+  };
+
+  const deleteFile = async (index) => {
+    let formData = new FormData();
+    formData.append("req", "b-deletemedia");
+    formData.append("p1", userdata.id);
+    formData.append("p2", userdata.skey);
+    formData.append("p3", 1);
+    formData.append("p4", index);
+
+    try {
+      let deleteresult = await axios
+        .post("http://rubysb.com/talentbook/uploadfile.php", formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+      // alert(deleteresult.data);
+
+      if (deleteresult?.data) checkUser();
+
+      if (deleteresult.data.status == 1) {
+        alert(deleteresult.data.success);
+      } else if (
+        deleteresult.data.status == 2 ||
+        deleteresult.data.status == 3
+      ) {
+        alert(deleteresult.data.error);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   function Selectlist(props) {
@@ -108,7 +274,7 @@ const AddPhotosScreen = ({ navigation }) => {
           justifyContent: "center",
           alignItems: "center",
           alignSelf: "center",
-          flexWrap: 1,
+          flexWrap: "wrap",
         }}
       >
         {listall.map((item, index) => {
@@ -117,6 +283,7 @@ const AddPhotosScreen = ({ navigation }) => {
             <>
               {Clearstring(JSON.stringify(item.name)) != "empty" ? (
                 <TouchableOpacity
+                  key={index}
                   ref={myRefs.current[index]}
                   onPress={() => {
                     runFunction(index);
@@ -129,47 +296,57 @@ const AddPhotosScreen = ({ navigation }) => {
                     margin: 10,
                   }}
                 >
-                  <ImageBackground
-                    source={{
-                      uri: "http://rubysb.com/talentbook/" + item.name,
+                  <View
+                    style={{
+                      borderRadius: 5,
+                      borderWidth: 1,
+                      borderColor: theme["color-primary-500"],
                     }}
-                    resizeMode="cover"
-                    style={{ width: "100%", height: "100%", borderRadius: 5 }}
                   >
-                    {/* <Text>
+                    <ImageBackground
+                      source={{
+                        uri: "http://rubysb.com/talentbook/" + item.name,
+                      }}
+                      resizeMode="cover"
+                      style={{ width: "100%", height: "100%", borderRadius: 5 }}
+                    >
+                      {/* <Text>
                       {item.name} {srcc}
                     </Text> */}
-                    <TouchableOpacity
-                      onPress={() => {
-                        alert("delete");
-                      }}
-                      style={{
-                        width: 30,
-                        height: 30,
-                        backgroundColor: theme["color-primary-500"],
-                        borderRadius: 50,
-                        position: "absolute",
-                        right: 5,
-                        bottom: 5,
-                        justifyContent: "center",
-                        alignItems: "center",
-                        borderColor: theme["color-primary-500"],
-                        borderWidth: 1,
-                        borderStyle: "dotted",
-                      }}
-                    >
-                      <FontAwesomeIcon
-                        icon={faTrashCan}
-                        color={"white"}
-                      />
-                    </TouchableOpacity>
-                  </ImageBackground>
+                      <TouchableOpacity
+                        onPress={() => {
+                          confirmDelete(index);
+                        }}
+                        style={{
+                          width: 30,
+                          height: 30,
+                          backgroundColor: theme["color-primary-500"],
+                          borderRadius: 50,
+                          position: "absolute",
+                          right: 5,
+                          bottom: 5,
+                          justifyContent: "center",
+                          alignItems: "center",
+                          borderColor: theme["color-primary-500"],
+                          borderWidth: 1,
+                          borderStyle: "dotted",
+                        }}
+                      >
+                        <FontAwesomeIcon
+                          icon={faTrashCan}
+                          color={"white"}
+                        />
+                      </TouchableOpacity>
+                    </ImageBackground>
+                  </View>
                 </TouchableOpacity>
               ) : (
                 <TouchableOpacity
-                  onPress={() => {
-                    alert("add picture");
-                  }}
+                  // onPress={() => {
+                  //   runFunction(index);
+                  // }}
+                  key={index}
+                  onPress={() => pickImage(index)}
                   style={{
                     backgroundColor: "white",
                     width: 100,
@@ -183,12 +360,38 @@ const AddPhotosScreen = ({ navigation }) => {
                     borderStyle: "dotted",
                   }}
                 >
-                  <FontAwesomeIcon
+                  <View
+                    style={{
+                      borderColor: theme["color-primary-500"],
+                      borderWidth: 1,
+                      borderStyle: "dotted",
+                      borderRadius: 5,
+                    }}
+                  >
+                    <Image
+                      ref={myRefs.current[index]}
+                      style={{
+                        width: 100,
+                        height: 100,
+                        borderRadius: 5,
+                        // borderWidth: 1,
+                        borderColor: theme["color-primary-200"],
+                        // borderStyle: "line",
+                      }}
+                      source={require("../assets/images/addphoto.png")}
+                      resizeMode="cover"
+                    />
+                  </View>
+                  {/* <FontAwesomeIcon
                     icon={faCirclePlus}
                     color={theme["color-primary-200"]}
                     size={40}
                   />
-                  <Text style={{ fontSize: 10, marginTop: 5 }}>Add Photo</Text>
+                  <Text style={{ fontSize: 10, marginTop: 5 }}>Add Photo</Text> */}
+                  {/* <TextInput
+                    ref={myRefs.current[index]}
+                    style={{ width: 100, height: 50, backgroundColor: "white" }}
+                  /> */}
                 </TouchableOpacity>
               )}
             </>
@@ -266,7 +469,42 @@ const AddPhotosScreen = ({ navigation }) => {
             borderRadius: 10,
           }}
         >
-          <Selectlist list={thisPhotos} />
+          {showList ? (
+            <Selectlist list={thisPhotos} />
+          ) : (
+            <View
+              style={{
+                marginTop: 20,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Text style={{ fontSize: 16 }}>
+                Your file is being processed. Please wait..
+              </Text>
+            </View>
+          )}
+
+          {/* <TouchableOpacity
+            onPress={() => {
+              setButtonPressed(buttonPressed + 1);
+            }}
+            style={{
+              backgroundColor: theme["color-primary-500"],
+              width: 200,
+              height: 40,
+              alignSelf: "center",
+              justifyContent: "center",
+              alignItems: "center",
+              borderRadius: 5,
+              marginTop: 10,
+            }}
+          >
+            <Text style={{ color: "white", fontSize: 18 }}>Refresh Photos</Text>
+          </TouchableOpacity> */}
+
+          {/* <Text>{JSON.stringify(formdata)}</Text> */}
+
           {/* <View
             style={{
               flex: 0,
@@ -809,7 +1047,7 @@ const AddPhotosScreen = ({ navigation }) => {
             </TouchableOpacity>
           </View> */}
 
-          <TouchableOpacity onPress={editText}>
+          {/* <TouchableOpacity onPress={editText}>
             <Text>sadasdasdsad</Text>
           </TouchableOpacity>
           <TextInput
@@ -826,9 +1064,9 @@ const AddPhotosScreen = ({ navigation }) => {
             source={{
               uri: "https://reactnative.dev/img/tiny_logo.png",
             }}
-          />
+          /> */}
         </View>
-        {textArray.map((item, i) => {
+        {/* {textArray.map((item, i) => {
           return (
             <>
               <TouchableOpacity
@@ -843,7 +1081,7 @@ const AddPhotosScreen = ({ navigation }) => {
               />
             </>
           );
-        })}
+        })} */}
       </ScrollView>
     </View>
   );
