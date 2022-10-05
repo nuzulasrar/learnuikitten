@@ -109,18 +109,73 @@ const AddVideoScreen = ({ navigation }) => {
   };
 
   const pickFromDocument = async (index) => {
-    // Opening Document Picker to select one file
+    let result = await DocumentPicker.getDocumentAsync({
+      type: "video/*",
+    });
+    console.log(result);
+
+    if (result.type == "cancel") {
+      alert("nooo");
+    }
+
+    let localUri = result.uri;
+
+    let filename = localUri.split("/").pop();
+
+    let match = /\.(\w+)$/.exec(filename);
+
+    let type = match ? `image/${match[1]}` : `image`;
+
+    let formData = new FormData();
+
+    filename = userdata.id + "_" + filename;
+
+    formData.append("media", { uri: localUri, name: filename, type });
+    formData.append("req", "b-uploadmedia");
+    formData.append("p1", userdata.id);
+    formData.append("p2", userdata.skey);
+    formData.append("p3", 2);
+    formData.append("p4", index);
+
     try {
-      const res = await DocumentPicker.getDocumentAsync({});
-    } catch (err) {
-      console.log(err);
+      setShowList(false);
+      let uploadresult = await axios.post(
+        "http://rubysb.com/talentbook/uploadfile.php",
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
+      // alert(JSON.stringify(uploadresult.data));
+      if (uploadresult.data) setShowList(true);
+      if (
+        uploadresult.data.status == 0 ||
+        uploadresult.data.status == 1 ||
+        uploadresult.data.status == 2 ||
+        uploadresult.data.status == 4 ||
+        uploadresult.data.status == 6
+      ) {
+        alert(uploadresult.data.error);
+      } else if (
+        uploadresult.data.status == 32 ||
+        uploadresult.data.status == 52
+      )
+        console.log(uploadresult.data);
+      else if (uploadresult.data.status == 31 || uploadresult.data.status == 51)
+        alert(uploadresult.data.success);
+
+      checkUser();
+    } catch (error) {
+      console.log(error);
+      alert("Network Error. Please try again!");
+      setShowList(true);
     }
   };
 
   const pickFromGallery = async (index) => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      mediaTypes: ImagePicker.MediaTypeOptions.Videos,
       allowsEditing: true,
       aspect: [1, 1],
       quality: 1,
@@ -166,7 +221,7 @@ const AddVideoScreen = ({ navigation }) => {
           headers: { "Content-Type": "multipart/form-data" },
         }
       );
-      alert(JSON.stringify(uploadresult.data));
+      // alert(JSON.stringify(uploadresult.data));
       if (uploadresult.data) setShowList(true);
       if (
         uploadresult.data.status == 0 ||
@@ -185,6 +240,63 @@ const AddVideoScreen = ({ navigation }) => {
         alert(uploadresult.data.success);
 
       checkUser();
+    } catch (error) {
+      console.log(error);
+      alert("Network Error. Please try again!");
+      setShowList(true);
+    }
+  };
+
+  const confirmDelete = (index) => {
+    return Alert.alert(
+      "Confirm Video Deletion",
+      "Are you sure you want to delete this video?",
+      [
+        {
+          text: "Yes",
+          onPress: () => {
+            deleteFile(index);
+          },
+        },
+        {
+          text: "No",
+        },
+      ]
+    );
+  };
+
+  const deleteFile = async (index) => {
+    setVidNo(null);
+    setMainUri(null);
+
+    let formData = new FormData();
+    formData.append("req", "b-deletemedia");
+    formData.append("p1", userdata.id);
+    formData.append("p2", userdata.skey);
+    formData.append("p3", 2);
+    formData.append("p4", index);
+
+    try {
+      let deleteresult = await axios
+        .post("http://rubysb.com/talentbook/uploadfile.php", formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+      // alert(deleteresult.data);
+
+      if (deleteresult?.data) checkUser();
+
+      if (deleteresult.data.status == 1) {
+        alert(deleteresult.data.success);
+      } else if (
+        deleteresult.data.status == 2 ||
+        deleteresult.data.status == 3
+      ) {
+        alert(deleteresult.data.error);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -241,6 +353,7 @@ const AddVideoScreen = ({ navigation }) => {
                     ></Video>
                   </TouchableOpacity>
                   <TouchableOpacity
+                    onPress={() => confirmDelete(index)}
                     style={{
                       width: 100,
                       height: 40,

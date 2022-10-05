@@ -31,12 +31,9 @@ import { faBell } from "@fortawesome/free-solid-svg-icons/faBell";
 import StatusBarScreen from "../component/StatusBarScreen";
 import TopNav from "../component/TopNav";
 import { CommonContext } from "../context/CommonContext";
+import * as WebBrowser from "expo-web-browser";
 
 library.add(fab, faBell);
-
-const hello = () => {
-  alert("hello");
-};
 
 const HomeScreen = ({ navigation }) => {
   const { accountType, setAccountType, getData } = useContext(CommonContext);
@@ -222,6 +219,11 @@ const HomeScreen = ({ navigation }) => {
                 }}
               >
                 <Button
+                  onPress={() =>
+                    WebBrowser.openBrowserAsync(
+                      "https://www.instagram.com/newlookcasting/"
+                    )
+                  }
                   buttonStyle={{
                     width: 60,
                     height: 60,
@@ -234,7 +236,6 @@ const HomeScreen = ({ navigation }) => {
                       color={"white"}
                     />
                   }
-                  onPress={hello}
                 />
               </View>
               <View
@@ -260,7 +261,11 @@ const HomeScreen = ({ navigation }) => {
                       color={"white"}
                     />
                   }
-                  onPress={hello}
+                  onPress={() =>
+                    WebBrowser.openBrowserAsync(
+                      "https://www.facebook.com/ModelTalentCasting/"
+                    )
+                  }
                 />
               </View>
               <View
@@ -286,7 +291,11 @@ const HomeScreen = ({ navigation }) => {
                       color={"white"}
                     />
                   }
-                  onPress={hello}
+                  onPress={() =>
+                    WebBrowser.openBrowserAsync(
+                      "https://www.youtube.com/playlist?list=PLyASiD-pvBA5NomUBYqoFzO9O-yg6kQE4"
+                    )
+                  }
                 />
               </View>
               <View
@@ -312,7 +321,11 @@ const HomeScreen = ({ navigation }) => {
                       color={"white"}
                     />
                   }
-                  onPress={hello}
+                  onPress={() =>
+                    WebBrowser.openBrowserAsync(
+                      "https://api.whatsapp.com/send?phone=+60133692328"
+                    )
+                  }
                 />
               </View>
             </View>
