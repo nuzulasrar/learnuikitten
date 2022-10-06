@@ -40,6 +40,8 @@ import StatusBarScreen from "../component/StatusBarScreen";
 import TopNav from "../component/TopNav";
 import { CheckBox } from "@ui-kitten/components";
 import { CommonContext } from "../context/CommonContext";
+import { useSelector, useDispatch } from "react-redux";
+import { updateProfile } from "../redux/actions";
 
 const EditProfileScreen = ({ navigation }) => {
   const {
@@ -57,6 +59,9 @@ const EditProfileScreen = ({ navigation }) => {
     updateprofile,
     ModalWindow,
   } = useContext(CommonContext);
+
+  const { profile } = useSelector((state) => state.profileReducer);
+  const dispatch = useDispatch();
 
   const [thissection, setThisSection] = useState(1);
 
@@ -283,6 +288,35 @@ const EditProfileScreen = ({ navigation }) => {
             showsVerticalScrollIndicator={false}
             style={{ flex: 0, marginTop: 16, width: "90%" }}
           >
+            <View style={{ width: "100%" }}>
+              <Text
+                style={{
+                  fontSize: 14,
+                  marginLeft: 2,
+                  marginBottom: 2,
+                  marginTop: 0,
+                }}
+              >
+                {profile.ffname}
+              </Text>
+              <Text
+                style={{
+                  fontSize: 14,
+                  marginLeft: 2,
+                  marginBottom: 2,
+                  marginTop: 0,
+                }}
+              >
+                Profile
+              </Text>
+              <Input
+                value={profile.ffname}
+                placeholder="Profile"
+                width="100%"
+                style={[styles.input, { marginRight: 10 }]}
+                onChangeText={(text) => dispatch(updateProfile(text))}
+              />
+            </View>
             <View
               style={{
                 flexDirection: "row",
@@ -303,7 +337,7 @@ const EditProfileScreen = ({ navigation }) => {
                 </Text>
                 <Input
                   value={values.fname}
-                  placeholder="Height"
+                  placeholder="First Name"
                   width="100%"
                   style={[styles.input, { marginRight: 10 }]}
                   onChangeText={(text) => texthandler("height", text)}
@@ -322,7 +356,7 @@ const EditProfileScreen = ({ navigation }) => {
                 </Text>
                 <Input
                   value={values.lname}
-                  placeholder="Weight"
+                  placeholder="Last Name"
                   width="100%"
                   style={styles.input}
                   onChangeText={(text) => texthandler("weight", text)}
@@ -342,7 +376,7 @@ const EditProfileScreen = ({ navigation }) => {
             </Text>
             <Input
               value={values.displayname}
-              placeholder="Age"
+              placeholder="Display Name"
               width="70%"
               style={styles.input}
               onChangeText={(text) => texthandler("age", text)}

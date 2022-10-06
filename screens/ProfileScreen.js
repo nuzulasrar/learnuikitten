@@ -33,6 +33,8 @@ import { faStar } from "@fortawesome/free-solid-svg-icons/faStar";
 import StatusBarScreen from "../component/StatusBarScreen";
 import TopNav from "../component/TopNav";
 import { CommonContext } from "../context/CommonContext";
+import { useSelector, useDispatch } from "react-redux";
+import { UPDATE_PROFILE } from "../redux/actions";
 
 library.add(fab, faPlus, faTrashCan, faStar);
 
@@ -187,7 +189,13 @@ const ProfileScreen = ({ navigation }) => {
                   borderWidth: 6,
                   marginTop: -80,
                 }}
-                source={require("../assets/images/newlogo.png")}
+                source={{
+                  uri:
+                    "http://rubysb.com/talentbook/upload/" +
+                    thisUser.id +
+                    "/" +
+                    thisUser.profilepic,
+                }}
               />
 
               <Button
@@ -195,7 +203,7 @@ const ProfileScreen = ({ navigation }) => {
                 appearance="filled"
                 status="control"
                 style={{
-                  width: 62,
+                  width: 70,
                   paddingHorizontal: 0,
                   display: "flex",
                   flex: 1,
@@ -215,6 +223,7 @@ const ProfileScreen = ({ navigation }) => {
                   fontWeight: "700",
                 }}
               >
+                {/* {JSON.stringify(thisUser)} */}
                 {Capitalize(thisUser.fname)} {Capitalize(thisUser.lname)}
               </Text>
               <View style={{ flexDirection: "row", marginVertical: 8 }}>
@@ -266,7 +275,7 @@ const ProfileScreen = ({ navigation }) => {
                     alignItems: "center",
                   }}
                 >
-                  <Text>12</Text>
+                  <Text>{thisUser.membership_status ? "12" : "1"}</Text>
                   <Text
                     style={{ fontSize: 12, color: theme["color-primary-200"] }}
                   >
@@ -286,7 +295,7 @@ const ProfileScreen = ({ navigation }) => {
                     alignItems: "center",
                   }}
                 >
-                  <Text>6</Text>
+                  <Text>{thisUser.membership_status ? "6" : "0"}</Text>
                   <Text
                     style={{ fontSize: 12, color: theme["color-primary-200"] }}
                   >
@@ -306,7 +315,7 @@ const ProfileScreen = ({ navigation }) => {
                     alignItems: "center",
                   }}
                 >
-                  <Text>6</Text>
+                  <Text>{thisUser.membership_status ? "6" : "0"}</Text>
                   <Text
                     style={{ fontSize: 12, color: theme["color-primary-200"] }}
                   >
@@ -326,7 +335,7 @@ const ProfileScreen = ({ navigation }) => {
                     alignItems: "center",
                   }}
                 >
-                  <Text>3</Text>
+                  <Text>{thisUser.membership_status ? "3" : "1"}</Text>
                   <Text
                     style={{ fontSize: 12, color: theme["color-primary-200"] }}
                   >

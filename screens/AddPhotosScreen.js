@@ -44,6 +44,7 @@ import TopNav from "../component/TopNav";
 import axios from "axios";
 import { CommonContext } from "../context/CommonContext";
 import * as ImagePicker from "expo-image-picker";
+import { manipulateAsync, FlipType, SaveFormat } from "expo-image-manipulator";
 
 library.add(fab, faCirclePlus, faTrashCan);
 
@@ -138,7 +139,7 @@ const AddPhotosScreen = ({ navigation }) => {
   const pickImage = async (index) => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
       aspect: [1, 1],
       quality: 1,
@@ -184,7 +185,7 @@ const AddPhotosScreen = ({ navigation }) => {
           headers: { "Content-Type": "multipart/form-data" },
         }
       );
-      // alert(uploadresult.data);
+      alert(JSON.stringify(uploadresult.data));
       if (uploadresult.data) {
         setShowList(true);
         checkUser();
@@ -197,6 +198,7 @@ const AddPhotosScreen = ({ navigation }) => {
         uploadresult.data.status == 6
       ) {
         alert(uploadresult.data.error);
+        console.log(uploadresult.data.status);
       } else if (
         uploadresult.data.status == 32 ||
         uploadresult.data.status == 52
@@ -205,7 +207,11 @@ const AddPhotosScreen = ({ navigation }) => {
       else if (uploadresult.data.status == 31 || uploadresult.data.status == 51)
         alert(uploadresult.data.success);
     } catch (error) {
-      console.log(error);
+      setShowList(true);
+      if (error == "AxiosError: Network Error") {
+        alert("Network Error. Please Try Again!");
+      }
+      console.log("the error: " + error);
     }
   };
 

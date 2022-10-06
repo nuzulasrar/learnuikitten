@@ -172,7 +172,7 @@ const LoginScreen = ({ navigation }) => {
   }, []);
 
   const [values, setValues] = useState({
-    email: "nuzul@gmail.com",
+    email: "nuzul2@gmail.com",
     password: "abc123",
   });
 
