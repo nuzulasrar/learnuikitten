@@ -41,7 +41,8 @@ import TopNav from "../component/TopNav";
 import { CheckBox } from "@ui-kitten/components";
 import { CommonContext } from "../context/CommonContext";
 import { useSelector, useDispatch } from "react-redux";
-import { updateProfile } from "../redux/actions";
+import { updateProfile, submitUpdateProfile } from "../redux/actions";
+// import { profileReducer } from "../redux/reducers";
 
 const EditProfileScreen = ({ navigation }) => {
   const {
@@ -60,7 +61,9 @@ const EditProfileScreen = ({ navigation }) => {
     ModalWindow,
   } = useContext(CommonContext);
 
-  const { profile } = useSelector((state) => state.profileReducer);
+  const { temp_profile, profile, ffname } = useSelector(
+    (state) => state.profileReducer
+  );
   const dispatch = useDispatch();
 
   const [thissection, setThisSection] = useState(1);
@@ -133,6 +136,7 @@ const EditProfileScreen = ({ navigation }) => {
   }, [products]);
 
   const [values, setValues] = useState({
+    ffname: "abc",
     fname: "",
     lname: "",
     displayname: "",
@@ -160,6 +164,7 @@ const EditProfileScreen = ({ navigation }) => {
 
   const texthandler = (name, value) => {
     setValues({ ...values, [name]: value });
+    dispatch(updateProfile(value, name));
   };
 
   const handleSubmit = async () => {
@@ -247,7 +252,7 @@ const EditProfileScreen = ({ navigation }) => {
             justifyContent: "space-around",
           }}
         >
-          <TouchableOpacity
+          {/* <TouchableOpacity
             onPress={() => setThisSection(1)}
             style={{
               backgroundColor:
@@ -268,7 +273,7 @@ const EditProfileScreen = ({ navigation }) => {
             >
               DETAILS
             </Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           {/* <TouchableOpacity
                         onPress={() => setThisSection(2)}
                         style={{
@@ -288,7 +293,7 @@ const EditProfileScreen = ({ navigation }) => {
             showsVerticalScrollIndicator={false}
             style={{ flex: 0, marginTop: 16, width: "90%" }}
           >
-            <View style={{ width: "100%" }}>
+            {/* <View style={{ width: "100%" }}>
               <Text
                 style={{
                   fontSize: 14,
@@ -297,7 +302,7 @@ const EditProfileScreen = ({ navigation }) => {
                   marginTop: 0,
                 }}
               >
-                {profile.ffname}
+                {JSON.stringify(temp_profile)}
               </Text>
               <Text
                 style={{
@@ -307,16 +312,9 @@ const EditProfileScreen = ({ navigation }) => {
                   marginTop: 0,
                 }}
               >
-                Profile
+                {JSON.stringify(profile)}
               </Text>
-              <Input
-                value={profile.ffname}
-                placeholder="Profile"
-                width="100%"
-                style={[styles.input, { marginRight: 10 }]}
-                onChangeText={(text) => dispatch(updateProfile(text))}
-              />
-            </View>
+            </View> */}
             <View
               style={{
                 flexDirection: "row",
@@ -340,7 +338,7 @@ const EditProfileScreen = ({ navigation }) => {
                   placeholder="First Name"
                   width="100%"
                   style={[styles.input, { marginRight: 10 }]}
-                  onChangeText={(text) => texthandler("height", text)}
+                  onChangeText={(text) => texthandler("fname", text)}
                 />
               </View>
               <View style={{ width: "50%" }}>
@@ -359,7 +357,7 @@ const EditProfileScreen = ({ navigation }) => {
                   placeholder="Last Name"
                   width="100%"
                   style={styles.input}
-                  onChangeText={(text) => texthandler("weight", text)}
+                  onChangeText={(text) => texthandler("lname", text)}
                 />
               </View>
             </View>
@@ -878,6 +876,34 @@ const EditProfileScreen = ({ navigation }) => {
               </View>
             </View>
 
+            {/* <View
+              style={{
+                marginTop: 10,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <TouchableOpacity
+                onPress={() => dispatch(submitUpdateProfile(temp_profile))}
+                style={{
+                  marginTop: 10,
+                  backgroundColor: theme["color-primary-500"],
+                  width: 120,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  borderRadius: 0,
+                  paddingVertical: 7,
+                  paddingHorizontal: 15,
+                  borderRadius: 5,
+                }}
+              >
+                <Text
+                  style={{ color: "white", fontSize: 18, fontWeight: "bold" }}
+                >
+                  TEST UPDATE
+                </Text>
+              </TouchableOpacity>
+            </View> */}
             <View
               style={{
                 marginTop: 10,
@@ -896,6 +922,7 @@ const EditProfileScreen = ({ navigation }) => {
                   borderRadius: 0,
                   paddingVertical: 7,
                   paddingHorizontal: 15,
+                  borderRadius: 5,
                 }}
               >
                 <Text

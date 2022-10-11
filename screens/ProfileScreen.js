@@ -34,7 +34,7 @@ import StatusBarScreen from "../component/StatusBarScreen";
 import TopNav from "../component/TopNav";
 import { CommonContext } from "../context/CommonContext";
 import { useSelector, useDispatch } from "react-redux";
-import { UPDATE_PROFILE } from "../redux/actions";
+import { updateProfile, submitUpdateProfile } from "../redux/actions";
 
 library.add(fab, faPlus, faTrashCan, faStar);
 
@@ -87,6 +87,13 @@ const calendarIcon = () => (
 );
 
 const ProfileScreen = ({ navigation }) => {
+  // useEffect(() => {
+  //   alert("hello");
+  // }, []);
+
+  const { profile, ffname } = useSelector((state) => state.profileReducer);
+  const dispatch = useDispatch();
+
   const { getData, getgenderlist2, getracelist2, getstatelist2 } =
     useContext(CommonContext);
 
@@ -363,6 +370,17 @@ const ProfileScreen = ({ navigation }) => {
               >
                 UPGRADE
               </Button>
+              {/* <Button
+                status="danger"
+                accessoryLeft={starIcon2}
+                style={{
+                  backgroundColor: theme["color-danger-100"],
+                  borderColor: theme["color-danger-100"],
+                }}
+                onPress={() => navigation.navigate("Test")}
+              >
+                Test
+              </Button> */}
             </View>
             <View
               style={{
@@ -384,6 +402,7 @@ const ProfileScreen = ({ navigation }) => {
                 <Text style={{ width: "40%" }}>Age</Text>
                 <Text style={{ width: "60%", fontWeight: "700" }}>
                   {thisUser?.age}
+                  {/* {profile.age} */}
                 </Text>
               </View>
               <View style={{ flexDirection: "row", margin: 5 }}>
@@ -463,10 +482,16 @@ const ProfileScreen = ({ navigation }) => {
                   alignItems: "center",
                   paddingVertical: 5,
                   paddingHorizontal: 15,
-                  width: 152,
-                  height: 33,
+                  borderRadius: 5,
+                  height: 40,
+                  flexDirection: "row",
                 }}
               >
+                <FontAwesomeIcon
+                  icon={"fas fa-user"}
+                  color={"white"}
+                  style={{ marginRight: 5 }}
+                />
                 <Text
                   style={{
                     color: "white",

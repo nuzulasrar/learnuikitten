@@ -39,6 +39,7 @@ import ChatScreen from "./screens/ChatScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import EditProfileScreen from "./screens/EditProfileScreen";
 import SettingsScreen from "./screens/SettingsScreen";
+import TestScreen from "./screens/TestScreen";
 import ReviewHistoryScreen from "./screens/ReviewHistoryScreen";
 import ContactUsScreen from "./screens/ContactUsScreen";
 import MembershipScreen from "./screens/MembershipScreen";
@@ -857,6 +858,10 @@ const ProfileStack = () => (
       <Screen
         name="UploadDetails"
         component={UploadDetailsScreen}
+      />
+      <Screen
+        name="Test"
+        component={TestScreen}
       />
     </Stack.Group>
   </Stack.Navigator>

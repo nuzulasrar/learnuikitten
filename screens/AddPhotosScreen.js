@@ -141,7 +141,7 @@ const AddPhotosScreen = ({ navigation }) => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
-      aspect: [1, 1],
+      aspect: [2, 3],
       quality: 1,
     });
 

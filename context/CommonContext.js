@@ -19,11 +19,6 @@ import {
   Pressable,
 } from "react-native";
 import {
-  NavigationContainer,
-  NavigationContext,
-} from "@react-navigation/native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import {
   Icon,
   BottomNavigation,
   BottomNavigationTab,
@@ -35,7 +30,6 @@ import {
   Button,
 } from "@ui-kitten/components";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { default as theme } from "../custom-theme.json";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -45,7 +39,6 @@ import StatusBarScreen from "../component/StatusBarScreen";
 import TopNav from "../component/TopNav";
 import Checkbox from "expo-checkbox";
 import RNPickerSelect from "react-native-picker-select";
-import { navigationRef } from "../navigation.component";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const CommonContext = createContext("");
